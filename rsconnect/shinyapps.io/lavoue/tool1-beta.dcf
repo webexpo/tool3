@@ -1,0 +1,9 @@
+name: tool1-beta
+title: Tool1: Data Interpretation for One Similar Exposure Group (SEG)
+username: lavoue
+account: lavoue
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14521166
+bundleId: 10638340
+url: https://lavoue.shinyapps.io/tool1-beta/

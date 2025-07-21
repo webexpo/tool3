@@ -1,0 +1,76 @@
+/* --bs- variables overwrites variables of Bootstrap v5. */
+
+/* Justify all paragraphs and lists
+   by adding spaces between words. */
+p, ol, ul {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Change buttons to make them bigger. */
+.app-btn {
+  --bs-btn-padding-y: 0.25rem;
+  --bs-btn-padding-x: 0.75rem;
+  --bs-btn-font-size: 1.25rem;
+}
+
+/* Increase max width of popover (by default, 276px). */
+.app-popover {
+  --bs-popover-max-width: 600px;
+}
+
+/* Color child buttons of nav items as links. */
+.nav-item .app-btn {
+  color: var(--bs-nav-link-color);
+}
+
+.nav-item .app-btn:hover {
+  color: #fff;
+}
+
+.app-rotated-minus-90 {
+  transform: rotate(-90deg);
+}
+
+/* Change the font weight of active/opened
+   accordion panels by tagreting the title
+   using Bootstrap and bslib structure. */
+.app-accordion-active-bold .accordion-button:not(.collapsed) .accordion-title {
+  font-weight: bold;
+}
+
+/* app-navset-bar-fix is a special class used solely to
+   select child elements. The goal is to force the <nav>
+   bar of a bslib::navset_bar() to look exactly like a
+   <nav> created by bslib::navset_card_underline(). See
+   details below.
+
+   A card's header has the following padding settings.
+
+   --bs-card-cap-padding-y: var(--bs-card-spacer-y) * 0.5
+   --bs-card-cap-padding-x: var(--bs-card-spacer-x)
+   --bs-card-spacer-y: $spacer;
+   --bs-card-spacer-x: $spacer;
+   $spacer is implicitly always equal to 1rem.
+   This yields the following padding values. */
+.app-navset-bar-fix .navbar {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+/* Padding is controlled by .navbar. */
+.app-navset-bar-fix .navbar .container-fluid {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.app-navset-bar-fix a.nav-link {
+  padding: 8px 5px !important;
+  font-weight: 600;
+}
+
+/* Change the space between each active
+   <nav> element and its underline. */
+.app-navset-bar-fix a.nav-link.active {
+  padding: 8px 5px !important;
+}
