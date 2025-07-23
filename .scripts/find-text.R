@@ -18,7 +18,7 @@
 #'   language.
 #'
 #' @param other_lang_names A named list of character strings. Further languages
-#'   supported by Tool 1.
+#'   supported by Tool 3.
 #'
 #'   * Elements are the full native names of the languages.
 #'   * Names are the corresponding language codes. Always use BCP-47 codes.
@@ -36,14 +36,11 @@
 #' @examples
 #' .find()
 .find <- function(
-    id               = "expostats:tool1",
+    id               = "expostats:tool3",
     source_lang_code = "en",
     source_lang_name = "English",
     # Add entries to this argument to support more languages.
-    other_lang_names = list(
-        fr = "Français",
-        es = "Español"
-    ))
+    other_lang_names = list())
 {
     path <- getOption("transltr.path")
 

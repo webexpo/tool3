@@ -1,4 +1,4 @@
-#' Tool 1: Data Interpretation for One Similar Exposure Group (SEG)
+#' Tool 3: Determinants of Exposure
 #'
 #' @description
 #' User interface and server-side logic.
@@ -21,7 +21,7 @@
 #' @export
 ui <- bslib::page_sidebar(
     lang         = "en",
-    window_title = "Expostats - Tool 1",
+    window_title = "Expostats - Tool 3",
     theme        = bslib::bs_theme(5L, "shiny"),
     title        = ui_title("layout_title"),
     sidebar      = ui_sidebar("layout_sidebar"),

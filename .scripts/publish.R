@@ -73,16 +73,7 @@
         runtime       = "static",
         quiet         = TRUE,
         output_file   = file.path(path_dir_assets, "news.html"),
-        output_format = html_document("Expostats - Tool 1 Changelog")
-    )
-
-    # Generate www/assets/translations.html from TRANSLATIONS.md.
-    rmarkdown::render(
-        input         = "TRANSLATIONS.md",
-        runtime       = "static",
-        quiet         = TRUE,
-        output_file   = file.path(path_dir_assets, "translations.html"),
-        output_format = html_document("Expostats - Tool 1 Translations")
+        output_format = html_document("Expostats - Tool 3 Changelog")
     )
 
     cat(sprintf("Deploying app to the '%s' region.", region), sep = "\n")
@@ -93,7 +84,7 @@
                 account        = Sys.getenv("RSCONNECT_ACCOUNT_NAME"),
                 appId          = region_meta$id,
                 appName        = region_meta$meta,
-                appTitle       = "Tool1: Data Interpretation for One Similar Exposure Group (SEG)",
+                appTitle       = "Tool 3: Determinants of Exposure",
                 appMode        = "shiny",
                 appVisibility  = "public",
                 logLevel       = "normal",

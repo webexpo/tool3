@@ -18,10 +18,10 @@ transltr::language_source_set("en")
 # Set global options.
 # Options specific to Tool 1 are prefixed by app_.
 options(
-    app_version                 = "5.3.0-rc1",
-    app_release_date            = "2025-07-18",
-    app_shinyapps_meta_dev      = list(id = 14521166L, name = "tool1-beta"),
-    app_shinyapps_meta_prod     = list(id = 13889847L, name = "tool1"),
+    app_version                 = "4.0.0-rc1",
+    app_release_date            = "2025-07-23",
+    app_shinyapps_meta_dev      = list(id = NULL, name = "tool3-beta"),
+    app_shinyapps_meta_prod     = list(id = NULL, name = "tool3"),
     app_card_height_md          = "600px",
     app_card_height_sm          = "425px",
     app_card_height_xs          = "300px",
