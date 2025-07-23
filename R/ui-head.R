@@ -1,7 +1,7 @@
 #' Head Module
 #'
 #' This module controls the Head component which is a collection of tags to
-#' include in the `<head>` HTML tag of Tool 1.
+#' include in the `<head>` HTML tag of Tool 3.
 #'
 #' @details
 #' Shiny automatically adds many other `<meta>` tags already. These are not
@@ -39,7 +39,7 @@ ui_head <- function(id, lang_names = tr$native_languages) {
 
             tags$meta(
                 name    = "description",
-                content = "Tool 1 is an open-source and free-to-use web application that facilitates the interpretation of industrial hygiene measurements, particularly in assessing compliance with occupational exposure limits (OEL)."
+                content = "Tool 3 is an open-source and free-to-use web application that compares the underlying distributions corresponding to several categories of a variable of interest."
             ),
 
             tags$meta(
@@ -66,12 +66,12 @@ ui_head <- function(id, lang_names = tr$native_languages) {
 
             tags$meta(
                 itemprop = "name",
-                content  = "Tool 1: Data Interpretation for One Similar Exposure Group (SEG)"
+                content  = "Tool 3: Determinants of Exposure"
             ),
 
             tags$meta(
                 itemprop = "description",
-                content  = "Tool 1 is an open-source and free-to-use web application that facilitates the interpretation of industrial hygiene measurements, particularly in assessing compliance with occupational exposure limits (OEL)."
+                content  = "Tool 3 is an open-source and free-to-use web application that compares the underlying distributions corresponding to several categories of a variable of interest."
             ),
 
             tags$meta(
@@ -83,7 +83,7 @@ ui_head <- function(id, lang_names = tr$native_languages) {
 
             tags$meta(
                 property = "og:title",
-                content  = "Tool 1: Data Interpretation for One Similar Exposure Group (SEG)"
+                content  = "Tool 3: Determinants of Exposure"
             ),
 
             tags$meta(
@@ -93,7 +93,7 @@ ui_head <- function(id, lang_names = tr$native_languages) {
 
             tags$meta(
                 property = "og:url",
-                content  = "https://lavoue.shinyapps.io/tool1/"
+                content  = "https://lavoue.shinyapps.io/tool3/"
             ),
 
             tags$meta(
@@ -123,7 +123,7 @@ ui_head <- function(id, lang_names = tr$native_languages) {
 
             tags$meta(
                 property = "og:description",
-                content  = "Tool 1 is an open-source and free-to-use web application that facilitates the interpretation of industrial hygiene measurements, particularly in assessing compliance with occupational exposure limits (OEL)."
+                content  = "Tool 3 is an open-source and free-to-use web application that compares the underlying distributions corresponding to several categories of a variable of interest."
             ),
 
             tags$meta(
@@ -142,7 +142,7 @@ ui_head <- function(id, lang_names = tr$native_languages) {
 
             tags$meta(
                 property = "og:site_name",
-                content  = "Expostats - Tool 1"
+                content  = "Expostats - Tool 3"
             ),
 
             # Links ------------------------------------------------------------
