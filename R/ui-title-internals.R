@@ -11,18 +11,12 @@
 #' The UI can be customized using query parameters and buttons. The former let
 #' users bookmark their preferred settings.
 #'
-#' There are currently three parameters.
+#' There are currently two parameters.
 #'
-#' | Parameter | Default value | Description                        |
-#' | --------- | ------------- | ---------------------------------- |
-#' | `lang`    | `"en"`        | The displayed language.            |
-#' | `mode`    | `"express"`   | How much information is displayed. |
-#' | `color`   | `"light"`     | The color theme.                   |
-#'
-#' The `express` mode corresponds to a version of Tool 1 that only shows a
-#' curated subset of results in a single panel. This mode was called Tool 1
-#' Express (Simplified) in earlier versions of Expostats. The `extended` mode
-#' shows all panels.
+#' | Parameter | Default value | Description             |
+#' | --------- | ------------- | ----------------------- |
+#' | `lang`    | `"en"`        | The displayed language. |
+#' | `color`   | `"light"`     | The color theme.        |
 #'
 #' ## Mechanisms
 #'
@@ -33,15 +27,12 @@
 #' Parsing functions enforce default values if the underlying query parameter
 #' is missing or invalid.
 #'
-#' [new_query_string()] creates a query string from `lang`, `mode`, and `color`.
+#' [new_query_string()] creates a query string from `lang` and `color`.
 #'
 #' [update_query_string()] builds on [new_query_string()] by further pushing
 #' the resulting query string to the client using [shiny::updateQueryString()]
 #' without triggering a refresh of the web page. This is useful to keep the
 #' client's displayed URL synchronized with the UI's state.
-#'
-#' @param mode A character string equal to `"express"` (the default) or
-#'   `"extended"`.
 #'
 #' @param color A character string equal to `"light" (the default)` or `"dark"`.
 #'
@@ -51,10 +42,7 @@
 #' [.set_lang()] returns `lang` invisibly. It further registers the former as
 #' the new session's language.
 #'
-#' [.set_mode()] returns `mode` invisibly. It further registers the former as
-#' the new session's mode.
-#'
-#' [.get_lang()] and [.get_mode()] returns a character string.
+#' [.get_lang()] returns a character string.
 #'
 #' [.set_color()] and [.get_color()] returns the output of
 #' [set_color_icon_attr()]. The former does so invisibly.
@@ -64,8 +52,7 @@
 #' `<svg>` HTML tag. It further registers this pair as the new session's color
 #' mode.
 #'
-#' [.parse_lang()], [.parse_mode()], and [.parse_color()] return a character
-#' string.
+#' [.parse_lang()] and [.parse_color()] return a character string.
 #'
 #' [new_query_string()] returns a character string.
 #'
@@ -100,29 +87,6 @@
             mode       = "character",
             inherits   = FALSE,
             ifnotfound = "en"
-        )
-    )
-}
-
-#' @rdname ui-title-internals
-#' @export
-.set_mode <- function(mode = "") {
-    session <- shiny::getDefaultReactiveDomain()
-    assign(session$ns("app_state_mode"), mode, session$userData)
-    return(invisible(mode))
-}
-
-#' @rdname ui-title-internals
-#' @export
-.get_mode <- function() {
-    session <- shiny::getDefaultReactiveDomain()
-    return(
-        get0(
-            session$ns("app_state_mode"),
-            session$userData,
-            mode       = "character",
-            inherits   = FALSE,
-            ifnotfound = "express"
         )
     )
 }
@@ -174,13 +138,6 @@
 
 #' @rdname ui-title-internals
 #' @export
-.parse_mode <- function(mode = c("express", "extended")) {
-    mode <- tolower(mode)
-    return(match_arg(mode))
-}
-
-#' @rdname ui-title-internals
-#' @export
 .parse_color <- function(color = c("light", "dark")) {
     color <- tolower(color)
     return(match_arg(color))
@@ -188,12 +145,8 @@
 
 #' @rdname ui-title-internals
 #' @export
-new_query_string <- function(
-    lang  = .get_lang(),
-    mode  = .get_mode(),
-    color = .get_color())
-{
-    return(sprintf("?lang=%s&mode=%s&color=%s", lang, mode, color))
+new_query_string <- function(lang = .get_lang(), color = .get_color()) {
+    return(sprintf("?lang=%s&color=%s", lang, color))
 }
 
 #' @rdname ui-title-internals

@@ -53,11 +53,6 @@
 #' You may copy/paste the existing logic for the default language and
 #' adapt it to the new `lang` value.
 #'
-#' Earlier versions of Tool 1 automated these tasks. While this was much safer
-#' (it guaranteed that language codes and names matched expectations), it
-#' required a deeper knowledge of R language objects and how shiny manipulates
-#' them. It was removed in favour of simplicity.
-#'
 #' @template param-id
 #'
 #' @template param-lang-names
@@ -111,11 +106,9 @@ ui_title <- function(id, lang_names = tr$native_languages) {
                     )
                 ),
 
-                # Tool 1 is treated as a proper noun
-                # that must not be translated.
                 tags$span(
                     class = "fw-bolder",
-                    "Tool 1"
+                    "Tool 3"
                 ),
 
                 # The full title is only shown on extra extra large
@@ -123,10 +116,8 @@ ui_title <- function(id, lang_names = tr$native_languages) {
                 # more information.
                 tags$span(
                     class = "d-none d-xxl-inline",
-
                     ":",
-                    shiny::textOutput(ns("title"), tags$span),
-                    "(SEG)"
+                    shiny::textOutput(ns("title"), tags$span)
                 )
             ),
 
@@ -158,66 +149,6 @@ ui_title <- function(id, lang_names = tr$native_languages) {
                     # Extra padding to separate branding from nav items.
                     # Only shown on smaller screens (<= 992px).
                     tags$div(class = "d-lg-none mt-3"),
-
-                    ## Modes ---------------------------------------------------
-
-                    tags$li(
-                        class = "nav-item dropdown",
-
-                        tags$button(
-                            class            = "nav-link dropdown-toggle",
-                            type             = "button",
-                            "data-bs-toggle" = "dropdown",
-
-                            tags$span(
-                                class = "pe-1",
-                                bsicons::bs_icon(
-                                    name = "layout-text-window-reverse",
-                                    a11y = "deco"
-                                )
-                            ),
-
-                            shiny::textOutput(ns("btn_modes_label"), tags$span)
-                        ),
-
-                        # Bootstrap use a smaller font for buttons.
-                        # Class fs-6 ensures the same font is used
-                        # for both links and buttons in dropdowns.
-                        tags$ul(
-                            class = "dropdown-menu dropdown-menu-end",
-
-                            tags$li(
-                                shiny::actionButton(
-                                    inputId = ns("btn_mode_express"),
-                                    class   = "dropdown-item fs-6",
-                                    label   = shiny::textOutput(
-                                        outputId  = ns("btn_mode_express_label"),
-                                        container = tags$span
-                                    )
-                                )
-                            ),
-
-                            tags$li(
-                                shiny::actionButton(
-                                    inputId = ns("btn_mode_extended"),
-                                    class   = "dropdown-item fs-6",
-                                    label   = shiny::textOutput(
-                                        outputId  = ns("btn_mode_extended_label"),
-                                        container = tags$span
-                                    )
-                                )
-                            ),
-
-                            tags$li(
-                                tags$hr(class = "dropdown-divider")
-                            ),
-
-                            tags$p(
-                                class = "px-3 mb-0 text-start",
-                                shiny::textOutput(ns("btn_modes_footer"), tags$small)
-                            )
-                        )
-                    ),
 
                     ## Languages -----------------------------------------------
 
@@ -283,12 +214,12 @@ ui_title <- function(id, lang_names = tr$native_languages) {
                             class = "dropdown-menu dropdown-menu-end",
 
                             shiny::uiOutput(
-                                outputId  = ns("a_link_tool2"),
+                                outputId  = ns("a_link_tool1"),
                                 container = tags$li
                             ),
 
                             shiny::uiOutput(
-                                outputId  = ns("a_link_tool3"),
+                                outputId  = ns("a_link_tool2"),
                                 container = tags$li
                             ),
 
@@ -381,15 +312,6 @@ server_title <- function(id) {
             input$btn_lang_en
         )
 
-        # Update mode whenever one of the related buttons is clicked.
-        mode <- shiny::reactive({
-            .get_mode()
-        }) |>
-        shiny::bindEvent(
-            input$btn_mode_extended,
-            input$btn_mode_express
-        )
-
         # Update color whenever the related button is clicked.
         color <- shiny::reactive({
             .get_color()
@@ -408,17 +330,14 @@ server_title <- function(id) {
 
             # Validate and set extracted parameters.
             lang  <- .set_lang(.parse_lang(query_params$lang))
-            mode  <- .set_mode(.parse_mode(query_params$mode))
             color <- .set_color(.parse_color(query_params$color))
 
             # Update the URL with valid values. Some
             # values could had been invalid initially.
             update_query_string()
 
-            # Highlight lang and mode parameters
-            # in their respective dropdown menus.
+            # Highlight lang parameter in the dropdown menu.
             shinyjs::addClass(sprintf("btn_lang_%s", lang), "active")
-            shinyjs::addClass(sprintf("btn_mode_%s", mode), "active")
 
             # Update the color mode and the label
             # of the button controlling it.
@@ -442,22 +361,6 @@ server_title <- function(id) {
             update_query_string(lang = .set_lang("en"))
         }) |>
         shiny::bindEvent(input$btn_lang_en, ignoreInit = TRUE)
-
-        # Update the current mode.
-        # Each mode has a dedicated button.
-        shiny::observe(priority = 10L, {
-            shinyjs::addClass("btn_mode_extended", "active")
-            shinyjs::removeClass("btn_mode_express", "active")
-            update_query_string(mode = .set_mode("extended"))
-        }) |>
-        shiny::bindEvent(input$btn_mode_extended, ignoreInit = TRUE)
-
-        shiny::observe(priority = 10L, {
-            shinyjs::addClass("btn_mode_express", "active")
-            shinyjs::removeClass("btn_mode_extended", "active")
-            update_query_string(mode = .set_mode("express"))
-        }) |>
-        shiny::bindEvent(input$btn_mode_express, ignoreInit = TRUE)
 
         # Update the current color mode.
         shiny::observe(priority = 10L, {
@@ -488,15 +391,13 @@ server_title <- function(id) {
 
         btn_code_tooltip_text <- shiny::reactive({
             translate(lang = lang(), "
-                See the source code of Tool 1 on GitHub (English only).
+                See the source code of Tool 3 on GitHub (English only).
             ")
         }) |>
         shiny::bindCache(lang())
 
         output$title <- shiny::renderText({
-            translate(lang = lang(), "
-                Data Interpretation for One Similar Exposure Group
-            ")
+            translate(lang = lang(), "Determinants of Exposure")
         }) |>
         shiny::bindCache(lang())
 
@@ -510,23 +411,19 @@ server_title <- function(id) {
         }) |>
         shiny::bindCache(lang())
 
-        output$btn_modes_label <- shiny::renderText({
-            translate(lang = lang(), "Mode")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$btn_modes_footer <- shiny::renderText({
-            translate(lang = lang(), "The default mode is Tool 1 Express.")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$btn_mode_extended_label <- shiny::renderText({
-            translate(lang = lang(), "Tool 1 Extended")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$btn_mode_express_label <- shiny::renderText({
-            translate(lang = lang(), "Tool 1 Express")
+        output$a_link_tool1 <- shiny::renderUI({
+            lang <- lang()
+            tags$a(
+                class = "dropdown-item",
+                href  = i18n_url(
+                    "https://lavoue.shinyapps.io/tool1/",
+                    fr = "https://lavoue.shinyapps.io/tool1/?lang=fr"
+                )[[lang]],
+                hreflang = lang,
+                rel      = "external",
+                target   = "_blank",
+                "Tool 1"
+            )
         }) |>
         shiny::bindCache(lang())
 
@@ -542,22 +439,6 @@ server_title <- function(id) {
                 rel      = "external",
                 target   = "_blank",
                 "Tool 2"
-            )
-        }) |>
-        shiny::bindCache(lang())
-
-        output$a_link_tool3 <- shiny::renderUI({
-            lang <- lang()
-            tags$a(
-                class = "dropdown-item",
-                href  = i18n_url(
-                    "https://lavoue.shinyapps.io/Tool3v3En/",
-                    fr = "https://lavoue.shinyapps.io/Tool3v3Fr/"
-                )[[lang]],
-                hreflang = lang,
-                rel      = "external",
-                target   = "_blank",
-                "Tool 3"
             )
         }) |>
         shiny::bindCache(lang())
@@ -585,8 +466,9 @@ server_title <- function(id) {
         return(
             list(
                 lang  = lang,
-                mode  = mode,
-                color = color
+                color = color,
+                # FIXME: Remove this element after the refactoring process.
+                mode  = shiny::reactive({ "extended" })
             )
         )
     }
