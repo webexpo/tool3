@@ -34,10 +34,20 @@ suppressMessages({
 
 # Scripts ----------------------------------------------------------------------
 
-source(file.path("scripts", "SEG",    "Data formatting functions_SEG.R"))
+# FIXME: Remove these scripts once Tool 3 is ready. Keep them until all
+# components are refactored.
+source(file.path("scripts", "SEG", "Data formatting functions_SEG.R"))
+
+source(file.path("scripts", "Determinant", "Data formatting functions_D.R"))
+source(file.path("scripts", "Determinant", "Bayesian engine functions_D.R"))
+source(file.path("scripts", "Determinant", "Descriptive graphs functions_D.R"))
+source(file.path("scripts", "Determinant", "Numerical output functions_D.R"))
+source(file.path("scripts", "Determinant", "Main graph functions_D.R"))
+
 source(file.path("scripts", "Common", "Simple censored imputation functions.R"))
 source(file.path("scripts", "Common", "Descriptive numerical output functions.R"))
 source(file.path("scripts", "Common", "Descriptive graphs functions.R"))
+source(file.path("scripts", "Common", "script density comparison.R"))
 source(file.path("scripts", "Common", "Bayesian engine functions.R"))
 source(file.path("scripts", "Common", "Numerical output functions.R"))
 source(file.path("scripts", "Common", "Main graph functions.R"))

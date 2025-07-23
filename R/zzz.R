@@ -1,6 +1,6 @@
 #' Miscellaneous Actions
 #'
-#' Perform actions (as part of Tool 1's initialization process) once all other
+#' Perform actions (as part of the initialization process) once all other
 #' R scripts stored in R/ are loaded.
 #'
 #' @format
@@ -44,6 +44,13 @@ urls <- local({
 #' @export
 tr <- transltr::translator_read()
 tr$set_default_value(getOption("app_missing_translation_msg"))
+
+#' @rdname zzz
+#' @export
+# FIXME: Change name and add documentation.
+example_data <- data.table::fread(
+    file.path(getOption("app_path_dir_assets"), "data", "input-example.csv")
+)
 
 #' @rdname zzz
 #' @export
