@@ -3,12 +3,12 @@
 <!-- Expostats' logo -->
 <img src="www/android-chrome-192x192.png" alt="Expostats's logo" height="192" width="192" />
 
-# Tool 1: Data Interpretation for One Similar Exposure Group (SEG)
+# Tool 3: Determinants of Exposure
 
 <!-- badges: start -->
-[![Version](https://img.shields.io/badge/version-5.3.0-blue)](https://github.com/webexpo/app-tool1/releases/tag/v5.3.0)
-[![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Location](https://img.shields.io/badge/live-shinyapps.io-5b90bf)](https://lavoue.shinyapps.io/tool1/)
+[![Version](https://img.shields.io/badge/version-4.0.0-blue)](https://github.com/webexpo/tool3/releases/tag/v4.0.0)
+[![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Location](https://img.shields.io/badge/live-shinyapps.io-5b90bf)](https://lavoue.shinyapps.io/tool3/)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg)](https://github.com/webexpo/tool1/blob/main/LICENSE.md)
 <!-- badges: end -->
 
@@ -23,17 +23,25 @@ with [Ununoctium](https://ununoctium.dev) (Jean-Mathieu Potvin).
 greater than or equal to `4.0.0`) and currently maintains the web application
 (but not scripts stored in `scripts/`).
 
+Tool 3 uses the same patterns and mechanisms as
+[Tool 1](https://github.com/webexpo/tool1) (whenever possible) for
+consistency between applications of Expostats.
+
 ## Introduction
 
-This tool interprets a dataset of exposure measurements (including non detects)
-with regards to an OEL (Occupational Exposure Limit). In addition to multiple
-illustrative graphs, it exposes five components.
+This tool compares the underlying distributions corresponding to several
+categories of a variable of interest (e.g. presence / absence of ventilation,
+season of sampling, etc.). Data is entered as a spreadsheet file (Excel file)
+containing exposure levels and variables of interest. It exposes three main
+components.
 
-1. Goodness of fit with respect to the lognormal model (graphical evaluation).
-2. Descriptive statistics.
-3. Risk assessment based on an exceedance fraction.
-4. Risk assessment based on percentiles.
-5. Risk assessment based on the arithmetic mean.
+1. Group risk assessment based on an exceedance fraction, a percentile, or the
+   arithmetic mean.
+2. Individual risk assessment based on an exceedance fraction, a percentile, or
+   the arithmetic mean.
+3. Comparison of two categories highlighting differences between their respective
+   geometric means and geometric standard deviations, risk assessments, and
+   probabilities that a prespecified difference exists.
 
 Calculations are performed using a Bayesian model fit using a Monte Carlo
 Markov Chain (MCMC) engine. It assumes that the underlying exposure distribution
@@ -48,7 +56,9 @@ are thoroughly described in
 
 ## Requirements
 
-R version `4.4.0` is required to work on and serve Tool 1 locally. These
+**TO BE COMPLETED.**
+
+R version `4.4.0` is required to work on and serve Tool 3 locally. These
 packages (and their transitive dependencies) are required.
 
 - `shiny`
@@ -62,7 +72,7 @@ packages (and their transitive dependencies) are required.
 
 ## Usage
 
-To serve Tool 1 locally, call
+To serve Tool 3 locally, call
 
 ```r
 .run()
@@ -72,16 +82,16 @@ To serve Tool 1 locally, call
 
 ## Deploy
 
-Tool 1 is deployed to [shinyapps.io](https://lavoue.shinyapps.io/tool1).
+Tool 3 is deployed to [shinyapps.io](https://lavoue.shinyapps.io/tool3).
 To deploy a new version, call `.pub()`.
 
 ```r
 # Deploy a beta version (useful for testing purposes).
-# It is publicly accessible at https://lavoue.shinyapps.io/tool1-beta/.
+# It is publicly accessible at https://lavoue.shinyapps.io/tool3-beta/.
 .pub()
 
 # Deploy an official (production) version.
-# It is publicly accessible at https://lavoue.shinyapps.io/tool1/.
+# It is publicly accessible at https://lavoue.shinyapps.io/tool3/.
 .pub("prod")
 ```
 
@@ -138,33 +148,10 @@ Most objects are defined in `.Rprofile`, `app.R`, and in `R/`. For historical
 reasons, all Expostats functions are stored in `scripts/`. They are explicitly
 sourced at runtime by `R/global.R`. Other files are sourced automatically.
 
-### Static Assets
-
-Static assets are stored in `www/` and served under the root URL at runtime.
-For example, file `www/favicon.ico` is served under `/favicon.ico`.
-
-### Naming Conventions
-
-`snake_case_with_lower_cases` is used at all times.
-
-CSS classes use `dash-case-with-lower-cases` for consistency with usual
-best practices in web development. Each CSS class name must be prefixed
-by `app-`.
-
-### Namespaces
-
-For historical reasons (again), scripts stored in `scripts/` do not reference
-namespaces (packages). Consequently, some packages are explicitly attached to
-the search path (see `R/global.R`). This is a bad practice from which Tool 1
-is moving away.
-
-```r
-# Good
-transltr::language_source_get()
-
-# Bad
-language_source_get()
-```
+For more information on the structure, static assets, and naming conventions,
+read subsection
+[General Structure](https://github.com/webexpo/tool1?tab=readme-ov-file#general-structure)
+of of Tool 1's `README`
 
 ## Internationalization (i18n)
 
@@ -172,92 +159,24 @@ language_source_get()
 > supporting more languages. If you are interested, please send an e-mail
 > to <jerome.lavoue@umontreal.ca>.
 
-Tool 1 relies on package [transltr](https://cran.r-project.org/package=transltr)
-to support multiple languages. Translations (and related metadata) are stored
-in `i18n/`. To update its content, call
-
-```r
-.find()
-```
-
-`.find()` is defined in `.scripts/find-text.R`.
-
-Tool 1 further supports translation of ordinal numbers. Each supported
-language requires an `ordinal_rules_<lang>()` function. For example, the
-`ordinal_rules_english()` function implements grammar rules for English
-ordinal numbers. See `R/i18n.R` for more information.
-
-### Working With Translation Files
-
-All files are **required at runtime** and read by `transltr::translator_read()`
-to create global constant `tr`.
-
-The `_translator.yml` file must **never be modified manually**. It should not
-be shared with collaborators working on translations. Notably, developers may
-consult it to locate translations in the source code.
-
-Further `<lang>.txt` files contain actual translations. These files are shared
-with collaborators working on translations and must be edited manually (using
-any text editor). They always include basic instructions to follow at all times.
-
-`TRANSLATIONS.md` contains further instructions for working with translation
-files.
-
-### Placeholders
-
-Tool 1 uses `sprintf()-`placeholders (conversion specifications beginning by
-`%`) to dynamically insert HTML content into template strings. Tokens such as
-`%s`, `%i`, and `%%` in the source text and translations **must be left as is**.
-See `R/html.R` for more information.
-
-### Adding New Languages
-
-Follow these steps to support a new language. Use the existing code as a
-template to follow.
-
-1. Implement a dedicated `ordinal_rules_<lang>()` function in `R/i18n.R`.
-
-2. Incorporate the function created at step (1) into `ordinal_rules()` in
-   `R/i18n.R`.
-
-3. Add a new entry to formal argument `other_lang_names` of `.find()` in
-   `.scripts/find-text.R`. Follow instructions contained in the script to
-   do so properly.
-
-4. Implement the required button and observer in `ui_title()` and
-   `server_title()` respectively. Follow instructions contained in
-   `R/ui-title.R` to do so (see subsection Languages).
-
-5. Call `.find()`.
-
-6. Share the `i18n/<lang>.txt` file created at step (5) with collaborator(s)
-   in charge of translating Tool 1.
-
-   * Never share the `_translator.yml` file. The latter is only useful to
-     developers.
-
-7. Import the `i18n/<lang>.txt` file updated at step (6) back into the source
-   code. **Commit it.**
-
-You may repeat steps (5) to (7) whenever required. Notably, they **must** be
-repeated whenever the source text is changed (whenever a call to `translate()`
-is either added or updated).
+Tool 3 uses the same internationalization mechanisms and patterns as Tool 1.
+Please read subsection
+[Internationalization](https://github.com/webexpo/tool1?tab=readme-ov-file#internationalization-i18n)
+of Tool 1's `README` for more information.
 
 ## Styling
 
-Tool 1 uses as few custom CSS (Cascading Style Sheets) rules as possible. It
-does so by maximizing usage of `bslib` features and predefined
-[Bootstrap 5](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
-CSS classes. Any CSS rule not declared in file `www/main.css` is highly likely
-to stem from [Bootstrap 5](https://getbootstrap.com/docs/5.3/getting-started/introduction/).
-This is a well-known and well-maintained framework that can be trivially
-understood and leveraged.
+Tool 3 uses the same styling mechanisms and patterns as Tool 1. Please read
+subsection [Styling](https://github.com/webexpo/tool1?tab=readme-ov-file#styling)
+of Tool 1's `README` for more information.
 
 It is worthwhile to note that it is **not** necessary to include
 [Bootstrap's assets](https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr)
 (in the `<head>` of Tool 1) because `bslib` already does that automatically.
 
 ## Known Issues
+
+**TO BE COMPLETED.**
 
 We may work on these issues in a near future.
 
@@ -285,5 +204,5 @@ If you do not have a GitHub account, send an email to <jerome.lavoue@umontreal.c
 subject line:
 
 ```
-Expostats [Tool 1] [Bug|Feedback]: <short description>
+Expostats [Tool 3] [Bug|Feedback]: <short description>
 ```
