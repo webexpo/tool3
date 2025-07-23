@@ -46,7 +46,7 @@ server_footer <- function(id, lang) {
         output$version <- shiny::renderUI({
             version <- getOption("app_version")
             html(
-                "Tool 1 %s %s (%s)",
+                "Tool 3 %s %s (%s)",
                 translate(lang = lang(), "version"),
                 ui_link(sprintf("%s/releases/tag/v%s", urls$code, version), version),
                 getOption("app_release_date")
