@@ -96,6 +96,7 @@ ui_sidebar <- function(id) {
         bslib::tooltip(id = ns("psi_tooltip"), ""),
 
         # This output is only shown when the active panel is panel_fraction.
+        # FIXME: This will have to be refactored once the UI is sorted out.
         shiny::numericInput(
             inputId = ns("frac_threshold"),
             label   = "",
@@ -103,10 +104,11 @@ ui_sidebar <- function(id) {
             min     = 0,
             max     = 100
         ) |>
-        shinyjs::hidden() |>
+        # shinyjs::hidden() |>
         bslib::tooltip(id = ns("frac_threshold_tooltip"), ""),
 
         # This output is only shown when the active panel is panel_percentiles.
+        # FIXME: This will have to be refactored once the UI is sorted out.
         shiny::numericInput(
             inputId = ns("target_perc"),
             label   = "",
@@ -114,17 +116,21 @@ ui_sidebar <- function(id) {
             min     = 0,
             max     = 100
         ) |>
-        shinyjs::hidden() |>
+        # shinyjs::hidden() |>
         bslib::tooltip(id = ns("target_perc_tooltip"), ""),
 
-        shiny::textAreaInput(
-            inputId = ns("data"),
-            label   = "",
-            rows    = 10L,
-            resize  = "vertical",
-            value   = paste(
-                "28.9", "19.4", "<5.5", "149.9", "26.42", "56.1",
-                sep = "\n"
+        # FIXME: This used to be identified by 'file1' in version 3. Changing
+        # this name may break things.
+        file_input(
+            inputId     = ns("data"),
+            label       = "",
+            buttonLabel = "",
+            placeholder = "",
+            multiple    = FALSE,
+            accept      = c(
+                "text/csv", # .csv
+                "application/vnd.ms-excel", # .xls
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
             )
         ) |>
         bslib::tooltip(id = ns("data_tooltip"), ""),
@@ -133,7 +139,7 @@ ui_sidebar <- function(id) {
 
         tags$div(
             class = "d-flex justify-content-around",
-            style = "gap: 1rem; margin-bottom: 1rem;",
+            style = "gap: 0.5rem; margin-bottom: 1rem;",
 
             shiny::actionButton(
                 inputId = ns("btn_submit"),
@@ -155,28 +161,6 @@ ui_sidebar <- function(id) {
                 id        = ns("btn_clear_tooltip"),
                 placement = "bottom",
                 ""
-            )
-        ),
-
-        # Warnings -------------------------------------------------------------
-
-        # The <div> ensures that cards grow as expected
-        # (without having to deal with fill and fillable
-        # details) once they are updated by the server.
-        tags$div(
-            id    = ns("warning_card_container"),
-            style = "margin-bottom: 1rem;",
-
-            bslib::card(
-                class = "border-warning bg-warning-subtle small mb-0",
-
-                bslib::card_body(
-                    gap = 0L,
-
-                    shiny::textOutput(ns("warning_card_data_format"), tags$p),
-                    tags$hr(class = "my-3"),
-                    shiny::textOutput(ns("warning_card_hidden_inputs"), tags$p)
-                )
             )
         ),
 
@@ -234,6 +218,11 @@ server_sidebar <- function(id, lang, mode, panel_active) {
 
         data_label <- shiny::reactive({
             translate(lang = lang(), "Measurements:")
+        }) |>
+        shiny::bindCache(lang())
+
+        data_btn_label <- shiny::reactive({
+            translate(lang = lang(), "Browse")
         }) |>
         shiny::bindCache(lang())
 
@@ -338,60 +327,21 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
-        output$warning_card_data_format <- shiny::renderText({
-            translate(lang = lang(), "
-                Always put a leading zero before decimals for numbers strictly
-                smaller than one. Always use a dot for decimals. Do not use a
-                separator for thousands.
-            ")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$warning_card_hidden_inputs <- shiny::renderText({
-            translate(lang = lang(), "
-                No results are shown in the right panels until the inputs
-                are submitted, or the current mode is updated.
-            ")
-        }) |>
-        shiny::bindCache(lang())
-
-        # Clear the main <textarea> of input$data.
-        shiny::observe({
-            shiny::updateTextAreaInput(inputId = "data", value = "")
-        }) |>
-        shiny::bindEvent(input$btn_clear)
-
-        # Hide warnings once inputs are submitted.
-        shiny::observe({
-            shinyjs::hide("warning_card_container")
-        }) |>
-        shiny::bindEvent(input$btn_submit, once = TRUE)
-
+        # FIXME: Deactivated until further notice.
         # Show inputs that are specific to certain panels.
         # Identifiers are hardcoded (they will never change).
-        shiny::observe({
-            panel_active <- panel_active()
+        # shiny::observe({
+        #     panel_active <- panel_active()
 
-            # Since inputs are hidden by default, operator == is used.
-            shinyjs::toggle("frac_threshold", condition = {
-                panel_active == "panel_fraction"
-            })
-            shinyjs::toggle("target_perc", condition = {
-                panel_active == "panel_percentiles"
-            })
-        }) |>
-        shiny::bindEvent(panel_active())
-
-        # Only show inputs oel and data if mode is express.
-        shiny::observe({
-            mode <- mode()
-
-            # Since inputs are shown by default, operator != is used.
-            shinyjs::toggle("oel_multiplier", condition = { mode != "express" })
-            shinyjs::toggle("conf", condition = { mode != "express" })
-            shinyjs::toggle("psi", condition = { mode != "express" })
-        }) |>
-        shiny::bindEvent(mode())
+        #     # Since inputs are hidden by default, operator == is used.
+        #     shinyjs::toggle("frac_threshold", condition = {
+        #         panel_active == "panel_fraction"
+        #     })
+        #     shinyjs::toggle("target_perc", condition = {
+        #         panel_active == "panel_percentiles"
+        #     })
+        # }) |>
+        # shiny::bindEvent(panel_active())
 
         # Translate elements not rendered
         # with a shiny::render*() function.
@@ -402,7 +352,12 @@ server_sidebar <- function(id, lang, mode, panel_active) {
             shiny::updateNumericInput(inputId = "psi", label = psi_label())
             shiny::updateNumericInput(inputId = "frac_threshold", label = frac_threshold_label())
             shiny::updateNumericInput(inputId = "target_perc", label = target_perc_label())
-            shiny::updateTextAreaInput(inputId = "data", label = data_label())
+
+            update_file_input(
+                inputId     = "data",
+                label       = data_label(),
+                buttonLabel = data_btn_label()
+            )
 
             bslib::update_tooltip("oel_tooltip", oel_tooltip_text())
             bslib::update_tooltip("oel_multiplier_tooltip", oel_multiplier_tooltip_text())
@@ -418,29 +373,31 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         # Return all inputs except buttons.
         return(
             shiny::reactive({
-                switch(mode(),
-                    express = list(
-                        oel            = input$oel,
-                        data           = input$data,
-                        oel_multiplier = getOption("app_express_oel_multiplier"),
-                        conf           = getOption("app_express_conf"),
-                        psi            = getOption("app_express_psi"),
-                        frac_threshold = getOption("app_express_frac_threshold"),
-                        target_perc    = getOption("app_express_target_perc")
-                    ),
-                    # Default case (mode == "extended").
-                    list(
-                        oel            = input$oel,
-                        data           = input$data,
-                        oel_multiplier = input$oel_multiplier,
-                        conf           = input$conf,
-                        psi            = input$psi,
-                        frac_threshold = input$frac_threshold,
-                        target_perc    = input$target_perc
-                    )
+                # FIXME: We may need to change default value.
+                read <- switch(input$data$type,
+                    "text/csv" = data.table::fread, # .csv
+                    "application/vnd.ms-excel" = readxl::read_xls, # .xls
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = readxl::read_xlsx # .xlsx,
+                    NULL
+                )
+
+                # FIXME: We may need to return errors to the user.
+                data <- tryCatch(
+                    read(input$data$datapath),
+                    condition = \(cond) NULL
+                )
+
+                list(
+                    oel            = input$oel,
+                    data           = input$data,
+                    oel_multiplier = input$oel_multiplier,
+                    conf           = input$conf,
+                    psi            = input$psi,
+                    frac_threshold = input$frac_threshold,
+                    target_perc    = input$target_perc
                 )
             }) |>
-            shiny::bindEvent(input$btn_submit, mode(), ignoreInit = TRUE)
+            shiny::bindEvent(input$btn_submit, ignoreInit = TRUE)
         )
     }
 
