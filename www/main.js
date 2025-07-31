@@ -14,3 +14,28 @@ Shiny.addCustomMessageHandler("update_page_lang", (lang) => {
   document.documentElement.lang = lang;
   console.log(`[INFO] Updating attribute lang of root element to ${lang}.`);
 });
+
+// Update components of a file_input, a custom input extending
+// shiny::fileInput with an update_file_input() mechanism.
+Shiny.addCustomMessageHandler(
+  "update_file_input",
+  ({ id, label, buttonLabel, placeholder }) => {
+    if (label) {
+      document.getElementById(`${id}-label`).innerHTML = label;
+    }
+
+    if (buttonLabel) {
+      let btn = document.getElementById(`${id}-btn-browse`);
+      btn.removeChild(btn.firstChild);
+      btn.insertBefore(document.createTextNode(buttonLabel), btn.firstChild);
+    }
+
+    if (placeholder) {
+      document
+        .getElementById(`${id}-input-filename`)
+        .setAttribute("placeholder", placeholder);
+    }
+
+    console.log(`[INFO] Updating file input ${id}.`);
+  }
+);
