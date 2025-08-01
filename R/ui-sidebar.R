@@ -371,13 +371,14 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         })
 
         # Return all inputs except buttons.
+        # FIXME: Overall, the reading mechanism below is temporary.
         return(
             shiny::reactive({
                 # FIXME: We may need to change default value.
                 read <- switch(input$data$type,
                     "text/csv" = data.table::fread, # .csv
                     "application/vnd.ms-excel" = readxl::read_xls, # .xls
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = readxl::read_xlsx # .xlsx,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = readxl::read_xlsx, # .xlsx,
                     NULL
                 )
 
