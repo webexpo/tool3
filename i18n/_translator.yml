@@ -266,6 +266,20 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 1168, Col 29 @ Ln 1172, Col 30
   - !<Text>
+    Identifier: 1db2e5d
+    Algorithm: sha1
+    Hash: 1db2e5d0f8acd7b1e0f23202b1e01ffa6f566de1
+    Source Language: en
+    Source Text: |-
+      The dataset is invalid. Please see Frequently Asked Questions (FAQ) for
+      more information on the expected format. An example file is available.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 1db2e5d:l1
+        Path: ./R/ui-sidebar.R
+        Ranges: Ln 355, Col 13 @ Ln 359, Col 14
+  - !<Text>
     Identifier: d033ecc
     Algorithm: sha1
     Hash: d033eccaf5899591b5bf316e6d3469d2d84e3d61
@@ -402,6 +416,22 @@ Texts:
           - Ln 485, Col 38 @ Ln 485, Col 66
           - Ln 519, Col 38 @ Ln 519, Col 66
   - !<Text>
+    Identifier: db483b2
+    Algorithm: sha1
+    Hash: db483b20b46d68d637c87748b0d140fb13119c25
+    Source Language: en
+    Source Text: |-
+      The variable to focus on when performing one-way analyses. This can only
+      be set after successfully importing a measurement dataset. See
+      Measurements above. Variable names are extracted from the file's header
+      (first line).
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: db483b2:l1
+        Path: ./R/ui-sidebar.R
+        Ranges: Ln 314, Col 13 @ Ln 319, Col 14
+  - !<Text>
     Identifier: 641f765
     Algorithm: sha1
     Hash: 641f765507b1472ec0ba564765bdfcdc143b65ea
@@ -453,7 +483,7 @@ Texts:
       - !<Location>
         Identifier: 6489309:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 290, Col 13 @ Ln 295, Col 14
+        Ranges: Ln 293, Col 13 @ Ln 298, Col 14
   - !<Text>
     Identifier: 73dff8f
     Algorithm: sha1
@@ -536,7 +566,7 @@ Texts:
       - !<Location>
         Identifier: 127c649:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 281, Col 13 @ Ln 285, Col 14
+        Ranges: Ln 284, Col 13 @ Ln 288, Col 14
   - !<Text>
     Identifier: cebe5c4
     Algorithm: sha1
@@ -588,7 +618,7 @@ Texts:
       - !<Location>
         Identifier: 6863c44:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 337, Col 13 @ Ln 337, Col 45
+        Ranges: Ln 350, Col 13 @ Ln 350, Col 45
   - !<Text>
     Identifier: 179eb27
     Algorithm: sha1
@@ -839,7 +869,7 @@ Texts:
       - !<Location>
         Identifier: 380f931:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 332, Col 13 @ Ln 332, Col 46
+        Ranges: Ln 345, Col 13 @ Ln 345, Col 46
   - !<Text>
     Identifier: af71ace
     Algorithm: sha1
@@ -1125,7 +1155,7 @@ Texts:
       - !<Location>
         Identifier: 6298302:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 311, Col 13 @ Ln 313, Col 14
+        Ranges: Ln 324, Col 13 @ Ln 326, Col 14
   - !<Text>
     Identifier: f6667d4
     Algorithm: sha1
@@ -1149,7 +1179,7 @@ Texts:
       - !<Location>
         Identifier: a744f49:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 206, Col 13 @ Ln 206, Col 74
+        Ranges: Ln 199, Col 13 @ Ln 199, Col 74
   - !<Text>
     Identifier: 03c33e5
     Algorithm: sha1
@@ -1177,7 +1207,7 @@ Texts:
       - !<Location>
         Identifier: 745ebd1:l2
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 327, Col 13 @ Ln 327, Col 62
+        Ranges: Ln 340, Col 13 @ Ln 340, Col 62
   - !<Text>
     Identifier: 00b437c
     Algorithm: sha1
@@ -1193,7 +1223,7 @@ Texts:
       - !<Location>
         Identifier: 00b437c:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 259, Col 13 @ Ln 264, Col 14
+        Ranges: Ln 262, Col 13 @ Ln 267, Col 14
   - !<Text>
     Identifier: 79fb413
     Algorithm: sha1
@@ -1207,7 +1237,7 @@ Texts:
       - !<Location>
         Identifier: 79fb413:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 318, Col 13 @ Ln 322, Col 14
+        Ranges: Ln 331, Col 13 @ Ln 335, Col 14
   - !<Text>
     Identifier: 4f6392c
     Algorithm: sha1
@@ -1401,7 +1431,7 @@ Texts:
       - !<Location>
         Identifier: d9fe05c:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 269, Col 13 @ Ln 276, Col 14
+        Ranges: Ln 272, Col 13 @ Ln 279, Col 14
   - !<Text>
     Identifier: 9bdd102
     Algorithm: sha1
@@ -1413,7 +1443,7 @@ Texts:
       - !<Location>
         Identifier: 9bdd102:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 236, Col 13 @ Ln 236, Col 53
+        Ranges: Ln 229, Col 13 @ Ln 229, Col 53
   - !<Text>
     Identifier: a3c6c52
     Algorithm: sha1
@@ -1453,7 +1483,7 @@ Texts:
       - !<Location>
         Identifier: 8785301:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 231, Col 13 @ Ln 231, Col 60
+        Ranges: Ln 224, Col 13 @ Ln 224, Col 60
   - !<Text>
     Identifier: 3d4f8d5
     Algorithm: sha1
@@ -1585,6 +1615,22 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 417, Col 25 @ Ln 417, Col 57
   - !<Text>
+    Identifier: 03ebafe
+    Algorithm: sha1
+    Hash: 03ebafe8bde3ba9a26a91ba7bed7a0c297380776
+    Source Language: en
+    Source Text: |-
+      The measurement dataset. This must be a comma-separated values (CSV)
+      file, or a Microsoft Excel spreadsheet file (XLS or XLSX). For more
+      information, or to get an example file, see the Calculation Parameters
+      section in the Frequently Asked Questions (FAQ) above.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 03ebafe:l1
+        Path: ./R/ui-sidebar.R
+        Ranges: Ln 303, Col 13 @ Ln 309, Col 14
+  - !<Text>
     Identifier: 6918de6
     Algorithm: sha1
     Hash: 6918de6e784b4bb2f4b8a13fdf109e2989b72c63
@@ -1636,6 +1682,18 @@ Texts:
         Identifier: 8cbc334:l1
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 761, Col 21 @ Ln 761, Col 85
+  - !<Text>
+    Identifier: c886944
+    Algorithm: sha1
+    Hash: c886944cdb05741bcbb9be30a44bdca30e83d5c6
+    Source Language: en
+    Source Text: Browse
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: c886944:l1
+        Path: ./R/ui-sidebar.R
+        Ranges: Ln 234, Col 13 @ Ln 234, Col 46
   - !<Text>
     Identifier: 848dc48
     Algorithm: sha1
@@ -2057,20 +2115,6 @@ Texts:
         Path: ./R/ui-exceedance-plot.R
         Ranges: Ln 366, Col 21 @ Ln 366, Col 74
   - !<Text>
-    Identifier: 0a5c356
-    Algorithm: sha1
-    Hash: 0a5c356e97636c56b66ffd5d4d585ad671d14ad2
-    Source Language: en
-    Source Text: |-
-      No results are shown in the right panels until the inputs are submitted,
-      or the current mode is updated.
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: 0a5c356:l1
-        Path: ./R/ui-sidebar.R
-        Ranges: Ln 351, Col 13 @ Ln 354, Col 14
-  - !<Text>
     Identifier: e510a31
     Algorithm: sha1
     Hash: e510a31645a63a4ae1cf85d895ef460a268d5775
@@ -2086,21 +2130,6 @@ Texts:
         Identifier: e510a31:l2
         Path: ./R/ui-panel-percentiles.R
         Ranges: Ln 434, Col 25 @ Ln 437, Col 26
-  - !<Text>
-    Identifier: dbb0a02
-    Algorithm: sha1
-    Hash: dbb0a027a09b32c84cee0f873d2167183c42e652
-    Source Language: en
-    Source Text: |-
-      Always put a leading zero before decimals for numbers strictly smaller
-      than one. Always use a dot for decimals. Do not use a separator for
-      thousands.
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: dbb0a02:l1
-        Path: ./R/ui-sidebar.R
-        Ranges: Ln 342, Col 13 @ Ln 346, Col 14
   - !<Text>
     Identifier: 690c3dc
     Algorithm: sha1
@@ -2124,7 +2153,7 @@ Texts:
       - !<Location>
         Identifier: ea57967:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 226, Col 13 @ Ln 226, Col 70
+        Ranges: Ln 219, Col 13 @ Ln 219, Col 70
   - !<Text>
     Identifier: abef7fe
     Algorithm: sha1
@@ -2172,7 +2201,7 @@ Texts:
       - !<Location>
         Identifier: 798b335:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 216, Col 13 @ Ln 216, Col 70
+        Ranges: Ln 209, Col 13 @ Ln 209, Col 70
   - !<Text>
     Identifier: e279776
     Algorithm: sha1
@@ -2186,7 +2215,7 @@ Texts:
       - !<Location>
         Identifier: e279776:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 241, Col 13 @ Ln 244, Col 14
+        Ranges: Ln 244, Col 13 @ Ln 247, Col 14
   - !<Text>
     Identifier: b69a61b
     Algorithm: sha1
@@ -2429,6 +2458,18 @@ Texts:
         Path: ./R/ui-panel-descriptive-statistics.R
         Ranges: Ln 219, Col 13 @ Ln 219, Col 61
   - !<Text>
+    Identifier: 4b0b288
+    Algorithm: sha1
+    Hash: 4b0b2887572d227b6e28d6c7e90b5dcef12ec412
+    Source Language: en
+    Source Text: 'Variable of Interest:'
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 4b0b288:l1
+        Path: ./R/ui-sidebar.R
+        Ranges: Ln 239, Col 13 @ Ln 239, Col 61
+  - !<Text>
     Identifier: 4f7aff7
     Algorithm: sha1
     Hash: 4f7aff7f742a3fb66f05eb8d41a727d01c317456
@@ -2581,7 +2622,7 @@ Texts:
       - !<Location>
         Identifier: 466a65e:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 221, Col 13 @ Ln 221, Col 68
+        Ranges: Ln 214, Col 13 @ Ln 214, Col 68
   - !<Text>
     Identifier: 97a777e
     Algorithm: sha1
@@ -3297,22 +3338,6 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 447, Col 21 @ Ln 449, Col 14
   - !<Text>
-    Identifier: 68c086f
-    Algorithm: sha1
-    Hash: 68c086f367deb32174a2aa64fba2cf4df0153b6c
-    Source Language: en
-    Source Text: |-
-      The measurement dataset. There must be one value per line. Values can be
-      censored to the left (<), to the right (>), or interval censored ([X-Y]).
-      For more information, see the Calculation Parameters section in
-      Frequently Asked Questions (FAQ) above.
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: 68c086f:l1
-        Path: ./R/ui-sidebar.R
-        Ranges: Ln 300, Col 13 @ Ln 306, Col 14
-  - !<Text>
     Identifier: 463c845
     Algorithm: sha1
     Hash: 463c845e78d41d9aef3830e79679af8f10025a11
@@ -3493,7 +3518,7 @@ Texts:
       - !<Location>
         Identifier: c810b50:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 249, Col 13 @ Ln 254, Col 14
+        Ranges: Ln 252, Col 13 @ Ln 257, Col 14
   - !<Text>
     Identifier: 3e0b7d6
     Algorithm: sha1
@@ -3553,7 +3578,7 @@ Texts:
       - !<Location>
         Identifier: 5998348:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 211, Col 13 @ Ln 211, Col 55
+        Ranges: Ln 204, Col 13 @ Ln 204, Col 55
   - !<Text>
     Identifier: 5540a94
     Algorithm: sha1
