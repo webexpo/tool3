@@ -130,6 +130,14 @@ ui_sidebar <- function(id) {
         ) |>
         bslib::tooltip(id = ns("data_tooltip"), ""),
 
+        shiny::selectInput(
+            inputId = ns("data_variable"),
+            label   = "",
+            choices = ""
+        ) |>
+        bslib::tooltip(id = ns("data_variable_tooltip"), "") |>
+        shinyjs::disabled(),
+
         # Buttons --------------------------------------------------------------
 
         tags$div(
@@ -226,6 +234,11 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
+        data_variable_label <- shiny::reactive({
+            translate(lang = lang(), "Variable of Interest:")
+        }) |>
+        shiny::bindCache(lang())
+
         oel_tooltip_text <- shiny::reactive({
             translate(lang = lang(), "
                 Use this value to assess overexposure. It must have the same
@@ -296,6 +309,16 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
+        data_variable_tooltip_text <- shiny::reactive({
+            translate(lang = lang(), "
+                The variable to focus on when performing one-way analyses. This
+                can only be set after successfully importing a measurement
+                dataset. See Measurements above. Variable names are extracted
+                from the file's header (first line).
+            ")
+        }) |>
+        shiny::bindCache(lang())
+
         btn_submit_tooltip_text <- shiny::reactive({
             translate(lang = lang(), "
                 Submit all parameters and start Bayesian calculations.
@@ -336,6 +359,15 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
+        # Update choices for input data_variable.
+        shiny::observe({
+            shiny::updateSelectInput(
+                inputId  = "data_variable",
+                choices  = names(data()) %||% ""
+            )
+        }) |>
+        shiny::bindEvent(data(), ignoreNULL = FALSE)
+
 
         # Translate elements not rendered
         # with a shiny::render*() function.
@@ -358,6 +390,7 @@ server_sidebar <- function(id, lang, mode, panel_active) {
             bslib::update_tooltip("data_tooltip", data_tooltip_text())
             bslib::update_tooltip("btn_submit_tooltip", btn_submit_tooltip_text())
             bslib::update_tooltip("btn_clear_tooltip", btn_clear_tooltip_text())
+            bslib::update_tooltip("data_variable_tooltip", data_variable_tooltip_text())
         })
 
         # Return all inputs except buttons.
@@ -366,6 +399,7 @@ server_sidebar <- function(id, lang, mode, panel_active) {
                 list(
                     oel            = input$oel,
                     data           = data(),
+                    data_variable  = input$data_variable,
                     oel_multiplier = input$oel_multiplier,
                     conf           = input$conf,
                     psi            = input$psi,
