@@ -181,6 +181,11 @@ server_sidebar <- function(id, lang, mode, panel_active) {
     server <- \(input, output, session) {
         server_footer("footer", lang)
 
+        data <- shiny::reactive({
+            read_data(input$data$datapath, input$data$type)
+        }) |>
+        shiny::bindEvent(input$data)
+
         oel_label <- shiny::reactive({
             translate(lang = lang(), "Occupational Exposure Limit (OEL):")
         }) |>
@@ -282,10 +287,10 @@ server_sidebar <- function(id, lang, mode, panel_active) {
 
         data_tooltip_text <- shiny::reactive({
             translate(lang = lang(), "
-                The measurement dataset. There must be one value per line.
-                Values can be censored to the left (<), to the right (>),
-                or interval censored ([X-Y]). For more information, see the
-                Calculation Parameters section in Frequently Asked Questions
+                The measurement dataset. This must be a comma-separated values
+                (CSV) file, or a Microsoft Excel spreadsheet file (XLS or XLSX).
+                For more information, or to get an example file, see the
+                Calculation Parameters section in the Frequently Asked Questions
                 (FAQ) above.
             ")
         }) |>
@@ -356,26 +361,11 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         })
 
         # Return all inputs except buttons.
-        # FIXME: Overall, the reading mechanism below is temporary.
         return(
             shiny::reactive({
-                # FIXME: We may need to change default value.
-                read <- switch(input$data$type,
-                    "text/csv" = data.table::fread, # .csv
-                    "application/vnd.ms-excel" = readxl::read_xls, # .xls
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = readxl::read_xlsx, # .xlsx,
-                    NULL
-                )
-
-                # FIXME: We may need to return errors to the user.
-                data <- tryCatch(
-                    read(input$data$datapath),
-                    condition = \(cond) NULL
-                )
-
                 list(
                     oel            = input$oel,
-                    data           = input$data,
+                    data           = data(),
                     oel_multiplier = input$oel_multiplier,
                     conf           = input$conf,
                     psi            = input$psi,
