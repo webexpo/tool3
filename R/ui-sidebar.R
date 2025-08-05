@@ -125,7 +125,8 @@ ui_sidebar <- function(id) {
                 "text/csv", # .csv
                 "application/vnd.ms-excel", # .xls
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # .xlsx
-            )
+            ),
+            invalid = shiny::textOutput(ns("data_invalid_feedback"))
         ) |>
         bslib::tooltip(id = ns("data_tooltip"), ""),
 
@@ -321,21 +322,15 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
-        # FIXME: Deactivated until further notice.
-        # Show inputs that are specific to certain panels.
-        # Identifiers are hardcoded (they will never change).
-        # shiny::observe({
-        #     panel_active <- panel_active()
+        output$data_invalid_feedback <- shiny::renderText({
+            translate(lang = lang(), "
+                The dataset is invalid. Please see Frequently Asked Questions
+                (FAQ) for more information on the expected format. An example
+                file is available.
+            ")
+        }) |>
+        shiny::bindCache(lang())
 
-        #     # Since inputs are hidden by default, operator == is used.
-        #     shinyjs::toggle("frac_threshold", condition = {
-        #         panel_active == "panel_fraction"
-        #     })
-        #     shinyjs::toggle("target_perc", condition = {
-        #         panel_active == "panel_percentiles"
-        #     })
-        # }) |>
-        # shiny::bindEvent(panel_active())
 
         # Translate elements not rendered
         # with a shiny::render*() function.
