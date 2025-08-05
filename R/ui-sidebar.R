@@ -153,7 +153,8 @@ ui_sidebar <- function(id) {
                 id        = ns("btn_submit_tooltip"),
                 placement = "bottom",
                 ""
-            ),
+            ) |>
+            shinyjs::disabled(),
 
             shiny::actionButton(
                 inputId = ns("btn_clear"),
@@ -387,6 +388,29 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindEvent(data(), ignoreNULL = FALSE)
 
+        # Clear data and the underlying uploaded file.
+        shiny::observe({
+            # Remove the cached file from the server (safer).
+            file.remove(input$data$datapath)
+
+            # Clear the input showing uploaded file's name.
+            shiny::updateTextInput(inputId = "data-input-filename", value = "")
+
+            # Reset its valid/invalid state.
+            shinyjs::removeClass("data-input-filename", "is-valid is-invalid")
+
+            # Clear choices of input data_variable.
+            # These were extracted from uploaded file.
+            shiny::updateSelectInput(
+                inputId  = "data_variable",
+                choices  = ""
+            )
+
+            # Disable related inputs until a new file is uploaded.
+            shinyjs::disable("btn_submit")
+            shinyjs::disable("data_variable")
+        }) |>
+        shiny::bindEvent(input$btn_clear)
 
         # Translate elements not rendered
         # with a shiny::render*() function.
