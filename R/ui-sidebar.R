@@ -359,6 +359,25 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
+        # Add colors to input data indicating whether
+        # it is valid or not. Show a message if it is
+        # not. Activate related inputs if valid, and
+        # deactivate them otherwise.
+        shiny::observe({
+            is_null <- is.null(data())
+
+            # Add colors indicating whether data is valid
+            # or not once it is transferred and processed.
+            shinyjs::toggleClass("data-input-filename", "is-valid text-success", !is_null)
+            shinyjs::toggleClass("data-input-filename", "is-invalid text-danger", is_null)
+
+            # Deactivate or activate inputs when
+            # data is respectively invalid or valid.
+            shinyjs::toggleState("data_variable", !is_null)
+            shinyjs::toggleState("btn_submit", !is_null)
+        }) |>
+        shiny::bindEvent(data(), ignoreNULL = FALSE)
+
         # Update choices for input data_variable.
         shiny::observe({
             shiny::updateSelectInput(
