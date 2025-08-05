@@ -95,8 +95,6 @@ ui_sidebar <- function(id) {
         ) |>
         bslib::tooltip(id = ns("psi_tooltip"), ""),
 
-        # This output is only shown when the active panel is panel_fraction.
-        # FIXME: This will have to be refactored once the UI is sorted out.
         shiny::numericInput(
             inputId = ns("frac_threshold"),
             label   = "",
@@ -104,11 +102,8 @@ ui_sidebar <- function(id) {
             min     = 0,
             max     = 100
         ) |>
-        # shinyjs::hidden() |>
         bslib::tooltip(id = ns("frac_threshold_tooltip"), ""),
 
-        # This output is only shown when the active panel is panel_percentiles.
-        # FIXME: This will have to be refactored once the UI is sorted out.
         shiny::numericInput(
             inputId = ns("target_perc"),
             label   = "",
@@ -116,7 +111,6 @@ ui_sidebar <- function(id) {
             min     = 0,
             max     = 100
         ) |>
-        # shinyjs::hidden() |>
         bslib::tooltip(id = ns("target_perc_tooltip"), ""),
 
         # FIXME: This used to be identified by 'file1' in version 3. Changing
