@@ -341,12 +341,8 @@ server_sidebar <- function(id, lang, mode, panel_active) {
             shiny::updateNumericInput(inputId = "psi", label = psi_label())
             shiny::updateNumericInput(inputId = "frac_threshold", label = frac_threshold_label())
             shiny::updateNumericInput(inputId = "target_perc", label = target_perc_label())
-
-            update_file_input(
-                inputId     = "data",
-                label       = data_label(),
-                buttonLabel = data_btn_label()
-            )
+            update_file_input(inputId = "data", label = data_label(), buttonLabel = data_btn_label())
+            shiny::updateSelectInput(inputId = "data_variable", label = data_variable_label())
 
             bslib::update_tooltip("oel_tooltip", oel_tooltip_text())
             bslib::update_tooltip("oel_multiplier_tooltip", oel_multiplier_tooltip_text())
