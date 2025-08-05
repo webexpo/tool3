@@ -25,6 +25,13 @@
 #' @param placeholder A character string or `NULL`. The text to display as a
 #'   temporary placeholder (before a file is chosen).
 #'
+#' @param invalid A character or a `shiny.tag` object. Contents to display if
+#'   the input is invalid. Text nodes are automatically justifed. Bootstrap 5
+#'   class `invalid-feedback` is automatically appended to the class string.
+#'
+#'   This won't be displayed unless Bootstrap 5 class `is-invalid` is added to
+#'   the input showing the chosen file (`<inputId>-input-filename`).
+#'
 #' @returns
 #' [file_input()] returns a `shiny.tag` object.
 #'
@@ -42,7 +49,7 @@
 #'
 #' @rdname file-input
 #' @export
-file_input <- function(...) {
+file_input <- function(..., invalid = NULL) {
     input <- shiny::fileInput(...)
     query <- htmltools::tagQuery(input)
 
@@ -51,12 +58,23 @@ file_input <- function(...) {
     # later on with update_file_input().
     id <- list(...)$inputId
 
-    # "Flexify" the inner container for Browse
-    # button and chosen file input and add a
-    # small gap betwen elements.
+    invalid <- if (inherits(invalid, "shiny.tag")) {
+        htmltools::tagAppendAttributes(invalid, class = "invalid-feedback")
+    } else if (is_chr(invalid)) {
+        htmltools::tags$div(
+            class = "invalid-feedback",
+            style = "text-align: justify; text-justify: inter-word;",
+            invalid
+        )
+    }
+
     query$find("div.input-group")$
-        addClass("d-flex")$
-        addAttrs(style = "gap: 0.5rem;")
+        # "Flexify" the inner container for Browse
+        # button and chosen file input and add a
+        # small gap betwen elements.
+        addClass("d-flex has-validation")$
+        addAttrs(style = "gap: 0.5rem;")$
+        append(invalid)
 
     # Enforce usual styles on the Browse
     # button and normalize its border radius.
@@ -70,6 +88,7 @@ file_input <- function(...) {
         addAttrs(id = sprintf("%s-input-filename", id))
 
     # Hide ugly progress bar.
+    # We hide it to avoid console errors.
     # It already has an id: "<inputId>_progress".
     query$find("div.progress")$addClass("d-none")
 
