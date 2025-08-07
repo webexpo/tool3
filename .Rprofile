@@ -29,7 +29,7 @@ options(
     app_path_dir_images         = file.path("www", "assets", "images"),
     app_missing_translation_msg = "{no translation}",
     app_n_signif_digits         = 3L,
-    app_number_bayes_iter       = 30000L,
+    app_number_bayes_iter       = 25000L,
     app_express_oel_multiplier  = 1,
     app_express_conf            = 90,
     app_express_psi             = 30,
