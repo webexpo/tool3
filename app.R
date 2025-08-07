@@ -88,13 +88,15 @@ ui <- bslib::page_sidebar(
 server <- function(input, output, session) {
     # Step 1: Collect calculation parameters from
     # user and format the data sample it provided.
+    # NOTE: Refactored.
     data_sample <- shiny::reactive({
         inputs_calc <- inputs_calc()
 
-        data.formatting.SEG(
-            data.in  = inputs_calc$data,
-            oel      = inputs_calc$oel,
-            oel.mult = inputs_calc$oel_multiplier
+        data.formatting.D(
+            data.in       = inputs_calc$data,
+            oel           = inputs_calc$oel,
+            oel.mult      = inputs_calc$oel_multiplier,
+            VarOfInterest = inputs_calc$data_variables
         )
     })
 
@@ -176,7 +178,6 @@ server <- function(input, output, session) {
     inputs_ui <- server_title("layout_title")
 
     lang <- inputs_ui$lang
-    mode <- inputs_ui$mode
 
     # This returns a shiny::reactive() object
     # returning a named list containing all
@@ -184,11 +185,10 @@ server <- function(input, output, session) {
     inputs_calc <- server_sidebar(
         id           = "layout_sidebar",
         lang         = lang,
-        mode         = mode,
         panel_active = shiny::reactive({ input$panel_active })
     )
 
-    server_banner(id = "busy_banner", lang = lang)
+    # server_banner(id = "busy_banner", lang = lang)
 
     # Each server_panel_*() function below returns a
     # shiny::reactive() object that can be called to
@@ -200,64 +200,61 @@ server <- function(input, output, session) {
         data_sample = data_sample
     )
 
-    panel_express_title <- server_panel_express(
-        id          = "panel_express",
-        lang        = lang,
-        inputs_calc = inputs_calc,
-        simulations = simulations,
-        results     = results
-    )
+    # panel_express_title <- server_panel_express(
+    #     id          = "panel_express",
+    #     lang        = lang,
+    #     inputs_calc = inputs_calc,
+    #     simulations = simulations,
+    #     results     = results
+    # )
 
-    panel_fraction_title <- server_panel_exceedance_fraction(
-        id          = "panel_fraction",
-        lang        = lang,
-        inputs_calc = inputs_calc,
-        simulations = simulations,
-        results     = results
-    )
+    # panel_fraction_title <- server_panel_exceedance_fraction(
+    #     id          = "panel_fraction",
+    #     lang        = lang,
+    #     inputs_calc = inputs_calc,
+    #     simulations = simulations,
+    #     results     = results
+    # )
 
-    panel_percentiles_title <- server_panel_percentiles(
-        id          = "panel_percentiles",
-        lang        = lang,
-        inputs_calc = inputs_calc,
-        simulations = simulations,
-        results     = results
-    )
+    # panel_percentiles_title <- server_panel_percentiles(
+    #     id          = "panel_percentiles",
+    #     lang        = lang,
+    #     inputs_calc = inputs_calc,
+    #     simulations = simulations,
+    #     results     = results
+    # )
 
-    panel_mean_title <- server_panel_arithmetic_mean(
-        id          = "panel_mean",
-        lang        = lang,
-        inputs_calc = inputs_calc,
-        simulations = simulations,
-        results     = results
-    )
+    # panel_mean_title <- server_panel_arithmetic_mean(
+    #     id          = "panel_mean",
+    #     lang        = lang,
+    #     inputs_calc = inputs_calc,
+    #     simulations = simulations,
+    #     results     = results
+    # )
 
     # Outputs ------------------------------------------------------------------
 
-    output$panels_menu_title <- shiny::renderText({
-        translate(lang = lang(), "Statistical Inference")
+    output$menu_global_title <- shiny::renderText({
+        translate(lang = lang(), "Global Analysis")
+    }) |>
+    shiny::bindCache(lang())
+
+    output$menu_comparisons_title <- shiny::renderText({
+        translate(lang = lang(), "Comparisons")
+    }) |>
+    shiny::bindCache(lang())
+
+    output$menu_single_title <- shiny::renderText({
+        translate(lang = lang(), "Single Category")
     }) |>
     shiny::bindCache(lang())
 
     output$panel_title <- shiny::renderText({
         switch(input$panel_active,
-            panel_express     = panel_express_title(),
-            panel_stats       = panel_stats_title(),
-            panel_fraction    = panel_fraction_title(),
-            panel_percentiles = panel_percentiles_title(),
-            panel_mean        = panel_mean_title(),
+            panel_stats = panel_stats_title()
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
-
-    output$panel_title_mode <- shiny::renderText({
-        lang <- lang()
-        switch(mode(),
-            extended = translate(lang = lang, "Tool 1 Extended"),
-            express  = translate(lang = lang, "Tool 1 Express")
-        )
-    }) |>
-    shiny::bindCache(mode(), lang())
 
     # Observers ----------------------------------------------------------------
 
@@ -267,27 +264,6 @@ server <- function(input, output, session) {
         session$sendCustomMessage("update_page_lang", lang())
     }) |>
     shiny::bindEvent(lang())
-
-    # Toggle panel(s) based on the current mode.
-    shiny::observe({
-        state <- switch(mode(),
-            extended = c(
-                show = "panels_menu",
-                hide = "panel_express"
-            ),
-            express = c(
-                show = "panel_express",
-                hide = "panels_menu"
-            )
-        )
-
-        bslib::nav_show("panel_active", state[["show"]])
-        bslib::nav_hide("panel_active", state[["hide"]])
-        bslib::nav_select("panel_active", "panel_stats")
-    }) |>
-    shiny::bindEvent(mode())
-
-    return(invisible())
 }
 
 #' @rdname app
