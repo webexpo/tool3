@@ -160,7 +160,8 @@ server_panel_descriptive_statistics <- function(
                 notcensored            = data_sample$notcensored,
                 leftcensored           = data_sample$leftcensored,
                 rightcensored          = data_sample$rightcensored,
-                intcensored            = data_sample$intcensored)
+                intcensored            = data_sample$intcensored
+            )
         })
 
         # The order of row and col names must
@@ -234,15 +235,20 @@ server_panel_descriptive_statistics <- function(
 
         output$qq_plot <- shiny::renderPlot({
             lang <- lang()
-            fun.qqplot(
+            data_sample <- data_sample()
+
+            fun.qqplot.group.D(
                 data.simply.imputed = data_sample_imputed(),
-                notcensored         = data_sample()$notcensored,
+                notcensored         = data_sample$notcensored,
+                cats                = data_sample$var,
                 qqplot.1            = translate(lang = lang, "Quantile-Quantile Plot"),
                 qqplot.2            = translate(lang = lang, "Quantiles (Lognormal Distribution)"),
                 qqplot.3            = translate(lang = lang, "Quantiles (Standardized Measurements)"),
                 qqplot.4            = translate(lang = lang, "Measurement Type"),
                 qqplot.5            = translate(lang = lang, "Censored"),
-                qqplot.6            = translate(lang = lang, "Not Censored"))
+                qqplot.6            = translate(lang = lang, "Not Censored"),
+                label_category      = translate(lang = lang, "Category")
+            )
         })
 
         output$qq_plot_desc <- shiny::renderText({
@@ -268,7 +274,8 @@ server_panel_descriptive_statistics <- function(
                 boxplot.3           = translate(lang = lang, "OEL"),
                 boxplot.4           = translate(lang = lang, "Censored"),
                 boxplot.5           = translate(lang = lang, "Not Censored"),
-                boxplot.6           = translate(lang = lang, "Measurements"))
+                boxplot.6           = translate(lang = lang, "Measurements")
+            )
         })
 
         output$box_plot_desc <- shiny::renderUI({
