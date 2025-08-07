@@ -134,11 +134,11 @@ ui_sidebar <- function(id) {
         bslib::tooltip(id = ns("data_tooltip"), ""),
 
         shiny::selectInput(
-            inputId = ns("data_variable"),
+            inputId = ns("data_chosen_variable"),
             label   = "",
             choices = ""
         ) |>
-        bslib::tooltip(id = ns("data_variable_tooltip"), "") |>
+        bslib::tooltip(id = ns("data_chosen_variable_tooltip"), "") |>
         shinyjs::disabled(),
 
         # Buttons --------------------------------------------------------------
@@ -198,6 +198,11 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindEvent(input$data)
 
+        data_variables <- shiny::reactive({
+            names(data())[-1L]
+        }) |>
+        shiny::bindEvent(data())
+
         oel_label <- shiny::reactive({
             translate(lang = lang(), "Occupational Exposure Limit (OEL):")
         }) |>
@@ -238,7 +243,7 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
-        data_variable_label <- shiny::reactive({
+        data_chosen_variable_label <- shiny::reactive({
             translate(lang = lang(), "Variable of Interest:")
         }) |>
         shiny::bindCache(lang())
@@ -313,7 +318,7 @@ server_sidebar <- function(id, lang, mode, panel_active) {
         }) |>
         shiny::bindCache(lang())
 
-        data_variable_tooltip_text <- shiny::reactive({
+        data_chosen_variable_tooltip_text <- shiny::reactive({
             translate(lang = lang(), "
                 The variable to focus on when performing one-way analyses. This
                 can only be set after successfully importing a measurement
@@ -377,16 +382,16 @@ server_sidebar <- function(id, lang, mode, panel_active) {
 
             # Deactivate or activate inputs when
             # data is respectively invalid or valid.
-            shinyjs::toggleState("data_variable", !is_null)
+            shinyjs::toggleState("data_chosen_variable", !is_null)
             shinyjs::toggleState("btn_submit", !is_null)
         }) |>
         shiny::bindEvent(data(), ignoreNULL = FALSE)
 
-        # Update choices for input data_variable.
+        # Update choices for input data_chosen_variable.
         shiny::observe({
             shiny::updateSelectInput(
-                inputId  = "data_variable",
-                choices  = names(data()) %||% ""
+                inputId  = "data_chosen_variable",
+                choices  = data_variables() %||% ""
             )
         }) |>
         shiny::bindEvent(data(), ignoreNULL = FALSE)
@@ -402,16 +407,16 @@ server_sidebar <- function(id, lang, mode, panel_active) {
             # Reset its valid/invalid state.
             shinyjs::removeClass("data-input-filename", "is-valid is-invalid")
 
-            # Clear choices of input data_variable.
+            # Clear choices of input data_chosen_variable.
             # These were extracted from uploaded file.
             shiny::updateSelectInput(
-                inputId  = "data_variable",
+                inputId  = "data_chosen_variable",
                 choices  = ""
             )
 
             # Disable related inputs until a new file is uploaded.
             shinyjs::disable("btn_submit")
-            shinyjs::disable("data_variable")
+            shinyjs::disable("data_chosen_variable")
         }) |>
         shiny::bindEvent(input$btn_clear)
 
@@ -425,7 +430,7 @@ server_sidebar <- function(id, lang, mode, panel_active) {
             shiny::updateNumericInput(inputId = "frac_threshold", label = frac_threshold_label())
             shiny::updateNumericInput(inputId = "target_perc", label = target_perc_label())
             update_file_input(inputId = "data", label = data_label(), buttonLabel = data_btn_label())
-            shiny::updateSelectInput(inputId = "data_variable", label = data_variable_label())
+            shiny::updateSelectInput(inputId = "data_chosen_variable", label = data_chosen_variable_label())
 
             bslib::update_tooltip("oel_tooltip", oel_tooltip_text())
             bslib::update_tooltip("oel_multiplier_tooltip", oel_multiplier_tooltip_text())
@@ -436,21 +441,22 @@ server_sidebar <- function(id, lang, mode, panel_active) {
             bslib::update_tooltip("data_tooltip", data_tooltip_text())
             bslib::update_tooltip("btn_submit_tooltip", btn_submit_tooltip_text())
             bslib::update_tooltip("btn_clear_tooltip", btn_clear_tooltip_text())
-            bslib::update_tooltip("data_variable_tooltip", data_variable_tooltip_text())
+            bslib::update_tooltip("data_chosen_variable_tooltip", data_chosen_variable_tooltip_text())
         })
 
         # Return all inputs except buttons.
         return(
             shiny::reactive({
                 list(
-                    oel            = input$oel,
-                    data           = data(),
-                    data_variable  = input$data_variable,
-                    oel_multiplier = input$oel_multiplier,
-                    conf           = input$conf,
-                    psi            = input$psi,
-                    frac_threshold = input$frac_threshold,
-                    target_perc    = input$target_perc
+                    oel                  = input$oel,
+                    data                 = data(),
+                    data_variables       = data_variables(),
+                    data_chosen_variable = input$data_chosen_variable,
+                    oel_multiplier       = input$oel_multiplier,
+                    conf                 = input$conf,
+                    psi                  = input$psi,
+                    frac_threshold       = input$frac_threshold,
+                    target_perc          = input$target_perc
                 )
             }) |>
             shiny::bindEvent(input$btn_submit, ignoreInit = TRUE)
