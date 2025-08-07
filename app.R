@@ -33,7 +33,7 @@ ui <- bslib::page_sidebar(
     # <main> -------------------------------------------------------------------
 
     # Banner shown whenever the Shiny engine is blocked.
-    ui_banner("busy_banner"),
+    # ui_banner("busy_banner"),
 
     bslib::navset_card_underline(
         id       = "panel_active",
@@ -42,47 +42,43 @@ ui <- bslib::page_sidebar(
             class = "d-flex align-items-center",
             style = "gap: 8px;",
 
-            # Current mode.
-            tags$div(
-                class = "d-flex alert alert-primary p-2 m-0",
-
-                tags$span(
-                    class = "pe-1",
-                    bsicons::bs_icon(
-                        name = "layout-text-window-reverse",
-                        a11y = "deco"
-                    )
-                ),
-                shiny::textOutput("panel_title_mode", tags$span)
-            ),
-
-            # Current panel.
             bslib::card_title(
                 container = tags$h2,
-                class     = "m-0 fs-5 opacity-75",
+                class     = "mt-2 fs-5 opacity-75",
                 shiny::textOutput("panel_title", tags$span)
             )
         ),
 
         ui_panel_descriptive_statistics("panel_stats"),
 
-        # This panel is hidden by default.
-        # It is shown if mode() returns "express".
-        ui_panel_express("panel_express"),
-
-        # Group other default inference panels.
-        # It is shown by default and hidden if mode() returns "express".
         bslib::nav_menu(
-            value = "panels_menu",
-            title = shiny::textOutput("panels_menu_title", tags$span),
-            icon  = tags$span(
-                class = "pe-1",
-                bsicons::bs_icon(name = "list", a11y = "deco")
-            ),
+            value = "menu_global",
+            title = shiny::textOutput("menu_global_title", tags$span),
+            icon  = ui_menu_icon(),
 
-            ui_panel_exceedance_fraction("panel_fraction"),
-            ui_panel_percentiles("panel_percentiles"),
-            ui_panel_arithmetic_mean("panel_mean")
+            "Exceedance Fraction",
+            "Percentiles",
+            "Arithmetic Mean"
+        ),
+
+        bslib::nav_menu(
+            value = "menu_comparisons",
+            title = shiny::textOutput("menu_comparisons_title", tags$span),
+            icon  = ui_menu_icon(),
+
+            "All Categories",
+            "Two Categories"
+        ),
+
+        bslib::nav_menu(
+            value = "menu_single",
+            title = shiny::textOutput("menu_single_title", tags$span),
+            icon  = ui_menu_icon(),
+
+            "About My Measurements",
+            "Exceedance Fraction",
+            "Percentiles",
+            "Arithmetic Mean"
         )
     )
 )
