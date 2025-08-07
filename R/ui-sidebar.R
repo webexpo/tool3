@@ -183,10 +183,9 @@ ui_sidebar <- function(id) {
 
 #' @rdname ui-sidebar
 #' @export
-server_sidebar <- function(id, lang, mode, panel_active) {
+server_sidebar <- function(id, lang, panel_active) {
     stopifnot(exprs = {
         shiny::is.reactive(lang)
-        shiny::is.reactive(mode)
         shiny::is.reactive(panel_active)
     })
 
