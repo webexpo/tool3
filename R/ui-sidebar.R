@@ -40,6 +40,8 @@
 #' @export
 ui_sidebar <- function(id) {
     ns <- shiny::NS(id)
+    btn_submit_id <- ns("btn_submit")
+
     ui <- bslib::sidebar(
         width = "400px",
         gap   = "0.75rem",
@@ -147,10 +149,13 @@ ui_sidebar <- function(id) {
             class = "d-flex justify-content-around",
             style = "gap: 0.5rem; margin-bottom: 1rem;",
 
-            shiny::actionButton(
-                inputId = ns("btn_submit"),
-                class   = "btn btn-success app-btn w-100",
-                label   = shiny::textOutput(ns("btn_submit_label"), tags$span)
+            bslib::input_task_button(
+                id         = btn_submit_id,
+                class      = "btn btn-success app-btn w-100",
+                label      = shiny::textOutput(ns("btn_submit_label"), tags$span),
+                label_busy = shiny::textOutput(ns("btn_submit_label_busy"), tags$span),
+                type       = NULL, # See argument class above.
+                auto_reset = TRUE
             ) |>
             bslib::tooltip(
                 id        = ns("btn_submit_tooltip"),
@@ -178,7 +183,7 @@ ui_sidebar <- function(id) {
         ui_footer(ns("footer"))
     )
 
-    return(ui)
+    return(structure(ui, btn_submit_id = btn_submit_id))
 }
 
 #' @rdname ui-sidebar
@@ -350,6 +355,11 @@ server_sidebar <- function(id, lang, panel_active) {
 
         output$btn_submit_label <- shiny::renderText({
             translate(lang = lang(), "Submit")
+        }) |>
+        shiny::bindCache(lang())
+
+        output$btn_submit_label_busy <- shiny::renderText({
+            translate(lang = lang(), "Processing")
         }) |>
         shiny::bindCache(lang())
 

@@ -24,7 +24,16 @@ ui <- bslib::page_sidebar(
     window_title = "Expostats - Tool 3",
     theme        = bslib::bs_theme(5L, "shiny"),
     title        = ui_title("layout_title"),
-    sidebar      = ui_sidebar("layout_sidebar"),
+
+    # ui_sidebar() returns an attribute named btn_submit_id
+    # which is the namespaced identifier of the main Submit
+    # button of the Sidebar module. It is required to attach
+    # an ExtendedTask to it. See below in server().
+    sidebar = {
+        sidebar <- ui_sidebar("layout_sidebar")
+        btn_submit_id <<- attr(sidebar, "btn_submit_id", TRUE)
+        sidebar
+    },
 
     # <head> -------------------------------------------------------------------
 
