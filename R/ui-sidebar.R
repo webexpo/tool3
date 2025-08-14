@@ -419,8 +419,8 @@ server_sidebar <- function(id, lang, panel_active) {
             # Clear choices of input data_chosen_variable.
             # These were extracted from uploaded file.
             shiny::updateSelectInput(
-                inputId  = "data_chosen_variable",
-                choices  = ""
+                inputId = "data_chosen_variable",
+                choices = ""
             )
 
             # Disable related inputs until a new file is uploaded.

@@ -111,20 +111,24 @@ server <- function(input, output, session) {
 
     # Step 2: Generate Bayesian simulations of the
     # mean and standard deviation on the log scale.
-    simulations <- shiny::reactive({
-        data_sample <- data_sample()
+    # NOTE: Refactored.
+    simulations <- shiny::ExtendedTask$new(\() {
+        future::future({
+            data_sample <- data_sample()
 
-        fun.bayes.jags(
-            observations  = data_sample$data,
-            notcensored   = data_sample$notcensored,
-            leftcensored  = data_sample$leftcensored,
-            rightcensored = data_sample$rightcensored,
-            intcensored   = data_sample$intcensored,
-            seed          = data_sample$seed,
-            c.oel         = data_sample$c.oel,
-            n.iter        = getOption("app_number_bayes_iter")
-        )
-    })
+            fun.bayes.jags(
+                observations  = data_sample$data,
+                notcensored   = data_sample$notcensored,
+                leftcensored  = data_sample$leftcensored,
+                rightcensored = data_sample$rightcensored,
+                intcensored   = data_sample$intcensored,
+                seed          = data_sample$seed,
+                c.oel         = data_sample$c.oel,
+                n.iter        = getOption("app_number_bayes_iter")
+            )
+        })
+    }) |>
+    bslib::bind_task_button(btn_submit_id)
 
     # Step 3: Compute outputs from calculation
     # parameters and simulated values. Format
@@ -203,10 +207,11 @@ server <- function(input, output, session) {
     # shiny::reactive() object that can be called to
     # get the underlying panel's title.
     panel_stats_title <- server_panel_descriptive_statistics(
-        id          = "panel_stats",
-        lang        = lang,
-        inputs_calc = inputs_calc,
-        data_sample = data_sample
+        id                  = "panel_stats",
+        lang                = lang,
+        inputs_calc         = inputs_calc,
+        data_sample         = data_sample,
+        use_cats_in_qq_plot = TRUE
     )
 
     # panel_express_title <- server_panel_express(

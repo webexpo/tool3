@@ -25,6 +25,9 @@
 #' -------------------------------------------------
 #' ```
 #'
+#' @param use_cats_in_qq_plot A logical. Use colors to illustrate categories
+#'   of the variable of interest in the quantile-quantile plot?
+#'
 #' @template param-id
 #'
 #' @template param-lang
@@ -138,12 +141,14 @@ server_panel_descriptive_statistics <- function(
     id,
     lang,
     inputs_calc,
-    data_sample)
+    data_sample,
+    use_cats_in_qq_plot = FALSE)
 {
     stopifnot(exprs = {
         shiny::is.reactive(lang)
         shiny::is.reactive(inputs_calc)
         shiny::is.reactive(data_sample)
+        is_lgl1(use_cats_in_qq_plot)
     })
 
     server <- function(input, output, session) {
@@ -233,23 +238,41 @@ server_panel_descriptive_statistics <- function(
             as_html_table(stats, colnames = dim_names$cols)
         })
 
-        output$qq_plot <- shiny::renderPlot({
-            lang <- lang()
-            data_sample <- data_sample()
+        # FIXME: add this new version to Tool 1 for consistency.
+        output$qq_plot <- if (use_cats_in_qq_plot) {
+            shiny::renderPlot({
+                lang <- lang()
+                data_sample <- data_sample()
 
-            fun.qqplot.group.D(
-                data.simply.imputed = data_sample_imputed(),
-                notcensored         = data_sample$notcensored,
-                cats                = data_sample$var,
-                qqplot.1            = translate(lang = lang, "Quantile-Quantile Plot"),
-                qqplot.2            = translate(lang = lang, "Quantiles (Lognormal Distribution)"),
-                qqplot.3            = translate(lang = lang, "Quantiles (Standardized Measurements)"),
-                qqplot.4            = translate(lang = lang, "Measurement Type"),
-                qqplot.5            = translate(lang = lang, "Censored"),
-                qqplot.6            = translate(lang = lang, "Not Censored"),
-                label_category      = translate(lang = lang, "Category")
-            )
-        })
+                fun.qqplot.group.D(
+                    data.simply.imputed = data_sample_imputed(),
+                    notcensored         = data_sample$notcensored,
+                    cats                = data_sample$var,
+                    qqplot.1            = translate(lang = lang, "Quantile-Quantile Plot"),
+                    qqplot.2            = translate(lang = lang, "Quantiles (Lognormal Distribution)"),
+                    qqplot.3            = translate(lang = lang, "Quantiles (Standardized Measurements)"),
+                    qqplot.4            = translate(lang = lang, "Measurement Type"),
+                    qqplot.5            = translate(lang = lang, "Censored"),
+                    qqplot.6            = translate(lang = lang, "Not Censored"),
+                    label_category      = translate(lang = lang, "Category")
+                )
+            })
+        } else {
+            shiny::renderPlot({
+                lang <- lang()
+
+                fun.qqplot(
+                    data.simply.imputed = data_sample_imputed(),
+                    notcensored         = data_sample()$notcensored,
+                    qqplot.1            = translate(lang = lang, "Quantile-Quantile Plot"),
+                    qqplot.2            = translate(lang = lang, "Quantiles (Lognormal Distribution)"),
+                    qqplot.3            = translate(lang = lang, "Quantiles (Standardized Measurements)"),
+                    qqplot.4            = translate(lang = lang, "Measurement Type"),
+                    qqplot.5            = translate(lang = lang, "Censored"),
+                    qqplot.6            = translate(lang = lang, "Not Censored")
+                )
+            })
+        }
 
         output$qq_plot_desc <- shiny::renderText({
             translate(lang = lang(), "
