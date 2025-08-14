@@ -105,7 +105,7 @@ server <- function(input, output, session) {
             data.in       = inputs_calc$data,
             oel           = inputs_calc$oel,
             oel.mult      = inputs_calc$oel_multiplier,
-            VarOfInterest = inputs_calc$data_variables
+            VarOfInterest = inputs_calc$data_chosen_variable
         )
     })
 
