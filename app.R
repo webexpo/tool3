@@ -47,14 +47,30 @@ ui <- bslib::page_sidebar(
     bslib::navset_card_underline(
         id       = "panel_active",
         selected = "panel_stats",
-        header   = bslib::card_header(
-            class = "d-flex align-items-center",
-            style = "gap: 8px;",
+        header   = bslib::card_body(
+            fillable = FALSE,
+            fill     = FALSE,
+            gap      = 0L,
+            padding  = 0L,
 
-            bslib::card_title(
-                container = tags$h2,
-                class     = "mt-2 fs-5 opacity-75",
-                shiny::textOutput("panel_title", tags$span)
+            # Panel's title.
+            bslib::card_header(
+                class = "d-flex flex-column",
+                style = "gap: 8px;",
+
+                bslib::card_title(
+                    container = tags$h2,
+                    class     = "mt-2 fs-5 opacity-75",
+                    shiny::textOutput("panel_title", tags$span)
+                )
+            ),
+
+            # Panel's short description.
+            bslib::card_header(
+                tags$small(
+                    class = "opacity-75",
+                    shiny::textOutput("panel_description", tags$span)
+                )
             )
         ),
 
@@ -249,7 +265,7 @@ server <- function(input, output, session) {
     # Outputs ------------------------------------------------------------------
 
     output$menu_global_title <- shiny::renderText({
-        translate(lang = lang(), "Global Analysis")
+        translate(lang = lang(), "Global Risk Analysis")
     }) |>
     shiny::bindCache(lang())
 
@@ -266,6 +282,18 @@ server <- function(input, output, session) {
     output$panel_title <- shiny::renderText({
         switch(input$panel_active,
             panel_stats = panel_stats_title()
+        )
+    }) |>
+    shiny::bindCache(input$panel_active, lang())
+
+    # FIXME: Should this be moved to modules like titles?
+    # Should titles be moved here? To be determined.
+    output$panel_description <- shiny::renderText({
+        switch(input$panel_active,
+            panel_stats = translate(lang = lang(), "
+                Use this panel only to ensure that measurements were parsed as
+                expected. See Frequently Asked Questions for more information.
+            ")
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
