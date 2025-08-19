@@ -44,9 +44,6 @@ ui <- bslib::page_sidebar(
 
     # <main> -------------------------------------------------------------------
 
-    # Banner shown whenever the Shiny engine is blocked.
-    # ui_banner("busy_banner"),
-
     bslib::navset_card_underline(
         id       = "panel_active",
         selected = "panel_stats",
