@@ -40,7 +40,9 @@ options(
     transltr.verbose            = TRUE,
     warnPartialMatchArgs        = TRUE,
     warnPartialMatchDollar      = TRUE,
-    warnPartialMatchAttr        = TRUE
+    warnPartialMatchAttr        = TRUE,
+    # Do not use scientific notation.
+    scipen = 999L
 )
 
 # Development Tools ------------------------------------------------------------
