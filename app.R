@@ -61,12 +61,24 @@ ui <- bslib::page_sidebar(
                 bslib::card_title(
                     container = tags$h2,
                     class     = "mt-2 fs-5 opacity-75",
-                    shiny::textOutput("panel_title", tags$span)
+
+                    shiny::textOutput("panel_title", tags$span),
+
+                    # This buttons toggles the container of
+                    # the panel's short description below.
+                    ui_plain_action_button(
+                        inputId = "btn_panel_description",
+                        label   = bsicons::bs_icon("caret-up-fill"),
+                        class   = "ms-1 p-0",
+                    ) |>
+                    bslib::tooltip(id = "btn_panel_description_tooltip", "")
                 )
             ),
 
             # Panel's short description.
             bslib::card_header(
+                id    = "panel_description_header",
+
                 tags$small(
                     class = "opacity-75",
                     shiny::textOutput("panel_description", tags$span)
@@ -199,6 +211,13 @@ server <- function(input, output, session) {
         c(results, formatted)
     })
 
+    btn_panel_description_tooltip_text <- shiny::reactive({
+        translate(lang = lang(), "
+            Toggle the panel's short description below.
+        ")
+    }) |>
+    shiny::bindCache(lang())
+
     # Modules ------------------------------------------------------------------
 
     # This returns a list of shiny::reactive()
@@ -306,6 +325,37 @@ server <- function(input, output, session) {
         session$sendCustomMessage("update_page_lang", lang())
     }) |>
     shiny::bindEvent(lang())
+
+    shiny::observe({
+        # Descriptions are shown by default. Therefore, the icon
+        # to hide them is shown first. Each click toggles between
+        # hide (0, 2, 4, ...) and show (1, 3, 5, ...).
+        icon_name <- if (input$btn_panel_description %% 2L == 0L) {
+            "caret-up-fill"
+        } else {
+            "caret-down-fill"
+        }
+
+        shinyjs::toggle("panel_description_header")
+
+        # Hide the tooltip on each click.
+        bslib::toggle_tooltip("btn_panel_description_tooltip")
+
+        shiny::updateActionButton(
+           inputId = "btn_panel_description",
+           label   = bsicons::bs_icon(icon_name)
+        )
+    }) |>
+    shiny::bindEvent(input$btn_panel_description)
+
+    # Translate elements not rendered
+    # with a shiny::render*() function.
+    shiny::observe({
+        bslib::update_tooltip(
+            "btn_panel_description_tooltip",
+            btn_panel_description_tooltip_text()
+        )
+    })
 }
 
 #' @rdname app
