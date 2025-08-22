@@ -19,6 +19,9 @@
 #' [ui_link_mailto()], and
 #' [ui_menu_icon()] return a `shiny.tag` object.
 #'
+#' [ui_plain_action_button()] returns a `shiny.tag` object. This is the
+#' output of [shiny::actionButton()] with CSS class `btn-default` removed.
+#'
 #' [ui_bs_color()] returns a character string of class `BootstrapColorName`
 #' which is equal to `color` if it is valid.
 #'
@@ -92,4 +95,11 @@ ui_menu_icon <- function() {
             bsicons::bs_icon(name = "list", a11y = "deco")
         )
     )
+}
+
+#' @rdname ui-helpers
+#' @export
+ui_plain_action_button <- function(...) {
+    btn <- shiny::actionButton(...)
+    return(htmltools::tagQuery(btn)$removeClass("btn-default")$allTags())
 }
