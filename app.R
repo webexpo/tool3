@@ -93,9 +93,9 @@ ui <- bslib::page_sidebar(
             title = shiny::textOutput("menu_global_title", tags$span),
             icon  = ui_menu_icon(),
 
-            "Exceedance Fraction",
-            "Percentiles",
-            "Arithmetic Mean"
+            ui_panel_exceedance_fraction("panel_global_fraction"),
+            ui_panel_percentiles("panel_global_percentiles"),
+            ui_panel_arithmetic_mean("panel_global_mean")
         ),
 
         bslib::nav_menu(
@@ -249,37 +249,29 @@ server <- function(input, output, session) {
         use_cats_in_qq_plot = TRUE
     )
 
-    # panel_express_title <- server_panel_express(
-    #     id          = "panel_express",
-    #     lang        = lang,
-    #     inputs_calc = inputs_calc,
-    #     simulations = simulations,
-    #     results     = results
-    # )
+    panel_global_fraction_title <- server_panel_exceedance_fraction(
+        id          = "panel_global_fraction",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        simulations = simulations,
+        results     = results
+    )
 
-    # panel_fraction_title <- server_panel_exceedance_fraction(
-    #     id          = "panel_fraction",
-    #     lang        = lang,
-    #     inputs_calc = inputs_calc,
-    #     simulations = simulations,
-    #     results     = results
-    # )
+    panel_global_percentiles_title <- server_panel_percentiles(
+        id          = "panel_global_percentiles",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        simulations = simulations,
+        results     = results
+    )
 
-    # panel_percentiles_title <- server_panel_percentiles(
-    #     id          = "panel_percentiles",
-    #     lang        = lang,
-    #     inputs_calc = inputs_calc,
-    #     simulations = simulations,
-    #     results     = results
-    # )
-
-    # panel_mean_title <- server_panel_arithmetic_mean(
-    #     id          = "panel_mean",
-    #     lang        = lang,
-    #     inputs_calc = inputs_calc,
-    #     simulations = simulations,
-    #     results     = results
-    # )
+    panel_global_mean_title <- server_panel_arithmetic_mean(
+        id          = "panel_global_mean",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        simulations = simulations,
+        results     = results
+    )
 
     # Outputs ------------------------------------------------------------------
 
@@ -300,7 +292,10 @@ server <- function(input, output, session) {
 
     output$panel_title <- shiny::renderText({
         switch(input$panel_active,
-            panel_stats = panel_stats_title()
+            panel_stats              = panel_stats_title(),
+            panel_global_fraction    = panel_global_fraction_title(),
+            panel_global_percentiles = panel_global_percentiles_title(),
+            panel_global_mean        = panel_global_mean_title()
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
@@ -308,10 +303,26 @@ server <- function(input, output, session) {
     # FIXME: Should this be moved to modules like titles?
     # Should titles be moved here? To be determined.
     output$panel_description <- shiny::renderText({
+        lang <- lang()
         switch(input$panel_active,
-            panel_stats = translate(lang = lang(), "
+            panel_stats = translate(lang = lang, "
                 Use this panel only to ensure that measurements were parsed as
                 expected. See Frequently Asked Questions for more information.
+            "),
+            panel_global_fraction = translate(lang = lang, "
+                Use this panel to perform a risk analysis on the dataset as a
+                whole, without taking into account any stratification variable,
+                and using the exceedance fraction as the risk metric.
+            "),
+            panel_global_percentiles = translate(lang = lang, "
+                Use this panel to perform a risk analysis on the dataset as a
+                whole, without taking into account any stratification variable,
+                and using the chosen critical percentile as the risk metric.
+            "),
+            panel_global_mean = translate(lang = lang, "
+                Use this panel to perform a risk analysis on the dataset as a
+                whole, without taking into account any stratification variable,
+                and using the arithmetic mean as the risk metric.
             ")
         )
     }) |>
