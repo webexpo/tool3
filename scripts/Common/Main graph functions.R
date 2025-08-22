@@ -287,7 +287,7 @@ sequential.plot.am <-function(gm , gsd , am , c.oel ,
 
                frac.dep <-frac
 
-               mydata <-data.frame(x=seq(min,max,length=5000))
+               mydata <-data.frame(x=seq(min,max,length.out=5000))
                mydata$y<- dlnorm(mydata$x,meanlog=mu,sdlog=sigma)
 
                graph3 <-ggplot(data=mydata, aes(x=x))+
@@ -348,7 +348,7 @@ sequential.plot.am <-function(gm , gsd , am , c.oel ,
         min <-exp(qnorm( 0.001, mu , sigma ))
         max <-exp(qnorm( 0.98 , mu , sigma ))
 
-        mydata <-data.frame(x=seq(min,max,length=5000))
+        mydata <-data.frame(x=seq(min,max,length.out=5000))
         mydata$y<- dlnorm(mydata$x,meanlog=mu,sdlog=sigma)
 
         graph3 <-ggplot(data=mydata, aes(x=x))+
@@ -409,7 +409,7 @@ sequential.plot.am <-function(gm , gsd , am , c.oel ,
     min <-exp(qnorm( 0.001, mu , sigma ))
     max <-exp(qnorm( 0.98 , mu , sigma ))
 
-    mydata <-data.frame(x=seq(min,max,length=5000))
+    mydata <-data.frame(x=seq(min,max,length.out=5000))
     mydata$y<- dlnorm(mydata$x,meanlog=mu,sdlog=sigma)
 
     graph7 <-ggplot(data=mydata, aes(x=x))+
@@ -872,7 +872,7 @@ dessinerRisqueMetre.G <- function(actualProb, minProbUnacceptable=0.05, minProbU
   circle <- function(center=c(0,0), radius=1, npoints=100)
   {
     r = radius
-    tt = seq(0, 2*pi, length=npoints)
+    tt = seq(0, 2*pi, length.out=npoints)
     xx = center[1] + r * cos(tt)
     yy = center[1] + r * sin(tt)
     return(data.frame(x = xx, y = yy))
@@ -908,7 +908,7 @@ dessinerRisqueMetre.G <- function(actualProb, minProbUnacceptable=0.05, minProbU
   ticks <- function(center=c(0,0), from=0, to=2*pi, radius=0.9, npoints=5)
   {
     r = radius
-    tt = seq(from, to, length=npoints)
+    tt = seq(from, to, length.out=npoints)
     xx = center[1] + r * cos(tt)
     yy = center[1] + r * sin(tt)
     heatColors <- heat.colors(npoints, .5)
@@ -932,7 +932,7 @@ dessinerRisqueMetre.G <- function(actualProb, minProbUnacceptable=0.05, minProbU
   ticks2 <- function(pFrom, pTo, npoints=5, radius=0.9)
   {
     r <- radius
-    ps <- seq(pFrom, pTo, length=npoints)
+    ps <- seq(pFrom, pTo, length.out=npoints)
     xx = sapply(ps, function(p) { return (slice2xy(p, radius)$x)})
     yy = sapply(ps, function(p) { return (slice2xy(p, radius)$y)})
     return(data.frame(x = xx, y = yy))
