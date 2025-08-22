@@ -140,10 +140,12 @@ server <- function(input, output, session) {
     # Step 2: Generate Bayesian simulations of the
     # mean and standard deviation on the log scale.
     # NOTE: Refactored.
-    simulations <- shiny::ExtendedTask$new(\() {
-        future::future({
-            data_sample <- data_sample()
 
+    # Step 2.1: Create a shiny::ExtendedTask object to
+    # be invoked (executed) later. Its sole purpose is
+    # to call fun.bayes.jags().
+    simulations_task <- shiny::ExtendedTask$new(\(data_sample = list()) {
+        future::future(conditions = NULL, {
             fun.bayes.jags(
                 observations  = data_sample$data,
                 notcensored   = data_sample$notcensored,
@@ -157,6 +159,23 @@ server <- function(input, output, session) {
         })
     }) |>
     bslib::bind_task_button(btn_submit_id)
+
+    # Step 2.2: Invoke the shiny::ExtendedTask
+    # object, using data_sample() as its input.
+    # Since it returns immediately, $result()
+    # cannot be called right after $invoke().
+    # This is deferred to Shiny's flush cycle.
+    invoke_simulations_task <- shiny::reactive({
+        simulations_task$invoke(data_sample())
+    })
+
+    # Step 2.3: Call invoke_simulations_task() to
+    # start computations, and fetch results once
+    # they are ready.
+    simulations <- shiny::reactive({
+        invoke_simulations_task()
+        simulations_task$result()
+    })
 
     # Step 3: Compute outputs from calculation
     # parameters and simulated values. Format
