@@ -24,19 +24,12 @@ ui <- bslib::page_sidebar(
     window_title = "Expostats - Tool 3",
     theme        = bslib::bs_theme(5L, "shiny"),
     title        = ui_title("layout_title"),
-    sidebar      = {
-        # ui_sidebar() returns an attribute named btn_submit_id
-        # which is the namespaced identifier of the main Submit
-        # button of the Sidebar module. It is required to attach
-        # an ExtendedTask to it. See below in server().
-        sidebar <- ui_sidebar("layout_sidebar")
 
-        # Assign value of attribute btn_submit_id to
-        # variable btn_submit_id in the global environment.
-        btn_submit_id <<- attr(sidebar, "btn_submit_id", TRUE)
-
-        sidebar
-    },
+    # ui_sidebar() returns an attribute named btn_submit_id
+    # which is the namespaced identifier of the main Submit
+    # button of the Sidebar module. It is required to attach
+    # an ExtendedTask to it. See below in server().
+    sidebar = sidebar <- ui_sidebar("layout_sidebar"),
 
     # <head> -------------------------------------------------------------------
 
@@ -143,22 +136,7 @@ server <- function(input, output, session) {
 
     # Step 2.1: Create a shiny::ExtendedTask object to
     # be invoked (executed) later. Its sole purpose is
-    # to call fun.bayes.jags().
-    simulations_task <- shiny::ExtendedTask$new(\(data_sample = list()) {
-        future::future(conditions = NULL, {
-            fun.bayes.jags(
-                observations  = data_sample$data,
-                notcensored   = data_sample$notcensored,
-                leftcensored  = data_sample$leftcensored,
-                rightcensored = data_sample$rightcensored,
-                intcensored   = data_sample$intcensored,
-                seed          = data_sample$seed,
-                c.oel         = data_sample$c.oel,
-                n.iter        = getOption("app_number_bayes_iter")
-            )
-        })
-    }) |>
-    bslib::bind_task_button(btn_submit_id)
+    bslib::bind_task_button(attr(sidebar, "btn_submit_id", TRUE))
 
     # Step 2.2: Invoke the shiny::ExtendedTask
     # object, using data_sample() as its input.
