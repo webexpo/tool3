@@ -27,8 +27,10 @@
 #' @template param-lang
 #'
 #' @returns
-#' [ui_sidebar()] returns a `bslib_sidebar` object
-#' (an output of [bslib::sidebar()]).
+#' [ui_sidebar()] returns a `bslib_sidebar` object (an output of
+#' [bslib::sidebar()]). It has one attribute named `btn_submit_id`
+#' holding the full namespaced identifier of the module's Submit
+#' button.
 #'
 #' [server_sidebar()] returns a [shiny::reactive()] object. For more
 #' information, consult the source text passed to related tooltips in
