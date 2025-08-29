@@ -159,7 +159,14 @@ server_panel_descriptive_statistics <- function(
         shiny::bindCache(lang())
 
         data_sample_imputed <- shiny::reactive({
-            data_sample <- data_sample()
+            data_sample <- if (use_categories) {
+                data_sample()
+            } else {
+                select.cat.formatted(
+                    data.formatted = data_sample(),
+                    cat            = inputs_calc()$data_chosen_category
+                )
+            }
 
             simple.censored.treatment(
                 observations.formatted = data_sample$data,
