@@ -25,8 +25,9 @@
 #' -------------------------------------------------
 #' ```
 #'
-#' @param use_cats_in_qq_plot A logical. Use colors to illustrate categories
-#'   of the variable of interest in the quantile-quantile plot?
+#' @param use_categories A logical. Should measurements be subset based on
+#'   their categories? Categories are levels (unique values) stemming from
+#'   a variable of interest used as a stratification variable.
 #'
 #' @template param-id
 #'
@@ -142,13 +143,13 @@ server_panel_descriptive_statistics <- function(
     lang,
     inputs_calc,
     data_sample,
-    use_cats_in_qq_plot = FALSE)
+    use_categories = FALSE)
 {
     stopifnot(exprs = {
         shiny::is.reactive(lang)
         shiny::is.reactive(inputs_calc)
         shiny::is.reactive(data_sample)
-        is_lgl1(use_cats_in_qq_plot)
+        is_lgl1(use_categories)
     })
 
     server <- function(input, output, session) {
@@ -238,16 +239,15 @@ server_panel_descriptive_statistics <- function(
             as_html_table(stats, colnames = dim_names$cols)
         })
 
-        # FIXME: add this new version to Tool 1 for consistency.
-        output$qq_plot <- if (use_cats_in_qq_plot) {
+        output$qq_plot <- if (use_categories) {
             shiny::renderPlot({
                 lang <- lang()
-                data_sample <- data_sample()
+                data_sample_imputed <- data_sample_imputed()
 
                 fun.qqplot.group.D(
-                    data.simply.imputed = data_sample_imputed(),
-                    notcensored         = data_sample$notcensored,
-                    cats                = data_sample$var,
+                    data.simply.imputed = data_sample_imputed,
+                    notcensored         = data_sample_imputed$notcensored,
+                    cats                = data_sample()$var,
                     qqplot.1            = translate(lang = lang, "Quantile-Quantile Plot"),
                     qqplot.2            = translate(lang = lang, "Quantiles (Lognormal Distribution)"),
                     qqplot.3            = translate(lang = lang, "Quantiles (Standardized Measurements)"),
@@ -260,10 +260,11 @@ server_panel_descriptive_statistics <- function(
         } else {
             shiny::renderPlot({
                 lang <- lang()
+                data_sample_imputed <- data_sample_imputed()
 
                 fun.qqplot(
-                    data.simply.imputed = data_sample_imputed(),
-                    notcensored         = data_sample()$notcensored,
+                    data.simply.imputed = data_sample_imputed,
+                    notcensored         = data_sample_imputed$notcensored,
                     qqplot.1            = translate(lang = lang, "Quantile-Quantile Plot"),
                     qqplot.2            = translate(lang = lang, "Quantiles (Lognormal Distribution)"),
                     qqplot.3            = translate(lang = lang, "Quantiles (Standardized Measurements)"),
@@ -286,12 +287,12 @@ server_panel_descriptive_statistics <- function(
 
         output$box_plot <- shiny::renderPlot({
             lang <- lang()
-            data_sample <- data_sample()
+            data_sample_imputed <- data_sample_imputed()
 
             fun.boxplot(
-                data.simply.imputed = data_sample_imputed(),
-                notcensored         = data_sample$notcensored,
-                c.oel               = data_sample$c.oel,
+                data.simply.imputed = data_sample_imputed,
+                notcensored         = data_sample_imputed$notcensored,
+                c.oel               = data_sample()$c.oel,
                 boxplot.1           = translate(lang = lang, "Measurement Type"),
                 boxplot.2           = translate(lang = lang, "Concentration"),
                 boxplot.3           = translate(lang = lang, "OEL"),
