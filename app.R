@@ -37,6 +37,8 @@ ui <- bslib::page_sidebar(
 
     # <main> -------------------------------------------------------------------
 
+    ui_banner("busy_banner"),
+
     bslib::navset_card_underline(
         id       = "panel_active",
         selected = "panel_stats",
@@ -232,7 +234,7 @@ server <- function(input, output, session) {
         panel_active = shiny::reactive({ input$panel_active })
     )
 
-    # server_banner(id = "busy_banner", lang = lang)
+    server_banner(id = "busy_banner", lang = lang)
 
     # Each server_panel_*() function below returns a
     # shiny::reactive() object that can be called to
