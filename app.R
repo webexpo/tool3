@@ -209,6 +209,21 @@ server <- function(input, output, session) {
         c(results, formatted)
     })
 
+    # Other Reactives ----------------------------------------------------------
+
+    menu_active <- shiny::reactive({
+        switch(input$panel_active,
+            panel_global_fraction    = "global",
+            panel_global_percentiles = "global",
+            panel_global_mean        = "global",
+            panel_single_fraction    = "single",
+            panel_single_percentiles = "single",
+            panel_single_mean        = "single",
+            panel_single_stats       = "single",
+            "none"
+        )
+    })
+
     btn_panel_description_tooltip_text <- shiny::reactive({
         translate(lang = lang(), "
             Toggle the panel's short description below.
@@ -222,7 +237,6 @@ server <- function(input, output, session) {
     # objects that can be used to get the UI's
     # current language, mode, and color.
     inputs_ui <- server_title("layout_title")
-
     lang <- inputs_ui$lang
 
     # This returns a shiny::reactive() object
