@@ -118,7 +118,6 @@ ui <- bslib::page_sidebar(
 server <- function(input, output, session) {
     # Step 1: Collect calculation parameters from
     # user and format the data sample it provided.
-    # NOTE: Refactored.
     data_sample <- shiny::reactive({
         inputs_calc <- inputs_calc()
 
@@ -131,8 +130,8 @@ server <- function(input, output, session) {
     })
 
     # Step 2: Generate Bayesian simulations of the
-    # mean and standard deviation on the log scale.
-    # NOTE: Refactored.
+    # mean and standard deviation on the log scale
+    # for Global Risk Analysis Panels.
 
     # Step 2.1: Create a shiny::ExtendedTask object to
     # be invoked (executed) later. Its sole purpose is
