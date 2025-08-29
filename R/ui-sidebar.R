@@ -107,6 +107,7 @@ ui_sidebar <- function(id) {
             min     = 0,
             max     = 100
         ) |>
+        shinyjs::hidden() |>
         bslib::tooltip(id = ns("frac_threshold_tooltip"), ""),
 
         shiny::numericInput(
@@ -116,10 +117,9 @@ ui_sidebar <- function(id) {
             min     = 0,
             max     = 100
         ) |>
+        shinyjs::hidden() |>
         bslib::tooltip(id = ns("target_perc_tooltip"), ""),
 
-        # FIXME: This used to be identified by 'file1' in version 3. Changing
-        # this name may break things.
         file_input(
             inputId     = ns("data"),
             label       = "",
@@ -324,10 +324,13 @@ server_sidebar <- function(id, lang, panel_active) {
 
         data_chosen_variable_tooltip_text <- shiny::reactive({
             translate(lang = lang(), "
-                The variable to focus on when performing one-way analyses. This
-                can only be set after successfully importing a measurement
-                dataset. See Measurements above. Variable names are extracted
-                from the file's header (first line).
+                The stratification variable to focus on when performing one-way
+                analyses. This can only be set after successfully importing a
+                measurement dataset. See Measurements above. Variable names are
+                extracted from the file's header (first line).
+            ")
+        }) |>
+        shiny::bindCache(lang())
             ")
         }) |>
         shiny::bindCache(lang())
@@ -407,8 +410,10 @@ server_sidebar <- function(id, lang, panel_active) {
 
         # Clear data and the underlying uploaded file.
         shiny::observe({
-            # Remove the cached file from the server (safer).
-            file.remove(input$data$datapath)
+            # Remove the cached file from the server.
+            # Clicking on input$btn_clear multiple times triggers
+            # warnings for non-existent files. These are discared.
+            suppressWarnings(file.remove(input$data$datapath))
 
             # Clear the input showing uploaded file's name.
             shiny::updateTextInput(inputId = "data-input-filename", value = "")
@@ -417,7 +422,6 @@ server_sidebar <- function(id, lang, panel_active) {
             shinyjs::removeClass("data-input-filename", "is-valid is-invalid")
 
             # Clear choices of input data_chosen_variable.
-            # These were extracted from uploaded file.
             shiny::updateSelectInput(
                 inputId = "data_chosen_variable",
                 choices = ""
@@ -425,9 +429,31 @@ server_sidebar <- function(id, lang, panel_active) {
 
             # Disable related inputs until a new file is uploaded.
             shinyjs::disable("btn_submit")
-            shinyjs::disable("data_chosen_variable")
+            shinyjs::toggleState("data_chosen_variable")
         }) |>
         shiny::bindEvent(input$btn_clear)
+
+        # Show inputs that are specific to certain panels.
+        # Identifiers are hardcoded to keep the code as simple as possible.
+        shiny::observe({
+            panel_active <- panel_active()
+
+            shinyjs::toggle("frac_threshold", condition = {
+                panel_active %in% c(
+                    "panel_global_fraction",
+                    "panel_single_fraction"
+                )
+            })
+
+            shinyjs::toggle("target_perc", condition = {
+                panel_active %in% c(
+                    "panel_global_percentiles",
+                    "panel_single_percentiles"
+                )
+            })
+
+        }) |>
+        shiny::bindEvent(panel_active())
 
         # Translate elements not rendered
         # with a shiny::render*() function.
