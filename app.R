@@ -72,7 +72,7 @@ ui <- bslib::page_sidebar(
 
             # Panel's short description.
             bslib::card_header(
-                id    = "panel_description_header",
+                id = "panel_description_header",
 
                 tags$small(
                     class = "opacity-75",
@@ -94,23 +94,32 @@ ui <- bslib::page_sidebar(
         ),
 
         bslib::nav_menu(
+            value = "menu_single",
+            title = shiny::textOutput("menu_single_title", tags$span),
+            icon  = ui_menu_icon(),
+
+            ui_panel_exceedance_fraction("panel_single_fraction"),
+            ui_panel_percentiles("panel_single_percentiles"),
+            ui_panel_arithmetic_mean("panel_single_mean"),
+
+            # Add a divider and a header explaining why
+            # there is a second About My Measurements panel.
+            bslib::nav_item(tags$hr(class = "dropdown-divider")),
+
+            shiny::textOutput("menu_single_panel_stats_header", tags$span) |>
+            htmltools::tagAppendAttributes(class = "dropdown-header") |>
+            bslib::nav_item(),
+
+            ui_panel_descriptive_statistics("panel_single_stats")
+        ),
+
+        bslib::nav_menu(
             value = "menu_comparisons",
             title = shiny::textOutput("menu_comparisons_title", tags$span),
             icon  = ui_menu_icon(),
 
             "All Categories",
             "Two Categories"
-        ),
-
-        bslib::nav_menu(
-            value = "menu_single",
-            title = shiny::textOutput("menu_single_title", tags$span),
-            icon  = ui_menu_icon(),
-
-            "About My Measurements",
-            "Exceedance Fraction",
-            "Percentiles",
-            "Arithmetic Mean"
         )
     )
 )
@@ -137,28 +146,66 @@ server <- function(input, output, session) {
 
     # Step 2.1: Create a shiny::ExtendedTask object to
     # be invoked (executed) later. Its sole purpose is
+    # to call Webexpo's simulation functions.
+    simulations_task <- shiny::ExtendedTask$new(
+        function(
+            data_sample          = list(),
+            data_chosen_category = "",
+            menu_active          = "",
+            n_iter               = getOption("app_number_bayes_iter"))
+        {
+            future::future(conditions = NULL, {
+                switch(menu_active,
+                    global = fun.bayes.jags(
+                        observations  = data_sample$data,
+                        notcensored   = data_sample$notcensored,
+                        leftcensored  = data_sample$leftcensored,
+                        rightcensored = data_sample$rightcensored,
+                        intcensored   = data_sample$intcensored,
+                        seed          = data_sample$seed,
+                        c.oel         = data_sample$c.oel,
+                        n.iter        = n_iter
+                    ),
+
+                    single = fun.bayes.jags.D(
+                        data.formatted = data_sample,
+                        n.iter         = n_iter
+                    ) |>
+                    bayesian.output.B.single(cat = data_chosen_category),
+
+                    # comparative, or none (default).
+                    fun.bayes.jags.D(
+                        data.formatted = data_sample,
+                        n.iter         = n_iter
+                    )
+                )
+            })
+        }
+    ) |>
     bslib::bind_task_button(attr(sidebar, "btn_submit_id", TRUE))
 
     # Step 2.2: Invoke the shiny::ExtendedTask
-    # object, using data_sample() as its input.
-    # Since it returns immediately, $result()
-    # cannot be called right after $invoke().
-    # This is deferred to Shiny's flush cycle.
+    # object. Since it returns immediately,
+    # $result() cannot be called right after
+    # $invoke(). This is deferred to Shiny's
+    # flush cycle.
     invoke_simulations_task <- shiny::reactive({
-        simulations_task$invoke(data_sample())
-    })
+        simulations_task$invoke(
+            data_sample(),
+            inputs_calc()$data_chosen_category,
+            menu_active()
+        )
+    }) |>
+    shiny::bindEvent(data_sample(), menu_active())
 
-    # Step 2.3: Call invoke_simulations_task() to
-    # start computations, and fetch results once
-    # they are ready.
+    # Step 2.3: Invoke simulations_task_global(),
+    # and fetch results once they are ready.
     simulations <- shiny::reactive({
         invoke_simulations_task()
         simulations_task$result()
     })
 
-    # Step 3: Compute outputs from calculation
-    # parameters and simulated values. Format
-    # them for displaying purposes.
+    # Step 3: Format results.
     results <- shiny::reactive({
         # data_sample() computes c.oel
         # form oel and oel_multiplier.
@@ -254,11 +301,11 @@ server <- function(input, output, session) {
     # shiny::reactive() object that can be called to
     # get the underlying panel's title.
     panel_stats_title <- server_panel_descriptive_statistics(
-        id                  = "panel_stats",
-        lang                = lang,
-        inputs_calc         = inputs_calc,
-        data_sample         = data_sample,
-        use_cats_in_qq_plot = TRUE
+        id             = "panel_stats",
+        lang           = lang,
+        inputs_calc    = inputs_calc,
+        data_sample    = data_sample,
+        use_categories = TRUE
     )
 
     panel_global_fraction_title <- server_panel_exceedance_fraction(
@@ -285,10 +332,47 @@ server <- function(input, output, session) {
         results     = results
     )
 
+    panel_single_fraction_title <- server_panel_exceedance_fraction(
+        id          = "panel_single_fraction",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        simulations = simulations,
+        results     = results
+    )
+
+    panel_single_percentiles_title <- server_panel_percentiles(
+        id          = "panel_single_percentiles",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        simulations = simulations,
+        results     = results
+    )
+
+    panel_single_mean_title <- server_panel_arithmetic_mean(
+        id          = "panel_single_mean",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        simulations = simulations,
+        results     = results
+    )
+
+    panel_single_stats_title <- server_panel_descriptive_statistics(
+        id             = "panel_single_stats",
+        lang           = lang,
+        inputs_calc    = inputs_calc,
+        data_sample    = data_sample,
+        use_categories = FALSE
+    )
+
     # Outputs ------------------------------------------------------------------
 
     output$menu_global_title <- shiny::renderText({
         translate(lang = lang(), "Global Risk Analysis")
+    }) |>
+    shiny::bindCache(lang())
+
+    output$menu_single_title <- shiny::renderText({
+        translate(lang = lang(), "Single-Category Risk Analysis")
     }) |>
     shiny::bindCache(lang())
 
@@ -297,8 +381,8 @@ server <- function(input, output, session) {
     }) |>
     shiny::bindCache(lang())
 
-    output$menu_single_title <- shiny::renderText({
-        translate(lang = lang(), "Single Category")
+    output$menu_single_panel_stats_header <- shiny::renderText({
+        translate(lang = lang(), "Check Measurements Subsets")
     }) |>
     shiny::bindCache(lang())
 
@@ -307,13 +391,19 @@ server <- function(input, output, session) {
             panel_stats              = panel_stats_title(),
             panel_global_fraction    = panel_global_fraction_title(),
             panel_global_percentiles = panel_global_percentiles_title(),
-            panel_global_mean        = panel_global_mean_title()
+            panel_global_mean        = panel_global_mean_title(),
+            panel_single_fraction    = panel_single_fraction_title(),
+            panel_single_percentiles = panel_single_percentiles_title(),
+            panel_single_mean        = panel_single_mean_title(),
+            panel_single_stats       = panel_single_stats_title()
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
 
-    # FIXME: Should this be moved to modules like titles?
-    # Should titles be moved here? To be determined.
+    # Descriptions change based on the context and on
+    # how panels are meant to be used. Therefore, they
+    # are kept here, outside of the underlying modules
+    # (contrarily to titles).
     output$panel_description <- shiny::renderText({
         lang <- lang()
         switch(input$panel_active,
@@ -322,20 +412,45 @@ server <- function(input, output, session) {
                 expected. See Frequently Asked Questions for more information.
             "),
             panel_global_fraction = translate(lang = lang, "
-                Use this panel to perform a risk analysis on the dataset as a
-                whole, without taking into account any stratification variable,
-                and using the exceedance fraction as the risk metric.
+                Use this panel to perform a risk analysis on all measurements,
+                without taking into account any stratification variable, and
+                using the exceedance fraction as the risk metric.
             "),
             panel_global_percentiles = translate(lang = lang, "
-                Use this panel to perform a risk analysis on the dataset as a
-                whole, without taking into account any stratification variable,
-                and using the chosen critical percentile as the risk metric.
+                Use this panel to perform a risk analysis on all measurements,
+                without taking into account any stratification variable, and
+                using the chosen critical percentile as the risk metric.
             "),
             panel_global_mean = translate(lang = lang, "
-                Use this panel to perform a risk analysis on the dataset as a
+                Use this panel to perform a risk analysis on all measurements,
                 whole, without taking into account any stratification variable,
                 and using the arithmetic mean as the risk metric.
-            ")
+            "),
+            panel_single_fraction = translate(lang = lang, "
+                Use this panel to perform a risk analysis on a subset of the
+                measurements determined by a category of a variable of interest
+                (treated as a stratification variable), and using the exceedance
+                fraction as the risk metric.
+            "),
+            panel_single_percentiles = translate(lang = lang, "
+                Use this panel to perform a risk analysis on a subset of the
+                measurements determined by a category of a variable of interest
+                (treated as a stratification variable), and using the chosen
+                critical percentile as the risk metric.
+            "),
+            panel_single_mean = translate(lang = lang, "
+                Use this panel to perform a risk analysis on a subset of the
+                measurements determined by a category of a variable of interest
+                (treated as a stratification variable), and using the arithmetic
+                mean as the risk metric.
+            "),
+            panel_single_stats = translate(lang = lang, "
+                Use this panel only to ensure that the subset of measurements
+                determined by a category of a variable of interest was parsed
+                as expected. See Frequently Asked Questions for more information.
+            "),
+            # Default case (never used).
+            NULL
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
