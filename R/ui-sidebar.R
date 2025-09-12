@@ -513,14 +513,16 @@ server_sidebar <- function(id, lang, panel_active) {
             shinyjs::toggle("frac_threshold", condition = {
                 panel_active %in% c(
                     "panel_global_fraction",
-                    "panel_single_fraction"
+                    "panel_single_fraction",
+                    "panel_categories_comparisons"
                 )
             })
 
             shinyjs::toggle("target_perc", condition = {
                 panel_active %in% c(
                     "panel_global_percentiles",
-                    "panel_single_percentiles"
+                    "panel_single_percentiles",
+                    "panel_categories_comparisons"
                 )
             })
 
@@ -529,7 +531,8 @@ server_sidebar <- function(id, lang, panel_active) {
                     "panel_single_fraction",
                     "panel_single_percentiles",
                     "panel_single_mean",
-                    "panel_single_stats"
+                    "panel_single_stats",
+                    "panel_categories_comparisons"
                 )
             })
         }) |>
@@ -568,6 +571,7 @@ server_sidebar <- function(id, lang, panel_active) {
                     oel                  = input$oel,
                     data                 = data(),
                     data_variables       = data_variables(),
+                    data_categories      = data_categories(),
                     data_chosen_variable = input$data_chosen_variable,
                     data_chosen_category = input$data_chosen_category,
                     oel_multiplier       = input$oel_multiplier,

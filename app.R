@@ -114,11 +114,11 @@ ui <- bslib::page_sidebar(
         ),
 
         bslib::nav_menu(
-            value = "menu_comparisons",
-            title = shiny::textOutput("menu_comparisons_title", tags$span),
+            value = "menu_categories",
+            title = shiny::textOutput("menu_categories_title", tags$span),
             icon  = ui_menu_icon(),
 
-            "All Categories",
+            ui_panel_categories_comparisons("panel_categories_comparisons"),
             "Two Categories"
         )
     )
@@ -173,7 +173,7 @@ server <- function(input, output, session) {
                     ) |>
                     bayesian.output.B.single(cat = data_chosen_category),
 
-                    # comparative, or none (default).
+                    # categories, or none (default).
                     fun.bayes.jags.D(
                         data.formatted = data_sample,
                         n.iter         = n_iter
@@ -260,13 +260,14 @@ server <- function(input, output, session) {
 
     menu_active <- shiny::reactive({
         switch(input$panel_active,
-            panel_global_fraction    = "global",
-            panel_global_percentiles = "global",
-            panel_global_mean        = "global",
-            panel_single_fraction    = "single",
-            panel_single_percentiles = "single",
-            panel_single_mean        = "single",
-            panel_single_stats       = "single",
+            panel_global_fraction        = "global",
+            panel_global_percentiles     = "global",
+            panel_global_mean            = "global",
+            panel_single_fraction        = "single",
+            panel_single_percentiles     = "single",
+            panel_single_mean            = "single",
+            panel_single_stats           = "single",
+            panel_categories_comparisons = "categories",
             "none"
         )
     })
@@ -364,6 +365,14 @@ server <- function(input, output, session) {
         use_categories = FALSE
     )
 
+    panel_categories_comparisons_title <- server_panel_categories_comparisons(
+        id          = "panel_categories_comparisons",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        data_sample = data_sample,
+        simulations = simulations
+    )
+
     # Outputs ------------------------------------------------------------------
 
     output$menu_global_title <- shiny::renderText({
@@ -376,8 +385,8 @@ server <- function(input, output, session) {
     }) |>
     shiny::bindCache(lang())
 
-    output$menu_comparisons_title <- shiny::renderText({
-        translate(lang = lang(), "Comparisons")
+    output$menu_categories_title <- shiny::renderText({
+        translate(lang = lang(), "Categories Comparisons")
     }) |>
     shiny::bindCache(lang())
 
@@ -388,14 +397,15 @@ server <- function(input, output, session) {
 
     output$panel_title <- shiny::renderText({
         switch(input$panel_active,
-            panel_stats              = panel_stats_title(),
-            panel_global_fraction    = panel_global_fraction_title(),
-            panel_global_percentiles = panel_global_percentiles_title(),
-            panel_global_mean        = panel_global_mean_title(),
-            panel_single_fraction    = panel_single_fraction_title(),
-            panel_single_percentiles = panel_single_percentiles_title(),
-            panel_single_mean        = panel_single_mean_title(),
-            panel_single_stats       = panel_single_stats_title()
+            panel_stats                  = panel_stats_title(),
+            panel_global_fraction        = panel_global_fraction_title(),
+            panel_global_percentiles     = panel_global_percentiles_title(),
+            panel_global_mean            = panel_global_mean_title(),
+            panel_single_fraction        = panel_single_fraction_title(),
+            panel_single_percentiles     = panel_single_percentiles_title(),
+            panel_single_mean            = panel_single_mean_title(),
+            panel_single_stats           = panel_single_stats_title(),
+            panel_categories_comparisons = panel_categories_comparisons_title()
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
@@ -448,6 +458,11 @@ server <- function(input, output, session) {
                 Use this panel only to ensure that the subset of measurements
                 determined by a category of a variable of interest was parsed
                 as expected. See Frequently Asked Questions for more information.
+            "),
+            panel_categories_comparisons = translate(lang = lang, "
+                Use this panel to compare subsets of measurements determined by
+                categories of a variable of interest (treated as a
+                stratification variable).
             "),
             # Default case (never used).
             NULL
