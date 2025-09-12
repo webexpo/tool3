@@ -230,17 +230,16 @@ server_panel_descriptive_statistics <- function(
         shiny::bindCache(lang())
 
         output$box_plot_title <- shiny::renderText({
-            translate(lang = lang(), "Box and Whiskers Plot")
+            translate(lang = lang(), "Box and Whisker Plot")
         }) |>
         shiny::bindCache(lang())
 
         output$stats <- shiny::renderUI({
-            lang <- lang()
             dim_names <- stats_dim_names()
             stats <- fun.desc.stat(data_sample_imputed(), data_sample()$c.oel)
 
             # Overwrite internal row names. They are stored in
-            # the first column of whatfun.desc.stat() returns.
+            # the first column of what fun.desc.stat() returns.
             stats$parameter <- dim_names$rows
 
             as_html_table(stats, colnames = dim_names$cols)
@@ -313,12 +312,12 @@ server_panel_descriptive_statistics <- function(
             lang <- lang()
             html(
                 translate(lang = lang, "
-                    The measurements are scattered around the x-axis middle
-                    point. The box (outer horizontal lines) represents the
-                    distance between the %s and %s percentiles. The whiskers
-                    (vertical lines) represent the distance between the %s
-                    and %s percentiles. The inner black horizontal line is
-                    the median.
+                    The measurements are scattered around the around the
+                    midpoint of the x-axis. The box (outer horizontal lines)
+                    represents the distance between the %s and %s percentiles.
+                    The whisker (vertical line) represent the distance between
+                    the %s and %s percentiles. The inner black horizontal line
+                    is the median. The OEL is shown as a red line.
                 "),
                 ordinal(25L, lang),
                 ordinal(75L, lang),
