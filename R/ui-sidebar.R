@@ -222,7 +222,7 @@ server_sidebar <- function(id, lang, panel_active) {
         shiny::bindEvent(input$data)
 
         data_variables <- shiny::reactive({
-            names(data()[-measurements_column_index])
+            names(data())[-measurements_column_index]
         }) |>
         shiny::bindEvent(data())
 
