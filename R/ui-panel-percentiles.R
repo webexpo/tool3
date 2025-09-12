@@ -1,7 +1,7 @@
 #' Percentiles Panel Module
 #'
-#' This module controls the Percentiles panel component nested into the
-#' application's main [bslib::navset].
+#' This module controls the Percentiles panels nested into the application's
+#' main [bslib::navset].
 #'
 #' @template param-id
 #'

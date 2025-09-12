@@ -1,6 +1,6 @@
 #' Exceedance Fraction Panel Module
 #'
-#' This module controls the Exceedance Fraction panel component nested into the
+#' This module controls the Exceedance Fraction panels nested into the
 #' application's main [bslib::navset].
 #'
 #' @template param-id

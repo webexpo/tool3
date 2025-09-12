@@ -1,7 +1,7 @@
 #' Descriptive Statistics Panel Module
 #'
-#' This module controls the Descriptive Statistics panel component nested into
-#' the application's main [bslib::navset].
+#' This module controls the Descriptive Statistics panels nested into the
+#' application's main [bslib::navset].
 #'
 #' @param use_categories A logical. Should measurements be subset based on
 #'   their categories? Categories are levels (unique values) stemming from

@@ -1,7 +1,7 @@
 #' Arithmetic Mean Panel Module
 #'
-#' This module controls the Arithmetic Mean panel component nested into the
-#' application's main [bslib::navset].
+#' This module controls the Arithmetic Mean panels nested into the application's
+#' main [bslib::navset].
 #'
 #' @template param-id
 #'

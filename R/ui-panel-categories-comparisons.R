@@ -1,7 +1,7 @@
 #' Categories Comparisons Panel Module
 #'
-#' This module controls the Categories Comparisons panel component nested into
-#' the application's main [bslib::navset].
+#' This module controls the Categories Comparisons panel nested into the
+#' application's main [bslib::navset].
 #'
 #' @template param-id
 #'
