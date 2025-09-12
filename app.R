@@ -118,7 +118,7 @@ ui <- bslib::page_sidebar(
             title = shiny::textOutput("menu_categories_title", tags$span),
             icon  = ui_menu_icon(),
 
-            ui_panel_categories_comparisons("panel_categories_comparisons"),
+            ui_panel_categories_comparator_all("panel_categories_comparator_all"),
             "Two Categories"
         )
     )
@@ -260,14 +260,14 @@ server <- function(input, output, session) {
 
     menu_active <- shiny::reactive({
         switch(input$panel_active,
-            panel_global_fraction        = "global",
-            panel_global_percentiles     = "global",
-            panel_global_mean            = "global",
-            panel_single_fraction        = "single",
-            panel_single_percentiles     = "single",
-            panel_single_mean            = "single",
-            panel_single_stats           = "single",
-            panel_categories_comparisons = "categories",
+            panel_global_fraction           = "global",
+            panel_global_percentiles        = "global",
+            panel_global_mean               = "global",
+            panel_single_fraction           = "single",
+            panel_single_percentiles        = "single",
+            panel_single_mean               = "single",
+            panel_single_stats              = "single",
+            panel_categories_comparator_all = "categories",
             "none"
         )
     })
@@ -365,8 +365,8 @@ server <- function(input, output, session) {
         use_categories = FALSE
     )
 
-    panel_categories_comparisons_title <- server_panel_categories_comparisons(
-        id          = "panel_categories_comparisons",
+    panel_categories_comparator_all_title <- server_panel_categories_comparator_all(
+        id          = "panel_categories_comparator_all",
         lang        = lang,
         inputs_calc = inputs_calc,
         data_sample = data_sample,
@@ -397,15 +397,15 @@ server <- function(input, output, session) {
 
     output$panel_title <- shiny::renderText({
         switch(input$panel_active,
-            panel_stats                  = panel_stats_title(),
-            panel_global_fraction        = panel_global_fraction_title(),
-            panel_global_percentiles     = panel_global_percentiles_title(),
-            panel_global_mean            = panel_global_mean_title(),
-            panel_single_fraction        = panel_single_fraction_title(),
-            panel_single_percentiles     = panel_single_percentiles_title(),
-            panel_single_mean            = panel_single_mean_title(),
-            panel_single_stats           = panel_single_stats_title(),
-            panel_categories_comparisons = panel_categories_comparisons_title()
+            panel_stats                     = panel_stats_title(),
+            panel_global_fraction           = panel_global_fraction_title(),
+            panel_global_percentiles        = panel_global_percentiles_title(),
+            panel_global_mean               = panel_global_mean_title(),
+            panel_single_fraction           = panel_single_fraction_title(),
+            panel_single_percentiles        = panel_single_percentiles_title(),
+            panel_single_mean               = panel_single_mean_title(),
+            panel_single_stats              = panel_single_stats_title(),
+            panel_categories_comparator_all = panel_categories_comparator_all_title(),
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
@@ -459,7 +459,7 @@ server <- function(input, output, session) {
                 determined by a category of a variable of interest was parsed
                 as expected. See Frequently Asked Questions for more information.
             "),
-            panel_categories_comparisons = translate(lang = lang, "
+            panel_categories_comparator_all = translate(lang = lang, "
                 Use this panel to compare subsets of measurements determined by
                 categories of a variable of interest (treated as a
                 stratification variable).

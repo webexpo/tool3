@@ -25,7 +25,7 @@ Texts:
       - !<Location>
         Identifier: 7b6e07b:l1
         Path: ./app.R
-        Ranges: Ln 453, Col 33 @ Ln 458, Col 14
+        Ranges: Ln 463, Col 33 @ Ln 468, Col 14
   - !<Text>
     Identifier: 7385e52
     Algorithm: sha1
@@ -106,7 +106,7 @@ Texts:
       - !<Location>
         Identifier: b4ed1ff:l1
         Path: ./app.R
-        Ranges: Ln 386, Col 9 @ Ln 386, Col 65
+        Ranges: Ln 395, Col 9 @ Ln 395, Col 65
   - !<Text>
     Identifier: 550b3a4
     Algorithm: sha1
@@ -117,7 +117,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 550b3a4:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 207, Col 21 @ Ln 207, Col 88
   - !<Text>
     Identifier: f111efa
@@ -278,7 +278,7 @@ Texts:
       - !<Location>
         Identifier: 7526125:l1
         Path: ./app.R
-        Ranges: Ln 396, Col 9 @ Ln 396, Col 62
+        Ranges: Ln 405, Col 9 @ Ln 405, Col 62
   - !<Text>
     Identifier: 127c649
     Algorithm: sha1
@@ -319,7 +319,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: f92405e:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 205, Col 21 @ Ln 205, Col 88
   - !<Text>
     Identifier: be4154f
@@ -746,7 +746,7 @@ Texts:
         Ranges: Ln 547, Col 31 @ Ln 547, Col 72
       - !<Location>
         Identifier: 6db5beb:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 370, Col 37 @ Ln 370, Col 78
       - !<Location>
         Identifier: 6db5beb:l3
@@ -862,11 +862,7 @@ Texts:
       - !<Location>
         Identifier: d25bb61:l1
         Path: ./app.R
-        Ranges: Ln 391, Col 9 @ Ln 391, Col 58
-      - !<Location>
-        Identifier: d25bb61:l2
-        Path: ./R/ui-panel-categories-comparisons.R
-        Ranges: Ln 178, Col 13 @ Ln 178, Col 62
+        Ranges: Ln 400, Col 9 @ Ln 400, Col 58
   - !<Text>
     Identifier: a744f49
     Algorithm: sha1
@@ -957,7 +953,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 23eb033:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 374, Col 37 @ Ln 374, Col 90
       - !<Location>
         Identifier: 23eb033:l2
@@ -973,7 +969,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 0ff7e09:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 221, Col 13 @ Ln 221, Col 62
       - !<Location>
         Identifier: 0ff7e09:l2
@@ -996,7 +992,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: beda6d2:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 290, Col 17 @ Ln 300, Col 18
   - !<Text>
     Identifier: f73886c
@@ -1044,7 +1040,7 @@ Texts:
         Ranges: Ln 543, Col 31 @ Ln 543, Col 67
       - !<Location>
         Identifier: f10baab:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 373, Col 37 @ Ln 373, Col 73
       - !<Location>
         Identifier: f10baab:l3
@@ -1100,7 +1096,7 @@ Texts:
       - !<Location>
         Identifier: ee64607:l1
         Path: ./app.R
-        Ranges: Ln 464, Col 44 @ Ln 468, Col 14
+        Ranges: Ln 474, Col 47 @ Ln 478, Col 14
   - !<Text>
     Identifier: f69c2db
     Algorithm: sha1
@@ -1217,7 +1213,7 @@ Texts:
       - !<Location>
         Identifier: c08388a:l1
         Path: ./app.R
-        Ranges: Ln 381, Col 9 @ Ln 381, Col 56
+        Ranges: Ln 390, Col 9 @ Ln 390, Col 56
   - !<Text>
     Identifier: 6918de6
     Algorithm: sha1
@@ -1379,6 +1375,18 @@ Texts:
         Path: ./R/ui-panel-descriptive-statistics.R
         Ranges: Ln 183, Col 21 @ Ln 183, Col 75
   - !<Text>
+    Identifier: '8722638'
+    Algorithm: sha1
+    Hash: 8722638f14a0c170d8aa7df6aa9419f73fa645dd
+    Source Language: en
+    Source Text: Compare Two Categories
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 8722638:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 38, Col 13 @ Ln 38, Col 62
+  - !<Text>
     Identifier: 9797b53
     Algorithm: sha1
     Hash: 9797b53374920aa94a856e2cb860440171f90820
@@ -1432,7 +1440,7 @@ Texts:
         Ranges: Ln 546, Col 31 @ Ln 546, Col 71
       - !<Location>
         Identifier: 5f52075:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 369, Col 37 @ Ln 369, Col 77
       - !<Location>
         Identifier: 5f52075:l3
@@ -1474,7 +1482,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 4da8561:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 317, Col 36 @ Ln 317, Col 78
   - !<Text>
     Identifier: bda8863
@@ -1524,7 +1532,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: a5a2911:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 204, Col 21 @ Ln 204, Col 65
       - !<Location>
         Identifier: a5a2911:l2
@@ -1668,7 +1676,7 @@ Texts:
         Ranges: Ln 544, Col 31 @ Ln 544, Col 64
       - !<Location>
         Identifier: d257a4e:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 367, Col 37 @ Ln 367, Col 70
       - !<Location>
         Identifier: d257a4e:l3
@@ -1919,7 +1927,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 5bbca33:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 202, Col 21 @ Ln 202, Col 74
       - !<Location>
         Identifier: 5bbca33:l2
@@ -1947,7 +1955,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 7da06cc:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 211, Col 29 @ Ln 211, Col 63
   - !<Text>
     Identifier: 9bdd102
@@ -1975,7 +1983,7 @@ Texts:
         Ranges: Ln 545, Col 31 @ Ln 545, Col 70
       - !<Location>
         Identifier: c165d34:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 368, Col 37 @ Ln 368, Col 76
       - !<Location>
         Identifier: c165d34:l3
@@ -2147,7 +2155,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 7117b1c:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges:
           - Ln 280, Col 39 @ Ln 280, Col 72
           - Ln 316, Col 36 @ Ln 316, Col 69
@@ -2219,7 +2227,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: cbcd798:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 330, Col 17 @ Ln 341, Col 18
   - !<Text>
     Identifier: '3883288'
@@ -2351,7 +2359,7 @@ Texts:
       - !<Location>
         Identifier: 5927b8a:l1
         Path: ./app.R
-        Ranges: Ln 431, Col 40 @ Ln 435, Col 14
+        Ranges: Ln 441, Col 40 @ Ln 445, Col 14
   - !<Text>
     Identifier: 81fb05e
     Algorithm: sha1
@@ -2396,7 +2404,7 @@ Texts:
           - Ln 519, Col 30 @ Ln 519, Col 70
       - !<Location>
         Identifier: df83adb:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 208, Col 21 @ Ln 208, Col 61
       - !<Location>
         Identifier: df83adb:l3
@@ -2437,7 +2445,7 @@ Texts:
       - !<Location>
         Identifier: 2958a7d:l1
         Path: ./app.R
-        Ranges: Ln 278, Col 9 @ Ln 280, Col 10
+        Ranges: Ln 279, Col 9 @ Ln 281, Col 10
   - !<Text>
     Identifier: 179eb27
     Algorithm: sha1
@@ -2552,7 +2560,7 @@ Texts:
           - Ln 515, Col 30 @ Ln 515, Col 68
       - !<Location>
         Identifier: 1de8474:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 281, Col 39 @ Ln 281, Col 77
       - !<Location>
         Identifier: 1de8474:l3
@@ -2611,7 +2619,7 @@ Texts:
       - !<Location>
         Identifier: 1f87e95:l1
         Path: ./app.R
-        Ranges: Ln 441, Col 37 @ Ln 446, Col 14
+        Ranges: Ln 451, Col 37 @ Ln 456, Col 14
   - !<Text>
     Identifier: 632ebd0
     Algorithm: sha1
@@ -2646,7 +2654,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 2297335:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 203, Col 21 @ Ln 203, Col 78
   - !<Text>
     Identifier: 305b9f6
@@ -2795,7 +2803,7 @@ Texts:
           - Ln 518, Col 30 @ Ln 518, Col 58
       - !<Location>
         Identifier: ad1e98e:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 282, Col 39 @ Ln 282, Col 67
       - !<Location>
         Identifier: ad1e98e:l3
@@ -2836,7 +2844,7 @@ Texts:
       - !<Location>
         Identifier: d4541cf:l1
         Path: ./app.R
-        Ranges: Ln 422, Col 27 @ Ln 425, Col 14
+        Ranges: Ln 432, Col 27 @ Ln 435, Col 14
   - !<Text>
     Identifier: '6489309'
     Algorithm: sha1
@@ -2866,7 +2874,7 @@ Texts:
         Ranges: Ln 548, Col 31 @ Ln 548, Col 61
       - !<Location>
         Identifier: 532bf12:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 371, Col 37 @ Ln 371, Col 67
       - !<Location>
         Identifier: 532bf12:l3
@@ -3025,7 +3033,7 @@ Texts:
         Ranges: Ln 307, Col 13 @ Ln 307, Col 54
       - !<Location>
         Identifier: da9cc89:l2
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 236, Col 13 @ Ln 236, Col 54
       - !<Location>
         Identifier: da9cc89:l3
@@ -3093,7 +3101,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: c7999f1:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 209, Col 21 @ Ln 209, Col 84
   - !<Text>
     Identifier: ee91f19
@@ -3186,7 +3194,7 @@ Texts:
       - !<Location>
         Identifier: 065e79a:l1
         Path: ./app.R
-        Ranges: Ln 426, Col 37 @ Ln 430, Col 14
+        Ranges: Ln 436, Col 37 @ Ln 440, Col 14
   - !<Text>
     Identifier: 96d547d
     Algorithm: sha1
@@ -3262,7 +3270,7 @@ Texts:
       - !<Location>
         Identifier: 899070a:l1
         Path: ./app.R
-        Ranges: Ln 447, Col 40 @ Ln 452, Col 14
+        Ranges: Ln 457, Col 40 @ Ln 462, Col 14
   - !<Text>
     Identifier: 1277d46
     Algorithm: sha1
@@ -3325,7 +3333,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 0a99270:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 206, Col 21 @ Ln 206, Col 65
       - !<Location>
         Identifier: 0a99270:l2
@@ -3412,6 +3420,21 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 265, Col 13 @ Ln 265, Col 45
   - !<Text>
+    Identifier: c455429
+    Algorithm: sha1
+    Hash: c455429a22f0f71aee4851f6e73f373ee94ed6f9
+    Source Language: en
+    Source Text: |-
+      Use this panel to compare subsets of measurements determined by two
+      categories of a variable of interest (treated as a stratification
+      variable). [TO BE COMPLETED]
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: c455429:l1
+        Path: ./app.R
+        Ranges: Ln 480, Col 47 @ Ln 484, Col 14
+  - !<Text>
     Identifier: 2dc5099
     Algorithm: sha1
     Hash: 2dc509937a0f511d66a7dd137e20f0a9b2a39f08
@@ -3425,7 +3448,7 @@ Texts:
       - !<Location>
         Identifier: 2dc5099:l1
         Path: ./app.R
-        Ranges: Ln 459, Col 34 @ Ln 463, Col 14
+        Ranges: Ln 469, Col 34 @ Ln 473, Col 14
   - !<Text>
     Identifier: d06d2c8
     Algorithm: sha1
@@ -3440,7 +3463,7 @@ Texts:
       - !<Location>
         Identifier: d06d2c8:l1
         Path: ./app.R
-        Ranges: Ln 436, Col 33 @ Ln 440, Col 14
+        Ranges: Ln 446, Col 33 @ Ln 450, Col 14
   - !<Text>
     Identifier: 79fb413
     Algorithm: sha1
@@ -3470,7 +3493,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: bc7b273:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 263, Col 13 @ Ln 270, Col 14
   - !<Text>
     Identifier: '2186287'
@@ -3489,7 +3512,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 2186287:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 379, Col 13 @ Ln 391, Col 14
   - !<Text>
     Identifier: b267cef
@@ -3574,6 +3597,18 @@ Texts:
         Path: ./R/ui-exceedance-plot.R
         Ranges: Ln 198, Col 25 @ Ln 209, Col 18
   - !<Text>
+    Identifier: 19dc985
+    Algorithm: sha1
+    Hash: 19dc985454b4b927ef38c9364a33bd703746bc5f
+    Source Language: en
+    Source Text: Compare All Categories
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 19dc985:l1
+        Path: ./R/ui-panel-categories-comparator-all.R
+        Ranges: Ln 178, Col 13 @ Ln 178, Col 62
+  - !<Text>
     Identifier: 35c74b2
     Algorithm: sha1
     Hash: 35c74b2529589573295333c346142de9ea7b21e4
@@ -3583,7 +3618,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 35c74b2:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 226, Col 13 @ Ln 226, Col 60
       - !<Location>
         Identifier: 35c74b2:l2
@@ -3673,7 +3708,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 346d4fe:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 231, Col 13 @ Ln 231, Col 55
   - !<Text>
     Identifier: ad9a641
@@ -3725,7 +3760,7 @@ Texts:
     Locations:
       - !<Location>
         Identifier: da34e30:l1
-        Path: ./R/ui-panel-categories-comparisons.R
+        Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 201, Col 21 @ Ln 201, Col 60
       - !<Location>
         Identifier: da34e30:l2

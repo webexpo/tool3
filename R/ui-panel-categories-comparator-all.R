@@ -1,6 +1,6 @@
-#' Categories Comparisons Panel Module
+#' All-Categories Comparator Panel Module
 #'
-#' This module controls the Categories Comparisons panel nested into the
+#' This module controls the All-Categories Comparisons panel nested into the
 #' application's main [bslib::navset].
 #'
 #' @template param-id
@@ -14,17 +14,17 @@
 #' @template param-simulations
 #'
 #' @returns
-#' [ui_panel_categories_comparisons()] returns a `shiny.tag` object
+#' [ui_panel_categories_comparator_all()] returns a `shiny.tag` object
 #' (an output of [bslib::nav_panel()]).
 #'
-#' [server_panel_categories_comparisons()] returns a [shiny::reactive()]
+#' [server_panel_categories_comparator_all()] returns a [shiny::reactive()]
 #' object. It can be called to get the panel's title.
 #'
 #' @author Jean-Mathieu Potvin (<jeanmathieupotvin@@ununoctium.dev>)
 #'
-#' @rdname ui-panel-categories-comparisons
+#' @rdname ui-panel-categories-comparator-all
 #' @export
-ui_panel_categories_comparisons <- function(id) {
+ui_panel_categories_comparator_all <- function(id) {
     ns <- shiny::NS(id)
     card_height      <- getOption("app_card_height_md")
     card_height_text <- getOption("app_card_height_sm")
@@ -157,9 +157,9 @@ ui_panel_categories_comparisons <- function(id) {
     return(ui)
 }
 
-#' @rdname ui-panel-categories-comparisons
+#' @rdname ui-panel-categories-comparator-all
 #' @export
-server_panel_categories_comparisons <- function(
+server_panel_categories_comparator_all <- function(
     id,
     lang,
     inputs_calc,
@@ -175,7 +175,7 @@ server_panel_categories_comparisons <- function(
 
     server <- function(input, output, session) {
         title <- shiny::reactive({
-            translate(lang = lang(), "Categories Comparisons")
+            translate(lang = lang(), "Compare All Categories")
         }) |>
         shiny::bindCache(lang())
 
