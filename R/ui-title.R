@@ -466,9 +466,7 @@ server_title <- function(id) {
         return(
             list(
                 lang  = lang,
-                color = color,
-                # FIXME: Remove this element after the refactoring process.
-                mode  = shiny::reactive({ "extended" })
+                color = color
             )
         )
     }

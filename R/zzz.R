@@ -47,13 +47,6 @@ tr$set_default_value(getOption("app_missing_translation_msg"))
 
 #' @rdname zzz
 #' @export
-# FIXME: Change name and add documentation.
-example_data <- data.table::fread(
-    file.path(getOption("app_path_dir_assets"), "data", "input-example.csv")
-)
-
-#' @rdname zzz
-#' @export
 translate <- tr$translate
 
 #' @rdname zzz
