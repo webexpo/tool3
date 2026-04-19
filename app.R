@@ -119,7 +119,7 @@ ui <- bslib::page_sidebar(
             icon  = ui_menu_icon(),
 
             ui_panel_categories_comparator_all("panel_categories_comparator_all"),
-            "Two Categories"
+            ui_panel_categories_comparator_two("panel_categories_comparator_two")
         )
     )
 )
@@ -129,6 +129,7 @@ ui <- bslib::page_sidebar(
 server <- function(input, output, session) {
     # Step 1: Collect calculation parameters from
     # user and format the data sample it provided.
+    # NOTE: Old name: formatted.sample().
     data_sample <- shiny::reactive({
         inputs_calc <- inputs_calc()
 
@@ -147,6 +148,7 @@ server <- function(input, output, session) {
     # Step 2.1: Create a shiny::ExtendedTask object to
     # be invoked (executed) later. Its sole purpose is
     # to call Webexpo's simulation functions.
+    # NOTE: Old names: bayesian.analysis.*().
     simulations_task <- shiny::ExtendedTask$new(
         function(
             data_sample          = list(),
@@ -268,6 +270,7 @@ server <- function(input, output, session) {
             panel_single_mean               = "single",
             panel_single_stats              = "single",
             panel_categories_comparator_all = "categories",
+            panel_categories_comparator_two = "categories",
             "none"
         )
     })
@@ -373,15 +376,23 @@ server <- function(input, output, session) {
         simulations = simulations
     )
 
+    panel_categories_comparator_two_title <- server_panel_categories_comparator_two(
+        id          = "panel_categories_comparator_two",
+        lang        = lang,
+        inputs_calc = inputs_calc,
+        data_sample = data_sample,
+        simulations = simulations
+    )
+
     # Outputs ------------------------------------------------------------------
 
     output$menu_global_title <- shiny::renderText({
-        translate(lang = lang(), "Global Risk Analysis")
+        translate(lang = lang(), "Global Statistical Inference")
     }) |>
     shiny::bindCache(lang())
 
     output$menu_single_title <- shiny::renderText({
-        translate(lang = lang(), "Single-Category Risk Analysis")
+        translate(lang = lang(), "Single-Category Statistical Inference")
     }) |>
     shiny::bindCache(lang())
 
@@ -406,6 +417,7 @@ server <- function(input, output, session) {
             panel_single_mean               = panel_single_mean_title(),
             panel_single_stats              = panel_single_stats_title(),
             panel_categories_comparator_all = panel_categories_comparator_all_title(),
+            panel_categories_comparator_two = panel_categories_comparator_two_title()
         )
     }) |>
     shiny::bindCache(input$panel_active, lang())
@@ -463,6 +475,17 @@ server <- function(input, output, session) {
                 Use this panel to compare subsets of measurements determined by
                 categories of a variable of interest (treated as a
                 stratification variable).
+            "),
+            panel_categories_comparator_two = translate(lang = lang, "
+                Use this panel to compare subsets of measurements determined
+                by two categories of a variable of interest (treated as a
+                stratification variable). It provides estimates of differences
+                between the selected categories along with their uncertainties,
+                as well as probabilities that these differences are greater or
+                smaller than the chosen values. In what follows, the differences
+                are always the Second Category of Interest minus the Category of
+                Interest, and the ratios are the Second Category of Interest
+                divided by the Category of Interest.
             "),
             # Default case (never used).
             NULL
