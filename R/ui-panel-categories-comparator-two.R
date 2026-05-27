@@ -566,7 +566,6 @@ server_panel_categories_comparator_two <- function(
     }) |>
       shiny::bindCache(lang())
     
-    # Card 2: Risk Metrics (AM, Percentile) --------------------------------
     
     output$two <- shiny::renderUI({
       lang <- lang()
@@ -601,8 +600,6 @@ server_panel_categories_comparator_two <- function(
     }) |>
       shiny::bindCache(lang())
     
-    # Card 3: Exceedance Fraction ------------------------------------------
-    
     output$three <- shiny::renderUI({
       lang <- lang()
       inputs_calc <- inputs_calc()
@@ -636,8 +633,6 @@ server_panel_categories_comparator_two <- function(
             ")
     }) |>
       shiny::bindCache(lang())
-    
-    # Card 4: Probability of Unacceptable Situation ------------------------
     
     output$four <- shiny::renderUI({
       lang <- lang()
