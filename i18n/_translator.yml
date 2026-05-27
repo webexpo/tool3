@@ -208,27 +208,6 @@ Texts:
         Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 330, Col 17 @ Ln 340, Col 18
   - !<Text>
-    Identifier: f7ed89c
-    Algorithm: sha1
-    Hash: f7ed89c387fde5034d5f37f43927e6be9d4fc11f
-    Source Language: en
-    Source Text: |-
-      Each category has its own box and whisker plot. The measurements are
-      scattered around the around the midpoint of the x-axis. The box (outer
-      horizontal lines) represents the distance between the %s and %s
-      percentiles. The whisker (vertical line) represent the distance between
-      the %s and %s percentiles. The inner black horizontal line is the median.
-      The OEL is shown as a red line. Shaded and colored points represent the
-      idealized distribution, while bold points represent the actual
-      observations. See Frequently Asked Questions for more information on how
-      non-detects (censored values) are imputed.
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: f7ed89c:l1
-        Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 147, Col 17 @ Ln 159, Col 18
-  - !<Text>
     Identifier: 9eef958
     Algorithm: sha1
     Hash: 9eef958c106e461b3737ef7fef690775a2bcb661
@@ -259,6 +238,20 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 1088, Col 20 @ Ln 1093, Col 14
   - !<Text>
+    Identifier: 43804b3
+    Algorithm: sha1
+    Hash: 43804b3dc62c31317fdefd1ee562904a0a952876
+    Source Language: en
+    Source Text: |-
+      Expected difference in exceedance fraction (Category 2 - Category 1, in
+      percentage points):
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 43804b3:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 487, Col 7 @ Ln 487, Col 125
+  - !<Text>
     Identifier: 6135ed1
     Algorithm: sha1
     Hash: 6135ed1faa319a3d457fc5c47b81d9b31c4af568
@@ -285,12 +278,18 @@ Texts:
     Locations:
       - !<Location>
         Identifier: 62fc968:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges:
+          - Ln 585, Col 29 @ Ln 585, Col 64
+          - Ln 653, Col 29 @ Ln 653, Col 64
+      - !<Location>
+        Identifier: 62fc968:l2
         Path: ./R/ui-panel-descriptive-statistics.R
         Ranges:
           - Ln 170, Col 29 @ Ln 170, Col 64
           - Ln 177, Col 29 @ Ln 177, Col 64
       - !<Location>
-        Identifier: 62fc968:l2
+        Identifier: 62fc968:l3
         Path: ./R/ui-panel-percentiles.R
         Ranges:
           - Ln 461, Col 38 @ Ln 461, Col 73
@@ -447,7 +446,7 @@ Texts:
       - !<Location>
         Identifier: 02f2b64:l1
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 120, Col 13 @ Ln 122, Col 14
+        Ranges: Ln 457, Col 7 @ Ln 457, Col 77
   - !<Text>
     Identifier: 463c845
     Algorithm: sha1
@@ -588,6 +587,18 @@ Texts:
         Identifier: 3710c88:l1
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 854, Col 21 @ Ln 860, Col 22
+  - !<Text>
+    Identifier: 032e241
+    Algorithm: sha1
+    Hash: 032e241635a51f92a7040ff8ff819ca3cea11757
+    Source Language: en
+    Source Text: Exceedance
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 032e241:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 621, Col 29 @ Ln 621, Col 64
   - !<Text>
     Identifier: ab42808
     Algorithm: sha1
@@ -792,6 +803,18 @@ Texts:
         Identifier: 6db5beb:l3
         Path: ./R/ui-panel-percentiles.R
         Ranges: Ln 526, Col 31 @ Ln 526, Col 72
+  - !<Text>
+    Identifier: 73bd270
+    Algorithm: sha1
+    Hash: 73bd270f572ad7a4baa94717d6ec5194d1403f35
+    Source Language: en
+    Source Text: 'Expected ratio for GM and GSD (Category 2 / Category 1):'
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 73bd270:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 479, Col 7 @ Ln 479, Col 90
   - !<Text>
     Identifier: ceefbab
     Algorithm: sha1
@@ -1135,6 +1158,18 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 834, Col 21 @ Ln 834, Col 68
   - !<Text>
+    Identifier: 03a3654
+    Algorithm: sha1
+    Hash: 03a365422c11e1afe2b945ddfdee03357b7b1419
+    Source Language: en
+    Source Text: Expected Changes in Exceedance Fraction
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 03a3654:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 467, Col 7 @ Ln 467, Col 73
+  - !<Text>
     Identifier: ee64607
     Algorithm: sha1
     Hash: ee646074c241115ad528547c9244c3da7e953476
@@ -1183,6 +1218,18 @@ Texts:
         Identifier: f542f1c:l1
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 718, Col 21 @ Ln 722, Col 22
+  - !<Text>
+    Identifier: 3b48c56
+    Algorithm: sha1
+    Hash: 3b48c56405e8a80c2918629287b92ec9bdded33a
+    Source Language: en
+    Source Text: Overexposure
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 3b48c56:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 656, Col 29 @ Ln 656, Col 66
   - !<Text>
     Identifier: 176669b
     Algorithm: sha1
@@ -1245,6 +1292,18 @@ Texts:
         Identifier: 6192e8e:l1
         Path: ./R/ui-panel-arithmetic-mean.R
         Ranges: Ln 554, Col 13 @ Ln 566, Col 14
+  - !<Text>
+    Identifier: c457299
+    Algorithm: sha1
+    Hash: c457299d57488acabb0b6a33a6a7aa3e060849ae
+    Source Language: en
+    Source Text: Expected Changes in Risk Metrics
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: c457299:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 462, Col 7 @ Ln 462, Col 66
   - !<Text>
     Identifier: c6394ac
     Algorithm: sha1
@@ -1389,6 +1448,18 @@ Texts:
         Path: ./R/ui-panel-percentiles.R
         Ranges: Ln 467, Col 13 @ Ln 474, Col 14
   - !<Text>
+    Identifier: 5761e8f
+    Algorithm: sha1
+    Hash: 5761e8f708f737d39905b78122af37f298405158
+    Source Language: en
+    Source Text: 'Expected ratio for AM and percentile (Category 2 / Category 1):'
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 5761e8f:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 483, Col 7 @ Ln 483, Col 97
+  - !<Text>
     Identifier: 057d849
     Algorithm: sha1
     Hash: 057d8499c2bde6571e77078770393e396600dcf5
@@ -1423,7 +1494,7 @@ Texts:
       - !<Location>
         Identifier: 8722638:l1
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 102, Col 13 @ Ln 102, Col 62
+        Ranges: Ln 441, Col 7 @ Ln 441, Col 56
   - !<Text>
     Identifier: 9797b53
     Algorithm: sha1
@@ -1523,18 +1594,6 @@ Texts:
         Path: ./R/ui-panel-categories-comparator-all.R
         Ranges: Ln 317, Col 36 @ Ln 317, Col 78
   - !<Text>
-    Identifier: 256e0d7
-    Algorithm: sha1
-    Hash: 256e0d707386d0fcd9abf10ad994000bdaa25812
-    Source Language: en
-    Source Text: Hello, world!
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: 256e0d7:l1
-        Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 192, Col 13 @ Ln 194, Col 14
-  - !<Text>
     Identifier: bda8863
     Algorithm: sha1
     Hash: bda8863c3bfaf5d52eac4543ed411f4d62b7b923
@@ -1586,6 +1645,10 @@ Texts:
         Ranges: Ln 204, Col 21 @ Ln 204, Col 65
       - !<Location>
         Identifier: a5a2911:l2
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 652, Col 29 @ Ln 652, Col 73
+      - !<Location>
+        Identifier: a5a2911:l3
         Path: ./R/ui-panel-exceedance-fraction.R
         Ranges:
           - Ln 250, Col 13 @ Ln 250, Col 59
@@ -1900,18 +1963,6 @@ Texts:
           - Ln 235, Col 43 @ Ln 235, Col 90
           - Ln 252, Col 43 @ Ln 252, Col 90
   - !<Text>
-    Identifier: e64014d
-    Algorithm: sha1
-    Hash: e64014dc32b573cc757db2a98310aadf48100473
-    Source Language: en
-    Source Text: expected changes (as a ratio) for the GM and GSD
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: e64014d:l1
-        Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 107, Col 13 @ Ln 107, Col 88
-  - !<Text>
     Identifier: 899d691
     Algorithm: sha1
     Hash: 899d69161029a76ee89a1e1cfcef81b0c12bb70d
@@ -1986,6 +2037,22 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 761, Col 21 @ Ln 761, Col 85
   - !<Text>
+    Identifier: bd3a09d
+    Algorithm: sha1
+    Hash: bd3a09d012dc095a2caffd67195b3f88b97b02e4
+    Source Language: en
+    Source Text: |-
+      Compares the geometric mean and geometric standard deviation of the two
+      selected categories. The ratio is Category 2 over Category 1. The two
+      probability columns show how often the ratio is greater or smaller than
+      the expected ratio above.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: bd3a09d:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 560, Col 7 @ Ln 565, Col 14
+  - !<Text>
     Identifier: '7578626'
     Algorithm: sha1
     Hash: 7578626654747303756ef3f82b3aa179d97c12fd
@@ -2030,7 +2097,7 @@ Texts:
       - !<Location>
         Identifier: 5bbca33:l2
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 179, Col 37 @ Ln 179, Col 90
+        Ranges: Ln 551, Col 29 @ Ln 551, Col 82
       - !<Location>
         Identifier: 5bbca33:l3
         Path: ./R/ui-panel-descriptive-statistics.R
@@ -2062,7 +2129,11 @@ Texts:
       - !<Location>
         Identifier: 7da06cc:l2
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 180, Col 37 @ Ln 180, Col 71
+        Ranges:
+          - Ln 552, Col 29 @ Ln 552, Col 63
+          - Ln 587, Col 29 @ Ln 587, Col 63
+          - Ln 622, Col 29 @ Ln 622, Col 63
+          - Ln 655, Col 29 @ Ln 655, Col 63
   - !<Text>
     Identifier: 9bdd102
     Algorithm: sha1
@@ -2270,8 +2341,10 @@ Texts:
         Identifier: 7117b1c:l2
         Path: ./R/ui-panel-categories-comparator-two.R
         Ranges:
-          - Ln 139, Col 37 @ Ln 139, Col 70
-          - Ln 181, Col 37 @ Ln 181, Col 70
+          - Ln 505, Col 29 @ Ln 505, Col 62
+          - Ln 553, Col 29 @ Ln 553, Col 62
+          - Ln 588, Col 29 @ Ln 588, Col 62
+          - Ln 623, Col 29 @ Ln 623, Col 62
       - !<Location>
         Identifier: 7117b1c:l3
         Path: ./R/ui-panel-descriptive-statistics.R
@@ -2348,6 +2421,18 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 1083, Col 21 @ Ln 1086, Col 14
   - !<Text>
+    Identifier: e510a31
+    Algorithm: sha1
+    Hash: e510a31645a63a4ae1cf85d895ef460a268d5775
+    Source Language: en
+    Source Text: The point estimate of the %s percentile is equal to %s.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: e510a31:l1
+        Path: ./R/ui-panel-percentiles.R
+        Ranges: Ln 409, Col 25 @ Ln 412, Col 26
+  - !<Text>
     Identifier: 07fb93b
     Algorithm: sha1
     Hash: 07fb93b9a2d7256f709d54ce9776ace93d349c09
@@ -2387,18 +2472,6 @@ Texts:
         Identifier: b69a61b:l1
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 699, Col 20 @ Ln 702, Col 14
-  - !<Text>
-    Identifier: e510a31
-    Algorithm: sha1
-    Hash: e510a31645a63a4ae1cf85d895ef460a268d5775
-    Source Language: en
-    Source Text: The point estimate of the %s percentile is equal to %s.
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: e510a31:l1
-        Path: ./R/ui-panel-percentiles.R
-        Ranges: Ln 409, Col 25 @ Ln 412, Col 26
   - !<Text>
     Identifier: 7be717b
     Algorithm: sha1
@@ -2500,6 +2573,12 @@ Texts:
         Ranges: Ln 208, Col 21 @ Ln 208, Col 61
       - !<Location>
         Identifier: df83adb:l3
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges:
+          - Ln 586, Col 29 @ Ln 586, Col 69
+          - Ln 654, Col 29 @ Ln 654, Col 69
+      - !<Location>
+        Identifier: df83adb:l4
         Path: ./R/ui-panel-descriptive-statistics.R
         Ranges: Ln 182, Col 21 @ Ln 182, Col 61
   - !<Text>
@@ -2593,6 +2672,20 @@ Texts:
         Path: ./R/ui-panel-descriptive-statistics.R
         Ranges: Ln 285, Col 39 @ Ln 285, Col 76
   - !<Text>
+    Identifier: e279776
+    Algorithm: sha1
+    Hash: e279776cbbb6e3a3b4057f19125acf53c94e664b
+    Source Language: en
+    Source Text: |-
+      Use this value to assess overexposure. It must have the same unit as the
+      measurement data.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: e279776:l1
+        Path: ./R/ui-sidebar.R
+        Ranges: Ln 330, Col 13 @ Ln 333, Col 14
+  - !<Text>
     Identifier: c810b50
     Algorithm: sha1
     Hash: c810b506124b154486e522b431f568b71a52cf0a
@@ -2607,20 +2700,6 @@ Texts:
         Identifier: c810b50:l1
         Path: ./R/ui-sidebar.R
         Ranges: Ln 338, Col 13 @ Ln 343, Col 14
-  - !<Text>
-    Identifier: e279776
-    Algorithm: sha1
-    Hash: e279776cbbb6e3a3b4057f19125acf53c94e664b
-    Source Language: en
-    Source Text: |-
-      Use this value to assess overexposure. It must have the same unit as the
-      measurement data.
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: e279776:l1
-        Path: ./R/ui-sidebar.R
-        Ranges: Ln 330, Col 13 @ Ln 333, Col 14
   - !<Text>
     Identifier: 9b3e862
     Algorithm: sha1
@@ -2657,7 +2736,7 @@ Texts:
       - !<Location>
         Identifier: 1de8474:l3
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 137, Col 37 @ Ln 137, Col 75
+        Ranges: Ln 503, Col 29 @ Ln 503, Col 67
       - !<Location>
         Identifier: 1de8474:l4
         Path: ./R/ui-panel-descriptive-statistics.R
@@ -2904,7 +2983,7 @@ Texts:
       - !<Location>
         Identifier: ad1e98e:l3
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 138, Col 37 @ Ln 138, Col 65
+        Ranges: Ln 504, Col 29 @ Ln 504, Col 57
       - !<Location>
         Identifier: ad1e98e:l4
         Path: ./R/ui-panel-descriptive-statistics.R
@@ -3096,18 +3175,6 @@ Texts:
         Path: ./R/ui-modal-faq.R
         Ranges: Ln 431, Col 21 @ Ln 437, Col 22
   - !<Text>
-    Identifier: abef7fe
-    Algorithm: sha1
-    Hash: abef7feec3d5190761731eb5dc2509556ade152c
-    Source Language: en
-    Source Text: Determinants of Exposure
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: abef7fe:l1
-        Path: ./R/ui-title.R
-        Ranges: Ln 400, Col 13 @ Ln 400, Col 64
-  - !<Text>
     Identifier: e3d5355
     Algorithm: sha1
     Hash: e3d5355b5d5fd9e190086f9ef4afd37d6f396b4d
@@ -3119,6 +3186,18 @@ Texts:
         Identifier: e3d5355:l1
         Path: ./R/ui-panel-percentiles.R
         Ranges: Ln 241, Col 13 @ Ln 241, Col 51
+  - !<Text>
+    Identifier: abef7fe
+    Algorithm: sha1
+    Hash: abef7feec3d5190761731eb5dc2509556ade152c
+    Source Language: en
+    Source Text: Determinants of Exposure
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: abef7fe:l1
+        Path: ./R/ui-title.R
+        Ranges: Ln 400, Col 13 @ Ln 400, Col 64
   - !<Text>
     Identifier: da9cc89
     Algorithm: sha1
@@ -3158,6 +3237,27 @@ Texts:
         Path: ./R/ui-panel-arithmetic-mean.R
         Ranges: Ln 329, Col 21 @ Ln 332, Col 22
   - !<Text>
+    Identifier: e62841e
+    Algorithm: sha1
+    Hash: e62841e8e98d2ee29481d5da42b57efda66d7337
+    Source Language: en
+    Source Text: |-
+      Each category has its own box and whisker plot. The measurements are
+      scattered around the midpoint of the x-axis. The box (outer horizontal
+      lines) represents the distance between the %s and %s percentiles. The
+      whisker (vertical line) represents the distance between the %s and %s
+      percentiles. The inner black horizontal line is the median. The OEL is
+      shown as a red line. Shaded and colored points represent the idealized
+      distribution, while bold points represent the actual observations. See
+      Frequently Asked Questions for more information on how non-detects
+      (censored values) are imputed.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: e62841e:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 513, Col 9 @ Ln 525, Col 18
+  - !<Text>
     Identifier: d111f1a
     Algorithm: sha1
     Hash: d111f1a61356a1da7fa12ed06ae736a5c04fd8e0
@@ -3177,6 +3277,22 @@ Texts:
         Identifier: d111f1a:l3
         Path: ./R/ui-panel-percentiles.R
         Ranges: Ln 283, Col 13 @ Ln 283, Col 52
+  - !<Text>
+    Identifier: 21b3cbb
+    Algorithm: sha1
+    Hash: 21b3cbbaa25c48886087f7188ed714db141a727f
+    Source Language: en
+    Source Text: |-
+      Compares the exceedance fraction of the two selected categories. The
+      delta column is Category 2 minus Category 1 in percentage points. The two
+      probability columns show how often the delta exceeds (or is smaller than)
+      the expected difference above.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 21b3cbb:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 630, Col 7 @ Ln 636, Col 14
   - !<Text>
     Identifier: ac24260
     Algorithm: sha1
@@ -3219,6 +3335,18 @@ Texts:
           - Ln 257, Col 43 @ Ln 257, Col 80
           - Ln 284, Col 39 @ Ln 284, Col 76
   - !<Text>
+    Identifier: e2b62b1
+    Algorithm: sha1
+    Hash: e2b62b1e795883830471132169e99bf3dd47dde0
+    Source Language: en
+    Source Text: How can I customize the user interface?
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: e2b62b1:l1
+        Path: ./R/ui-modal-faq.R
+        Ranges: Ln 741, Col 21 @ Ln 741, Col 85
+  - !<Text>
     Identifier: 4a8e3cf
     Algorithm: sha1
     Hash: 4a8e3cf985e41de2b17e969e0ce992ba5bfa00fb
@@ -3248,18 +3376,6 @@ Texts:
         Ranges:
           - Ln 237, Col 43 @ Ln 237, Col 105
           - Ln 254, Col 43 @ Ln 254, Col 105
-  - !<Text>
-    Identifier: e2b62b1
-    Algorithm: sha1
-    Hash: e2b62b1e795883830471132169e99bf3dd47dde0
-    Source Language: en
-    Source Text: How can I customize the user interface?
-    Translations: ~
-    Locations:
-      - !<Location>
-        Identifier: e2b62b1:l1
-        Path: ./R/ui-modal-faq.R
-        Ranges: Ln 741, Col 21 @ Ln 741, Col 85
   - !<Text>
     Identifier: 4e2a12c
     Algorithm: sha1
@@ -3510,6 +3626,34 @@ Texts:
         Path: ./R/ui-footer.R
         Ranges: Ln 50, Col 17 @ Ln 50, Col 51
   - !<Text>
+    Identifier: b39169a
+    Algorithm: sha1
+    Hash: b39169aa3fff8d9768e37c48d01087bb37db3d5a
+    Source Language: en
+    Source Text: Probability of an Unacceptable Situation
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: b39169a:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 472, Col 7 @ Ln 472, Col 74
+  - !<Text>
+    Identifier: 9422b63
+    Algorithm: sha1
+    Hash: 9422b63a16d26d0e86b7b58ac7b780b67796fc59
+    Source Language: en
+    Source Text: |-
+      Shows the probability that each category is in an unacceptable situation,
+      using three risk criteria: exceedance fraction above its threshold,
+      critical percentile above the OEL, and arithmetic mean above the OEL. The
+      delta column is Category 2 minus Category 1, in percentage points.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 9422b63:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 663, Col 7 @ Ln 669, Col 14
+  - !<Text>
     Identifier: 24a1b71
     Algorithm: sha1
     Hash: 24a1b71c7ca5daf2df9059f6117565c8bd09d12c
@@ -3720,7 +3864,7 @@ Texts:
       - !<Location>
         Identifier: 35c74b2:l2
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 115, Col 13 @ Ln 115, Col 60
+        Ranges: Ln 452, Col 7 @ Ln 452, Col 54
       - !<Location>
         Identifier: 35c74b2:l3
         Path: ./R/ui-panel-descriptive-statistics.R
@@ -3866,7 +4010,7 @@ Texts:
       - !<Location>
         Identifier: da34e30:l2
         Path: ./R/ui-panel-categories-comparator-two.R
-        Ranges: Ln 178, Col 37 @ Ln 178, Col 76
+        Ranges: Ln 550, Col 29 @ Ln 550, Col 68
       - !<Location>
         Identifier: da34e30:l3
         Path: ./R/ui-panel-descriptive-statistics.R
@@ -3952,4 +4096,20 @@ Texts:
         Identifier: ea57967:l1
         Path: ./R/ui-sidebar.R
         Ranges: Ln 295, Col 13 @ Ln 295, Col 70
+  - !<Text>
+    Identifier: b14a7c8
+    Algorithm: sha1
+    Hash: b14a7c844e1fe52c226dccd3989e7fbe4f1bd4f7
+    Source Language: en
+    Source Text: |-
+      Compares the chosen critical percentile and the arithmetic mean of the
+      two selected categories. The ratio is Category 2 over Category 1. The two
+      probability columns show how often the ratio is greater or smaller than
+      the expected ratio above.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: b14a7c8:l1
+        Path: ./R/ui-panel-categories-comparator-two.R
+        Ranges: Ln 595, Col 7 @ Ln 600, Col 14
 
