@@ -288,15 +288,15 @@ server_panel_categories_comparator_all <- function(
 
             html(
                 translate(lang = lang, "
-                    Each category having at least three detected (non-censored)
-                    results has its own box and whisker plot. The measurements
-                    are scattered around the midpoint of the x-axis. The boxes
-                    (outer vertical lines) represent the distance between the
-                    %s and %s percentiles. The whiskers (horizontal lines)
-                    represent the distance between the %s and %s percentiles.
-                    Inner vertical lines are the respective medians. The OEL
-                    is shown as a red line. See Frequently Asked Questions for
-                    more information.
+                    Each category has its own box and whisker plot. The
+                    measurements are scattered around the midpoint of the
+                    x-axis. The boxes (outer vertical lines) represent the
+                    distance between the %s and %s percentiles. The whiskers
+                    (horizontal lines) represent the distance between the %s
+                    and %s percentiles. Inner vertical lines are the respective
+                    medians. The OEL is shown as a red line. See Frequently
+                    Asked Questions for more information on how non-detects
+                    (censored values) are imputed.
                 "),
                 ordinal(25L, lang),
                 ordinal(75L, lang),
@@ -328,16 +328,15 @@ server_panel_categories_comparator_all <- function(
 
             html(
                 translate(lang = lang(), "
-                    This plot shows the overexposure risk (the probability that
-                    the critical percentile is above the OEL) for categories
-                    having at least three detected (non-censored) results,
-                    sorted from highest to lowest. Colors indicate whether the
-                    risk is deemed %s (lower than %s), %s (between %s and %s),
-                    or %s (higher than %s). The decision scheme to interpret
-                    the probability of overexposure (the overexposure risk,
-                    which is the probability that the overexposure criterion is
-                    met) follows the recommendation of the AIHA video series %s
-                    (English only). [REVIEW]
+                    This plot shows the overexposure risk (the probability
+                    that the critical percentile is above the OEL) for all
+                    categories, sorted from highest to lowest. Colors indicate
+                    whether the risk is deemed %s (lower than %s), %s (between
+                    %s and %s), or %s (higher than %s). The decision scheme to
+                    interpret the probability of overexposure (the overexposure
+                    risk, which is the probability that the overexposure
+                    criterion is met) follows the recommendation of the AIHA
+                    video series %s (English only). [REVIEW]
                 "),
                 risk_level_1$name,
                 low_threshold,
@@ -377,10 +376,9 @@ server_panel_categories_comparator_all <- function(
 
         output$risk_band_plot_desc <- shiny::renderUI({
             translate(lang = lang(), "
-                This plot shows the probability distribution of the
-                uncertainty around the selected percentile for categories
-                having at least three detected (non-censored) results. It
-                shows the probability that its true value is
+                This plot shows the probability distribution of the uncertainty
+                around the selected percentile for all categories. It shows the
+                probability that its true value is
                 (1) below 1% of the OEL,
                 (2) between 1% and 10% of the OEL,
                 (3) between 10% and 50% of the OEL,

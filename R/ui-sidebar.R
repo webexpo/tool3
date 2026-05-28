@@ -137,7 +137,7 @@ ui_sidebar <- function(id) {
         ) |>
         bslib::tooltip(id = ns("data_tooltip"), ""),
 
-        # The following two inputs are enabled only when a valid
+        # The following 3 inputs are enabled when a valid
         # measurement dataset is successfully imported.
 
         shiny::selectInput(
@@ -156,6 +156,16 @@ ui_sidebar <- function(id) {
         ) |>
         shinyjs::hidden() |>
         bslib::tooltip(id = ns("data_chosen_category_tooltip"), "") |>
+        shinyjs::disabled(),
+
+        # This input is only shown for the Two-Categories Comparator panel.
+        shiny::selectInput(
+            inputId = ns("data_chosen_category_2"),
+            label   = "",
+            choices = ""
+        ) |>
+        shinyjs::hidden() |>
+        bslib::tooltip(id = ns("data_chosen_category_2_tooltip"), "") |>
         shinyjs::disabled(),
 
         # Buttons --------------------------------------------------------------
@@ -226,10 +236,11 @@ server_sidebar <- function(id, lang, panel_active) {
         }) |>
         shiny::bindEvent(data())
 
-        data_categories <- reactive({
+        data_categories <- shiny::reactive({
             data <- data()
+            categories <- data[[input$data_chosen_variable]]
 
-            if (is.null(categories <- data[[input$data_chosen_variable]])) {
+            if (is.null(categories)) {
                 return(NULL)
             }
 
@@ -247,6 +258,18 @@ server_sidebar <- function(id, lang, panel_active) {
             names(n_measurements_detected[n_measurements_detected >= 3L])
         }) |>
         shiny::bindEvent(input$data_chosen_variable)
+
+        data_categories_2 <- shiny::reactive({
+            data_categories <- data_categories()
+            data_chosen_category <- input$data_chosen_category
+
+            if (is.null(data_categories) || is.null(data_chosen_category)) {
+                return(NULL)
+            }
+
+            data_categories[-match(data_chosen_category, data_categories)]
+        }) |>
+        shiny::bindEvent(input$data_chosen_category)
 
         oel_label <- shiny::reactive({
             translate(lang = lang(), "Occupational Exposure Limit (OEL):")
@@ -295,6 +318,11 @@ server_sidebar <- function(id, lang, panel_active) {
 
         data_chosen_category_label <- shiny::reactive({
             translate(lang = lang(), "Category of Interest:")
+        }) |>
+        shiny::bindCache(lang())
+
+        data_chosen_category_2_label <- shiny::reactive({
+            translate(lang = lang(), "Second Category of Interest:")
         }) |>
         shiny::bindCache(lang())
 
@@ -380,12 +408,21 @@ server_sidebar <- function(id, lang, panel_active) {
 
         data_chosen_category_tooltip_text <- shiny::reactive({
             translate(lang = lang(), "
-                The category to focus on when performing single-category
-                one-way analyses. Only measurements of this category are
-                retained, and the others are ignored. This can only be set
-                after successfully importing a measurement dataset. Only
-                categories with at least 3 detected (non-censored) results
-                can be chosen.
+                The category to focus on when performing analyses. Only
+                measurements of this category are retained, and the others are
+                ignored. This can only be set after successfully importing a
+                measurement dataset. Only categories with at least 3 detected
+                (non-censored) results can be chosen.
+            ")
+        }) |>
+        shiny::bindCache(lang())
+
+        data_chosen_category_2_tooltip_text <- shiny::reactive({
+            translate(lang = lang(), "
+                The second category to focus on when comparing two categories.
+                This can only be set after successfully importing a measurement
+                dataset. Only categories with at least 3 detected (non-censored)
+                results can be chosen.
             ")
         }) |>
         shiny::bindCache(lang())
@@ -453,6 +490,15 @@ server_sidebar <- function(id, lang, panel_active) {
         }) |>
         shiny::bindEvent(data_categories())
 
+        # Update choices for input data_chosen_category_2.
+        shiny::observe({
+            shiny::updateSelectInput(
+                inputId  = "data_chosen_category_2",
+                choices  = data_categories_2() %||% ""
+            )
+        }) |>
+        shiny::bindEvent(data_categories_2())
+
         # Add colors to input data indicating whether
         # it is valid or not. Show a message if it is
         # not. Activate related inputs if valid, and
@@ -469,6 +515,7 @@ server_sidebar <- function(id, lang, panel_active) {
             # data is respectively invalid or valid.
             shinyjs::toggleState("data_chosen_variable", !is_null)
             shinyjs::toggleState("data_chosen_category", !is_null)
+            shinyjs::toggleState("data_chosen_category_2", !is_null)
             shinyjs::toggleState("btn_submit", !is_null)
         }) |>
         shiny::bindEvent(data(), ignoreNULL = FALSE)
@@ -492,9 +539,15 @@ server_sidebar <- function(id, lang, panel_active) {
                 choices = ""
             )
 
-            # Clear choices of input data_chosen_category.
+            # Clear choices of inputs
+            # data_chosen_category and data_chosen_category_2.
             shiny::updateSelectInput(
                 inputId = "data_chosen_category",
+                choices = ""
+            )
+
+            shiny::updateSelectInput(
+                inputId = "data_chosen_category_2",
                 choices = ""
             )
 
@@ -502,6 +555,7 @@ server_sidebar <- function(id, lang, panel_active) {
             shinyjs::disable("btn_submit")
             shinyjs::toggleState("data_chosen_variable")
             shinyjs::toggleState("data_chosen_category")
+            shinyjs::toggleState("data_chosen_category_2")
         }) |>
         shiny::bindEvent(input$btn_clear)
 
@@ -514,7 +568,7 @@ server_sidebar <- function(id, lang, panel_active) {
                 panel_active %in% c(
                     "panel_global_fraction",
                     "panel_single_fraction",
-                    "panel_categories_comparisons"
+                    "panel_categories_comparator_all"
                 )
             })
 
@@ -522,7 +576,7 @@ server_sidebar <- function(id, lang, panel_active) {
                 panel_active %in% c(
                     "panel_global_percentiles",
                     "panel_single_percentiles",
-                    "panel_categories_comparisons"
+                    "panel_categories_comparator_all"
                 )
             })
 
@@ -532,8 +586,13 @@ server_sidebar <- function(id, lang, panel_active) {
                     "panel_single_percentiles",
                     "panel_single_mean",
                     "panel_single_stats",
-                    "panel_categories_comparisons"
+                    "panel_categories_comparator_all",
+                    "panel_categories_comparator_two"
                 )
+            })
+
+            shinyjs::toggle("data_chosen_category_2", condition = {
+                panel_active() == "panel_categories_comparator_two"
             })
         }) |>
         shiny::bindEvent(panel_active())
@@ -550,6 +609,7 @@ server_sidebar <- function(id, lang, panel_active) {
             update_file_input(inputId = "data", label = data_label(), buttonLabel = data_btn_label())
             shiny::updateSelectInput(inputId = "data_chosen_variable", label = data_chosen_variable_label())
             shiny::updateSelectInput(inputId = "data_chosen_category", label = data_chosen_category_label())
+            shiny::updateSelectInput(inputId = "data_chosen_category_2", label = data_chosen_category_2_label())
 
             bslib::update_tooltip("oel_tooltip", oel_tooltip_text())
             bslib::update_tooltip("oel_multiplier_tooltip", oel_multiplier_tooltip_text())
@@ -562,23 +622,25 @@ server_sidebar <- function(id, lang, panel_active) {
             bslib::update_tooltip("btn_clear_tooltip", btn_clear_tooltip_text())
             bslib::update_tooltip("data_chosen_variable_tooltip", data_chosen_variable_tooltip_text())
             bslib::update_tooltip("data_chosen_category_tooltip", data_chosen_category_tooltip_text())
+            bslib::update_tooltip("data_chosen_category_2_tooltip", data_chosen_category_2_tooltip_text())
         })
 
         # Return all inputs except buttons.
         return(
             shiny::reactive({
                 list(
-                    oel                  = input$oel,
-                    data                 = data(),
-                    data_variables       = data_variables(),
-                    data_categories      = data_categories(),
-                    data_chosen_variable = input$data_chosen_variable,
-                    data_chosen_category = input$data_chosen_category,
-                    oel_multiplier       = input$oel_multiplier,
-                    conf                 = input$conf,
-                    psi                  = input$psi,
-                    frac_threshold       = input$frac_threshold,
-                    target_perc          = input$target_perc
+                    oel                    = input$oel,
+                    data                   = data(),
+                    data_variables         = data_variables(),
+                    data_categories        = data_categories(),
+                    data_chosen_variable   = input$data_chosen_variable,
+                    data_chosen_category   = input$data_chosen_category,
+                    data_chosen_category_2 = input$data_chosen_category_2,
+                    oel_multiplier         = input$oel_multiplier,
+                    conf                   = input$conf,
+                    psi                    = input$psi,
+                    frac_threshold         = input$frac_threshold,
+                    target_perc            = input$target_perc
                 )
             }) |>
             shiny::bindEvent(input$btn_submit, ignoreInit = TRUE)
