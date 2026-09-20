@@ -71,90 +71,90 @@
 #' @rdname ui-title-internals
 #' @export
 .set_lang <- function(lang = "") {
-    session <- shiny::getDefaultReactiveDomain()
-    assign(session$ns("app_state_lang"), lang, session$userData)
-    return(invisible(lang))
+  session <- shiny::getDefaultReactiveDomain()
+  assign(session$ns("app_state_lang"), lang, session$userData)
+  return(invisible(lang))
 }
 
 #' @rdname ui-title-internals
 #' @export
 .get_lang <- function() {
-    session <- shiny::getDefaultReactiveDomain()
-    return(
-        get0(
-            session$ns("app_state_lang"),
-            session$userData,
-            mode       = "character",
-            inherits   = FALSE,
-            ifnotfound = "en"
-        )
+  session <- shiny::getDefaultReactiveDomain()
+  return(
+    get0(
+      session$ns("app_state_lang"),
+      session$userData,
+      mode       = "character",
+      inherits   = FALSE,
+      ifnotfound = "en"
     )
+  )
 }
 
 #' @rdname ui-title-internals
 #' @export
 .set_color <- function(color = "") {
-    if (is.null(color)) {
-        # Toggle the current color mode if color is NULL.
-        color <- switch(.get_color(), light = "dark", dark = "light")
-    }
-
-    color <- .set_color_icon_attr(color)
-    session <- shiny::getDefaultReactiveDomain()
-    assign(session$ns("app_state_color"), color, session$userData)
-    return(invisible(color))
+  if (is.null(color)) {
+    # Toggle the current color mode if color is NULL.
+    color <- switch(.get_color(), light = "dark", dark = "light")
+  }
+  
+  color <- .set_color_icon_attr(color)
+  session <- shiny::getDefaultReactiveDomain()
+  assign(session$ns("app_state_color"), color, session$userData)
+  return(invisible(color))
 }
 
 #' @rdname ui-title-internals
 #' @export
 .get_color <- function() {
-    session <- shiny::getDefaultReactiveDomain()
-    return(
-        get0(
-            session$ns("app_state_color"),
-            session$userData,
-            mode       = "character",
-            inherits   = FALSE,
-            ifnotfound = .set_color_icon_attr("light")
-        )
+  session <- shiny::getDefaultReactiveDomain()
+  return(
+    get0(
+      session$ns("app_state_color"),
+      session$userData,
+      mode       = "character",
+      inherits   = FALSE,
+      ifnotfound = .set_color_icon_attr("light")
     )
+  )
 }
 
 #' @rdname ui-title-internals
 #' @export
 .set_color_icon_attr <- function(color = "") {
-    # Icon shown in light mode is the
-    # one of dark mode and vice-versa.
-    name <- switch(color, dark = "sun-fill", light = "moon-fill", NULL)
-    return(structure(color, icon = bsicons::bs_icon(name, a11y = "sem")))
+  # Icon shown in light mode is the
+  # one of dark mode and vice-versa.
+  name <- switch(color, dark = "sun-fill", light = "moon-fill", NULL)
+  return(structure(color, icon = bsicons::bs_icon(name, a11y = "sem")))
 }
 
 #' @rdname ui-title-internals
 #' @export
 .parse_lang <- function(lang = names(tr$native_languages)) {
-    lang <- tolower(lang)
-    return(match_arg(lang, "en"))
+  lang <- tolower(lang)
+  return(match_arg(lang, "en"))
 }
 
 #' @rdname ui-title-internals
 #' @export
 .parse_color <- function(color = c("light", "dark")) {
-    color <- tolower(color)
-    return(match_arg(color))
+  color <- tolower(color)
+  return(match_arg(color))
 }
 
 #' @rdname ui-title-internals
 #' @export
 new_query_string <- function(lang = .get_lang(), color = .get_color()) {
-    return(sprintf("?lang=%s&color=%s", lang, color))
+  return(sprintf("?lang=%s&color=%s", lang, color))
 }
 
 #' @rdname ui-title-internals
 #' @export
 update_query_string <- function(...) {
-    session <- shiny::getDefaultReactiveDomain()
-    string <- new_query_string(...)
-
-    shiny::updateQueryString(string, "replace", session)
-    return(invisible(string))
+  session <- shiny::getDefaultReactiveDomain()
+  string <- new_query_string(...)
+  
+  shiny::updateQueryString(string, "replace", session)
+  return(invisible(string))
 }

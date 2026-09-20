@@ -79,397 +79,415 @@
 #' @rdname ui-title
 #' @export
 ui_title <- function(id, lang_names = tr$native_languages) {
-    ns <- shiny::NS(id)
-    nav_id <- ns("navbar_nav")
-
-    return(
-        list(
-            # Branding (Logo and title) ----------------------------------------
-
-            tags$div(
-                class = "navbar-brand py-0",
-
-                tags$a(
-                    style    = "text-decoration: none;",
-                    href     = "",
-                    hreflang = "en",
-                    target   = "_self",
-
-                    tags$img(
-                        id     = ns("logo"),
-                        src    = "assets/images/logo-400x400.png",
-                        alt    = "Logo",
-                        width  = "400px",
-                        height = "400px",
-                        style  = "height: 40px;",
-                        class  = "w-auto pe-1"
-                    )
-                ),
-
-                tags$span(
-                    class = "fw-bolder",
-                    "Tool 3"
-                ),
-
-                # The full title is only shown on extra extra large
-                # screens (>=1400px). See Bootstrap breakpoints for
-                # more information.
-                tags$span(
-                    class = "d-none d-xxl-inline",
-                    ":",
-                    shiny::textOutput(ns("title"), tags$span)
-                )
-            ),
-
-            # Menu Button ------------------------------------------------------
-
-            # Hamburger button to toggle menu.
-            # Only shown on smaller screens (<= 992px).
-            tags$button(
-                class            = "navbar-toggler",
-                type             = "button",
-                "data-bs-toggle" = "collapse",
-                "data-bs-target" = paste0("#", nav_id),
-
-                # Default Boostrap hamburger icon.
-                tags$span(class = "navbar-toggler-icon")
-            ),
-
-            # Navigation Bar ---------------------------------------------------
-
-            tags$div(
-                id    = nav_id,
-                class = "collapse navbar-collapse justify-content-end",
-
-                # .navbar-nav is a flex container by design.
-                tags$ul(
-                    class = "navbar-nav",
-                    style = "gap: 0.5rem;",
-
-                    # Extra padding to separate branding from nav items.
-                    # Only shown on smaller screens (<= 992px).
-                    tags$div(class = "d-lg-none mt-3"),
-
-                    ## Languages -----------------------------------------------
-
-                    tags$li(
-                        class = "nav-item dropdown",
-
-                        tags$button(
-                            class            = "nav-link dropdown-toggle",
-                            type             = "button",
-                            "data-bs-toggle" = "dropdown",
-
-                            tags$span(
-                                class = "pe-1",
-                                bsicons::bs_icon("translate", a11y = "deco")
-                            ),
-
-                            shiny::textOutput(ns("btn_langs_label"), tags$span)
-                        ),
-
-                        # Labels must not be translated.
-                        tags$ul(
-                            class = "dropdown-menu dropdown-menu-end",
-
-                            tags$li(
-                                shiny::actionButton(
-                                    inputId = ns("btn_lang_en"),
-                                    class   = "dropdown-item fs-6",
-                                    label   = lang_names[["en"]]
-                                )
-                            ),
-
-                            tags$li(
-                                tags$hr(class = "dropdown-divider")
-                            ),
-
-                            tags$p(
-                                class = "px-3 mb-0 text-start",
-                                shiny::textOutput(ns("btn_langs_footer"), tags$small)
-                            )
-                        )
-                    ),
-
-                    ## Links ---------------------------------------------------
-
-                    tags$li(
-                        class = "nav-item dropdown",
-
-                        tags$button(
-                            class            = "nav-link dropdown-toggle",
-                            type             = "button",
-                            "data-bs-toggle" = "dropdown",
-
-                            tags$span(
-                                class = "pe-1",
-                                bsicons::bs_icon("link", a11y = "deco")
-                            ),
-
-                            "Expostats"
-                        ),
-
-                        # Labels must not be translated.
-                        tags$ul(
-                            class = "dropdown-menu dropdown-menu-end",
-
-                            shiny::uiOutput(
-                                outputId  = ns("a_link_tool1"),
-                                container = tags$li
-                            ),
-
-                            shiny::uiOutput(
-                                outputId  = ns("a_link_tool2"),
-                                container = tags$li
-                            ),
-
-                            tags$li(
-                                tags$hr(class = "dropdown-divider")
-                            ),
-
-                            shiny::uiOutput(
-                                outputId  = ns("a_link_expostats"),
-                                container = tags$li
-                            ),
-
-                            tags$li(
-                                tags$a(
-                                    class    = "dropdown-item",
-                                    href     = urls$ndexpo,
-                                    hreflang = "en",
-                                    rel      = "external",
-                                    target   = "_blank",
-                                    "NDExpo"
-                                )
-                            )
-
-                        )
-                    ),
-
-                    ## Spacer --------------------------------------------------
-
-                    # Vertical padding to separate
-                    # buttons from other nav items.
-                    # Only shown on smaller screens (<= 992px).
-                    tags$div(class = "d-lg-none mt-1"),
-
-                    ## Buttons -------------------------------------------------
-
-                    # They are grouped together as a single nav item.
-                    tags$li(
-                        class = "nav-item d-flex",
-                        style = "gap: 1rem;",
-
-                        ### UI Color Mode --------------------------------------
-
-                        shiny::actionButton(
-                            class   = "btn btn-outline-secondary app-btn",
-                            inputId = ns("btn_color"),
-                            label   = bsicons::bs_icon("moon-fill", a11y = "sem")
-                        ) |>
-                        bslib::tooltip(
-                            id        = ns("btn_color_tooltip"),
-                            placement = "bottom",
-                            ""
-                        ),
-
-                        ### Frequently Asked Questions -------------------------
-
-                        ui_modal_faq(ns("faq")),
-
-                        ### GitHub ---------------------------------------------
-
-                        tags$a(
-                            class  = "btn btn-outline-secondary app-btn",
-                            href   = urls$code,
-                            target = "_blank",
-                            bsicons::bs_icon("github", a11y = "sem")
-                        ) |>
-                        bslib::tooltip(
-                            id        = ns("btn_code_tooltip"),
-                            placement = "bottom",
-                            ""
-                        )
-                    )
-                )
-            )
+  ns <- shiny::NS(id)
+  nav_id <- ns("navbar_nav")
+  
+  return(
+    list(
+      # Branding (Logo and title) ----------------------------------------
+      
+      tags$div(
+        class = "navbar-brand py-0",
+        
+        tags$a(
+          style    = "text-decoration: none;",
+          href     = "",
+          hreflang = "en",
+          target   = "_self",
+          
+          tags$img(
+            id     = ns("logo"),
+            src    = "assets/images/logo-400x400.png",
+            alt    = "Logo",
+            width  = "400px",
+            height = "400px",
+            style  = "height: 40px;",
+            class  = "w-auto pe-1"
+          )
+        ),
+        
+        tags$span(
+          class = "fw-bolder",
+          "Tool 3"
+        ),
+        
+        # The full title is only shown on extra extra large
+        # screens (>=1400px). See Bootstrap breakpoints for
+        # more information.
+        tags$span(
+          class = "d-none d-xxl-inline",
+          ":",
+          shiny::textOutput(ns("title"), tags$span)
         )
+      ),
+      
+      # Menu Button ------------------------------------------------------
+      
+      # Hamburger button to toggle menu.
+      # Only shown on smaller screens (<= 992px).
+      tags$button(
+        class            = "navbar-toggler",
+        type             = "button",
+        "data-bs-toggle" = "collapse",
+        "data-bs-target" = paste0("#", nav_id),
+        
+        # Default Boostrap hamburger icon.
+        tags$span(class = "navbar-toggler-icon")
+      ),
+      
+      # Navigation Bar ---------------------------------------------------
+      
+      tags$div(
+        id    = nav_id,
+        class = "collapse navbar-collapse justify-content-end",
+        
+        # .navbar-nav is a flex container by design.
+        tags$ul(
+          class = "navbar-nav",
+          style = "gap: 0.5rem;",
+          
+          # Extra padding to separate branding from nav items.
+          # Only shown on smaller screens (<= 992px).
+          tags$div(class = "d-lg-none mt-3"),
+          
+          ## Languages -----------------------------------------------
+          
+          tags$li(
+            class = "nav-item dropdown",
+            
+            tags$button(
+              class            = "nav-link dropdown-toggle",
+              type             = "button",
+              "data-bs-toggle" = "dropdown",
+              
+              tags$span(
+                class = "pe-1",
+                bsicons::bs_icon("translate", a11y = "deco")
+              ),
+              
+              shiny::textOutput(ns("btn_langs_label"), tags$span)
+            ),
+            
+            # Labels must not be translated.
+            tags$ul(
+              class = "dropdown-menu dropdown-menu-end",
+              
+              tags$li(
+                shiny::actionButton(
+                  inputId = ns("btn_lang_en"),
+                  class   = "dropdown-item fs-6",
+                  label   = lang_names[["en"]]
+                )
+              ),
+              
+              tags$li(
+                shiny::actionButton(
+                  inputId = ns("btn_lang_fr"),
+                  class   = "dropdown-item fs-6",
+                  label   = lang_names[["fr"]]
+                )
+              ),
+              
+              tags$li(
+                tags$hr(class = "dropdown-divider")
+              ),
+              
+              tags$p(
+                class = "px-3 mb-0 text-start",
+                shiny::textOutput(ns("btn_langs_footer"), tags$small)
+              )
+            )
+          ),
+          
+          ## Links ---------------------------------------------------
+          
+          tags$li(
+            class = "nav-item dropdown",
+            
+            tags$button(
+              class            = "nav-link dropdown-toggle",
+              type             = "button",
+              "data-bs-toggle" = "dropdown",
+              
+              tags$span(
+                class = "pe-1",
+                bsicons::bs_icon("link", a11y = "deco")
+              ),
+              
+              "Expostats"
+            ),
+            
+            # Labels must not be translated.
+            tags$ul(
+              class = "dropdown-menu dropdown-menu-end",
+              
+              shiny::uiOutput(
+                outputId  = ns("a_link_tool1"),
+                container = tags$li
+              ),
+              
+              shiny::uiOutput(
+                outputId  = ns("a_link_tool2"),
+                container = tags$li
+              ),
+              
+              tags$li(
+                tags$hr(class = "dropdown-divider")
+              ),
+              
+              shiny::uiOutput(
+                outputId  = ns("a_link_expostats"),
+                container = tags$li
+              ),
+              
+              tags$li(
+                tags$a(
+                  class    = "dropdown-item",
+                  href     = urls$ndexpo,
+                  hreflang = "en",
+                  rel      = "external",
+                  target   = "_blank",
+                  "NDExpo"
+                )
+              )
+              
+            )
+          ),
+          
+          ## Spacer --------------------------------------------------
+          
+          # Vertical padding to separate
+          # buttons from other nav items.
+          # Only shown on smaller screens (<= 992px).
+          tags$div(class = "d-lg-none mt-1"),
+          
+          ## Buttons -------------------------------------------------
+          
+          # They are grouped together as a single nav item.
+          tags$li(
+            class = "nav-item d-flex",
+            style = "gap: 1rem;",
+            
+            ### UI Color Mode --------------------------------------
+            
+            shiny::actionButton(
+              class   = "btn btn-outline-secondary app-btn",
+              inputId = ns("btn_color"),
+              label   = bsicons::bs_icon("moon-fill", a11y = "sem")
+            ) |>
+              bslib::tooltip(
+                id        = ns("btn_color_tooltip"),
+                placement = "bottom",
+                ""
+              ),
+            
+            ### Frequently Asked Questions -------------------------
+            
+            ui_modal_faq(ns("faq")),
+            
+            ### GitHub ---------------------------------------------
+            
+            tags$a(
+              class  = "btn btn-outline-secondary app-btn",
+              href   = urls$code,
+              target = "_blank",
+              bsicons::bs_icon("github", a11y = "sem")
+            ) |>
+              bslib::tooltip(
+                id        = ns("btn_code_tooltip"),
+                placement = "bottom",
+                ""
+              )
+          )
+        )
+      )
     )
+  )
 }
 
 #' @rdname ui-title
 #' @export
 server_title <- function(id) {
-    server <- \(input, output, session) {
-        # UI Parameters --------------------------------------------------------
-
-        # Update lang whenever one of the related buttons is clicked.
-        lang <- shiny::reactive({
-            .get_lang()
-        }) |>
-        shiny::bindEvent(
-            session$clientData$url_search,
-            input$btn_lang_en
-        )
-
-        # Update color whenever the related button is clicked.
-        color <- shiny::reactive({
-            .get_color()
-        }) |>
-        shiny::bindEvent(input$btn_color)
-
-        # Observers that set/control UI parameters (below) have a higher
-        # priority to ensure they are always executed first (before all
-        # other observers and reactive expressions). This is because
-        # values must always be updated with .set_*() functions first.
-
-        # Apply UI parameters passed as query parameters.
-        shiny::observe(priority = 10L, {
-            # Extract parameters from the URL.
-            query_params <- shiny::getQueryString()
-
-            # Validate and set extracted parameters.
-            lang  <- .set_lang(.parse_lang(query_params$lang))
-            color <- .set_color(.parse_color(query_params$color))
-
-            # Update the URL with valid values. Some
-            # values could had been invalid initially.
-            update_query_string()
-
-            # Highlight lang parameter in the dropdown menu.
-            shinyjs::addClass(sprintf("btn_lang_%s", lang), "active")
-
-            # Update the color mode and the label
-            # of the button controlling it.
-            bslib::toggle_dark_mode(color)
-            shiny::updateActionButton(
-                inputId = "btn_color",
-                label   = attr(color, "icon", TRUE)
-            )
-        }) |>
-        # After execution, the user may update current
-        # parameters by using the buttons of the module.
-        shiny::bindEvent(session$clientData$url_search, once = TRUE)
-
-        # Update the current language.
-        # Each language has a dedicated button.
-        shiny::observe(priority = 10L, {
-            old_lang <- .get_lang()
-
-            shinyjs::removeClass(sprintf("btn_lang_%s", old_lang), "active")
-            shinyjs::addClass("btn_lang_en", "active")
-            update_query_string(lang = .set_lang("en"))
-        }) |>
-        shiny::bindEvent(input$btn_lang_en, ignoreInit = TRUE)
-
-        # Update the current color mode.
-        shiny::observe(priority = 10L, {
-            # Passing a NULL toggles the state.
-            color <- .set_color(NULL)
-
-            update_query_string(color = color)
-            bslib::toggle_dark_mode(color)
-            shiny::updateActionButton(
-                inputId = "btn_color",
-                label   = attr(color, "icon", TRUE)
-            )
-        }) |>
-        shiny::bindEvent(input$btn_color, ignoreInit = TRUE)
-
-        # Modules --------------------------------------------------------------
-
-        server_modal_faq("faq", lang)
-
-        # Outputs and Other Observers ------------------------------------------
-
-        btn_color_tooltip_text <- shiny::reactive({
-            translate(lang = lang(), "
+  server <- \(input, output, session) {
+    # UI Parameters --------------------------------------------------------
+    
+    # Update lang whenever one of the related buttons is clicked.
+    lang <- shiny::reactive({
+      .get_lang()
+    }) |>
+      shiny::bindEvent(
+        session$clientData$url_search,
+        input$btn_lang_en,
+        input$btn_lang_fr
+      )
+    
+    # Update color whenever the related button is clicked.
+    color <- shiny::reactive({
+      .get_color()
+    }) |>
+      shiny::bindEvent(input$btn_color)
+    
+    # Observers that set/control UI parameters (below) have a higher
+    # priority to ensure they are always executed first (before all
+    # other observers and reactive expressions). This is because
+    # values must always be updated with .set_*() functions first.
+    
+    # Apply UI parameters passed as query parameters.
+    shiny::observe(priority = 10L, {
+      # Extract parameters from the URL.
+      query_params <- shiny::getQueryString()
+      
+      # Validate and set extracted parameters.
+      lang  <- .set_lang(.parse_lang(query_params$lang))
+      color <- .set_color(.parse_color(query_params$color))
+      
+      # Update the URL with valid values. Some
+      # values could had been invalid initially.
+      update_query_string()
+      
+      # Highlight lang parameter in the dropdown menu.
+      shinyjs::addClass(sprintf("btn_lang_%s", lang), "active")
+      
+      # Update the color mode and the label
+      # of the button controlling it.
+      bslib::toggle_dark_mode(color)
+      shiny::updateActionButton(
+        inputId = "btn_color",
+        label   = attr(color, "icon", TRUE)
+      )
+    }) |>
+      # After execution, the user may update current
+      # parameters by using the buttons of the module.
+      shiny::bindEvent(session$clientData$url_search, once = TRUE)
+    
+    # Update the current language.
+    # Each language has a dedicated button.
+    shiny::observe(priority = 10L, {
+      old_lang <- .get_lang()
+      
+      shinyjs::removeClass(sprintf("btn_lang_%s", old_lang), "active")
+      shinyjs::addClass("btn_lang_en", "active")
+      update_query_string(lang = .set_lang("en"))
+    }) |>
+      shiny::bindEvent(input$btn_lang_en, ignoreInit = TRUE)
+    
+    shiny::observe(priority = 10L, {
+      old_lang <- .get_lang()
+      
+      shinyjs::removeClass(sprintf("btn_lang_%s", old_lang), "active")
+      shinyjs::addClass("btn_lang_fr", "active")
+      update_query_string(lang = .set_lang("fr"))
+    }) |>
+      shiny::bindEvent(input$btn_lang_fr, ignoreInit = TRUE)
+    
+    # Update the current color mode.
+    shiny::observe(priority = 10L, {
+      # Passing a NULL toggles the state.
+      color <- .set_color(NULL)
+      
+      update_query_string(color = color)
+      bslib::toggle_dark_mode(color)
+      shiny::updateActionButton(
+        inputId = "btn_color",
+        label   = attr(color, "icon", TRUE)
+      )
+    }) |>
+      shiny::bindEvent(input$btn_color, ignoreInit = TRUE)
+    
+    # Modules --------------------------------------------------------------
+    
+    server_modal_faq("faq", lang)
+    
+    # Outputs and Other Observers ------------------------------------------
+    
+    btn_color_tooltip_text <- shiny::reactive({
+      translate(lang = lang(), "
                 Toggle the current theme of the interface (light or dark).
             ")
-        }) |>
-        shiny::bindCache(lang())
-
-        btn_code_tooltip_text <- shiny::reactive({
-            translate(lang = lang(), "
+    }) |>
+      shiny::bindCache(lang())
+    
+    btn_code_tooltip_text <- shiny::reactive({
+      translate(lang = lang(), "
                 See the source code of Tool 3 on GitHub (English only).
             ")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$title <- shiny::renderText({
-            translate(lang = lang(), "Determinants of Exposure")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$btn_langs_label <- shiny::renderText({
-            translate(lang = lang(), "Language")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$btn_langs_footer <- shiny::renderText({
-            translate(lang = lang(), "More languages are coming soon.")
-        }) |>
-        shiny::bindCache(lang())
-
-        output$a_link_tool1 <- shiny::renderUI({
-            lang <- lang()
-            tags$a(
-                class = "dropdown-item",
-                href  = i18n_url(
-                    "https://lavoue.shinyapps.io/tool1/",
-                    fr = "https://lavoue.shinyapps.io/tool1/?lang=fr"
-                )[[lang]],
-                hreflang = lang,
-                rel      = "external",
-                target   = "_blank",
-                "Tool 1"
-            )
-        }) |>
-        shiny::bindCache(lang())
-
-        output$a_link_tool2 <- shiny::renderUI({
-            lang <- lang()
-            tags$a(
-                class = "dropdown-item",
-                href  = i18n_url(
-                    "https://lavoue.shinyapps.io/Tool2v3En/",
-                    fr = "https://lavoue.shinyapps.io/Tool2v3Fr/"
-                )[[lang]],
-                hreflang = lang,
-                rel      = "external",
-                target   = "_blank",
-                "Tool 2"
-            )
-        }) |>
-        shiny::bindCache(lang())
-
-        output$a_link_expostats <- shiny::renderUI({
-            lang <- lang()
-            tags$a(
-                class    = "dropdown-item",
-                href     = urls$expostats[[lang]],
-                hreflang = lang,
-                rel      = "external",
-                target   = "_blank",
-                "Expostats"
-            )
-        }) |>
-        shiny::bindCache(lang())
-
-        # Translate elements not rendered
-        # with a shiny::render*() function.
-        shiny::observe({
-            bslib::update_tooltip("btn_color_tooltip", btn_color_tooltip_text())
-            bslib::update_tooltip("btn_code_tooltip", btn_code_tooltip_text())
-        })
-
-        return(
-            list(
-                lang  = lang,
-                color = color
-            )
-        )
-    }
-
-    return(shiny::moduleServer(id, server))
+    }) |>
+      shiny::bindCache(lang())
+    
+    output$title <- shiny::renderText({
+      translate(lang = lang(), "Determinants of Exposure")
+    }) |>
+      shiny::bindCache(lang())
+    
+    output$btn_langs_label <- shiny::renderText({
+      translate(lang = lang(), "Language")
+    }) |>
+      shiny::bindCache(lang())
+    
+    output$btn_langs_footer <- shiny::renderText({
+      translate(lang = lang(), "More languages are coming soon.")
+    }) |>
+      shiny::bindCache(lang())
+    
+    output$a_link_tool1 <- shiny::renderUI({
+      lang <- lang()
+      tags$a(
+        class = "dropdown-item",
+        href  = i18n_url(
+          "https://lavoue.shinyapps.io/tool1/",
+          fr = "https://lavoue.shinyapps.io/tool1/?lang=fr"
+        )[[lang]],
+        hreflang = lang,
+        rel      = "external",
+        target   = "_blank",
+        "Tool 1"
+      )
+    }) |>
+      shiny::bindCache(lang())
+    
+    output$a_link_tool2 <- shiny::renderUI({
+      lang <- lang()
+      tags$a(
+        class = "dropdown-item",
+        href  = i18n_url(
+          "https://lavoue.shinyapps.io/Tool2v3En/",
+          fr = "https://lavoue.shinyapps.io/Tool2v3Fr/"
+        )[[lang]],
+        hreflang = lang,
+        rel      = "external",
+        target   = "_blank",
+        "Tool 2"
+      )
+    }) |>
+      shiny::bindCache(lang())
+    
+    output$a_link_expostats <- shiny::renderUI({
+      lang <- lang()
+      tags$a(
+        class    = "dropdown-item",
+        href     = urls$expostats[[lang]],
+        hreflang = lang,
+        rel      = "external",
+        target   = "_blank",
+        "Expostats"
+      )
+    }) |>
+      shiny::bindCache(lang())
+    
+    # Translate elements not rendered
+    # with a shiny::render*() function.
+    shiny::observe({
+      bslib::update_tooltip("btn_color_tooltip", btn_color_tooltip_text())
+      bslib::update_tooltip("btn_code_tooltip", btn_code_tooltip_text())
+    })
+    
+    return(
+      list(
+        lang  = lang,
+        color = color
+      )
+    )
+  }
+  
+  return(shiny::moduleServer(id, server))
 }
