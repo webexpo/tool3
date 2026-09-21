@@ -338,104 +338,73 @@ library(ggplot2)
   }
 
 
-
-
-
-  #########################  riskband by band graph
+  # new code of risk.gauge function 
 
   risk.gauge <- function(bayesian.ouput.D , c.oel, user.input,
                          ggplot.cat.1 = "",
                          ggplot.cat.2 = "Overexposure risk")
-
-    {
-
-
-
-   #bayesian.ouput.D <-  Y
-
-   #c.oel <-X$c.oel
-
-   #user.input <- Z
-
-   #ggplot.cat.1 = ""
-   #ggplot.cat.2 = "Overexposure risk (%)"
-
-
-
-    df <- data.frame(Cat = bayesian.ouput.D$group.id$name, p=numeric(length(bayesian.ouput.D$group.id$name)))
-
-    #adding overexposure risk
-
-     for (i in 1:length(bayesian.ouput.D$group.id$name))
-
-    {
-
-      mu <-bayesian.ouput.D$mu.chain[i,]
-
-      sigma<-bayesian.ouput.D$sigma.chain[i,]
-
-      perc.chain <-exp(mu+qnorm(user.input$target_perc/100)*sigma)
-
-     df$p[i] <-100*length(perc.chain[perc.chain>c.oel])/length(perc.chain)
-
-     }
-
-    df <-df[order(df$p, decreasing = FALSE),]
-
-
-    ################################## SCRIPT DELPHIHNE BOSSON #####################################
-
+  {
+    df <- data.frame(Cat = bayesian.ouput.D$group.id$name, p = numeric(length(bayesian.ouput.D$group.id$name)))
+    
+    # Adding overexposure risk
+    for (i in 1:length(bayesian.ouput.D$group.id$name)) {
+      mu         <- bayesian.ouput.D$mu.chain[i,]
+      sigma      <- bayesian.ouput.D$sigma.chain[i,]
+      perc.chain <- exp(mu + qnorm(user.input$target_perc / 100) * sigma)
+      df$p[i]    <- 100 * length(perc.chain[perc.chain > c.oel]) / length(perc.chain)
+    }
+    
+    df <- df[order(df$p, decreasing = FALSE), ]
+    
     ### Need to redefine the factors' order to suit with ggplot
     df$Cat <- factor(df$Cat, levels = as.character(df$Cat))
-
+    
     ### Rescaling for value 5 and 20 to appear as 30 and 60 in y axis
     df$p2 <- ifelse(df$p <= 5, df$p / 5 * 30,
                     ifelse(df$p <= 30, 24 + (df$p / 25 * 30),
                            50 + (df$p / 80 * 40)))
-
+    
     ### Definition of a new scaling for labels and tick marks
-    manual_scale <- c(0, 5, seq(20, 100, by = 10))
+    manual_scale  <- c(0, 5, seq(20, 100, by = 10))
     manual_scale2 <- ifelse(manual_scale <= 5, manual_scale / 5 * 30,
                             ifelse(manual_scale <= 30, 24 + (manual_scale / 25 * 30),
                                    50 + (manual_scale / 80 * 40)))
-
+    
     ######################### PLOT #############################
-
+    
     ### Draw first ggplot
-    p1 <- ggplot(df, aes(p2, Cat)) + # aes_string a garder en tete dans fonction
+    p1 <- ggplot(df, aes(p2, Cat)) +
       expand_limits(x = c(0, 100)) +
       geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 1) +
       labs(x = paste(ggplot.cat.2, "(%)"), y = ggplot.cat.1) +
-      scale_x_discrete(breaks = manual_scale2, limits = manual_scale, labels = manual_scale, position = "top") +
-      coord_fixed(ratio = nrow(df)*1.8)
-
-    ### Collect the maximum range, depending on number of group, to build background until x limit
-    max.x.range <- ggplot_build(p1)$layout$panel_ranges[[1]]$x.range[2]
-
+      # ---- FIX #1: continuous scale instead of discrete with numeric limits ----
+    scale_x_continuous(breaks = manual_scale2, labels = manual_scale,
+                       limits = c(0, 100), position = "top") +
+      coord_fixed(ratio = nrow(df) * 1.8)
+    
     ### Continue plot with Background + Point + Text
     p1 <- p1 +
-      annotate("rect",
-               xmin = -Inf, xmax = 30 ,
-               ymin = -Inf, ymax = Inf,  fill = "green", alpha = .3) +
-      annotate("rect",
-               xmin = 30, xmax = 60,
-               ymin = -Inf, ymax = Inf,  fill = "yellow", alpha = .3) +
-      annotate("rect",
-               xmin = 60, xmax = Inf,
-               ymin = -Inf, ymax = Inf,  fill = "red", alpha = .3) +
-
+      annotate("rect", xmin = -Inf, xmax = 30,  ymin = -Inf, ymax = Inf, fill = "green",  alpha = .3) +
+      annotate("rect", xmin = 30,   xmax = 60,  ymin = -Inf, ymax = Inf, fill = "yellow", alpha = .3) +
+      annotate("rect", xmin = 60,   xmax = Inf, ymin = -Inf, ymax = Inf, fill = "red",    alpha = .3) +
       geom_segment(aes(x = 0, y = Cat, xend = 98, yend = Cat), size = 10, lineend = "round", alpha = .3) +
       geom_segment(aes(xend = 0, yend = Cat), size = 7, lineend = "round") +
-      geom_point(shape = 21, colour = "black", fill = ifelse(df$p <= 5, "chartreuse3", ifelse(df$p <= 20, "gold1", "red3")), size = 5, stroke = 0.5) +
-      geom_text(aes(label = round(p,2), x = p2 + 0.05), size = 3, position = position_dodge(0.9), hjust = - 0.6, fontface = "bold") +
+      # ---- FIX #2: dot color threshold 30 (matches yellow zone), not 20 ----
+    geom_point(shape = 21, colour = "black",
+               fill = ifelse(df$p <= 5, "chartreuse3",
+                             ifelse(df$p <= 30, "gold1", "red3")),
+               size = 5, stroke = 0.5) +
+      geom_text(aes(label = round(p, 2), x = p2 + 0.05),
+                size = 3, position = position_dodge(0.9),
+                hjust = -0.6, fontface = "bold") +
       theme_light()
     p1 <- p1 + theme(text = element_text(size = 15))
-
-
+    
     ### Return result
     return(p1)
-
   }
+
+
 
   plot.frac.grp <- function(bayesian.output.D,
                             c.oel,
