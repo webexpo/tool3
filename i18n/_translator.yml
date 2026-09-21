@@ -339,7 +339,7 @@ Texts:
       - !<Location>
         Identifier: 466a65e:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 290, Col 13 @ Ln 290, Col 68
+        Ranges: Ln 306, Col 7 @ Ln 306, Col 62
   - !<Text>
     Identifier: 1277d46
     Algorithm: sha1
@@ -661,7 +661,7 @@ Texts:
       - !<Location>
         Identifier: 8785301:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 300, Col 13 @ Ln 300, Col 60
+        Ranges: Ln 316, Col 7 @ Ln 316, Col 54
   - !<Text>
     Identifier: a4cd560
     Algorithm: sha1
@@ -715,7 +715,7 @@ Texts:
       - !<Location>
         Identifier: 03ebafe:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 389, Col 13 @ Ln 395, Col 14
+        Ranges: Ln 405, Col 7 @ Ln 411, Col 14
   - !<Text>
     Identifier: 10c4b97
     Algorithm: sha1
@@ -742,7 +742,7 @@ Texts:
       - !<Location>
         Identifier: 9bdd102:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 305, Col 13 @ Ln 305, Col 53
+        Ranges: Ln 321, Col 7 @ Ln 321, Col 47
   - !<Text>
     Identifier: 37edbde
     Algorithm: sha1
@@ -817,7 +817,7 @@ Texts:
       - !<Location>
         Identifier: 1e2a9ce:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 400, Col 13 @ Ln 405, Col 14
+        Ranges: Ln 416, Col 7 @ Ln 421, Col 14
   - !<Text>
     Identifier: 8cbc334
     Algorithm: sha1
@@ -930,7 +930,7 @@ Texts:
       - !<Location>
         Identifier: e279776:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 330, Col 13 @ Ln 333, Col 14
+        Ranges: Ln 346, Col 7 @ Ln 349, Col 14
   - !<Text>
     Identifier: 2b38d7a
     Algorithm: sha1
@@ -1144,7 +1144,7 @@ Texts:
       - !<Location>
         Identifier: 1fdee67:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 325, Col 13 @ Ln 325, Col 68
+        Ranges: Ln 341, Col 7 @ Ln 341, Col 62
   - !<Text>
     Identifier: 40d9737
     Algorithm: sha1
@@ -1263,7 +1263,7 @@ Texts:
       - !<Location>
         Identifier: c810b50:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 338, Col 13 @ Ln 343, Col 14
+        Ranges: Ln 354, Col 7 @ Ln 359, Col 14
   - !<Text>
     Identifier: 065e79a
     Algorithm: sha1
@@ -1711,7 +1711,7 @@ Texts:
       - !<Location>
         Identifier: 127c649:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 370, Col 13 @ Ln 374, Col 14
+        Ranges: Ln 386, Col 7 @ Ln 390, Col 14
   - !<Text>
     Identifier: f9b43e3
     Algorithm: sha1
@@ -1868,7 +1868,7 @@ Texts:
       - !<Location>
         Identifier: 1db2e5d:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 467, Col 13 @ Ln 471, Col 14
+        Ranges: Ln 548, Col 7 @ Ln 552, Col 14
   - !<Text>
     Identifier: 0e99366
     Algorithm: sha1
@@ -2023,7 +2023,7 @@ Texts:
       - !<Location>
         Identifier: 6298302:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 431, Col 13 @ Ln 433, Col 14
+        Ranges: Ln 447, Col 7 @ Ln 449, Col 14
   - !<Text>
     Identifier: b14a7c8
     Algorithm: sha1
@@ -2219,7 +2219,7 @@ Texts:
       - !<Location>
         Identifier: 2bda208:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 421, Col 13 @ Ln 426, Col 14
+        Ranges: Ln 437, Col 7 @ Ln 442, Col 14
   - !<Text>
     Identifier: ab42808
     Algorithm: sha1
@@ -2310,7 +2310,7 @@ Texts:
       - !<Location>
         Identifier: e277652:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 457, Col 13 @ Ln 457, Col 50
+        Ranges: Ln 538, Col 7 @ Ln 538, Col 44
   - !<Text>
     Identifier: a744f49
     Algorithm: sha1
@@ -2322,7 +2322,7 @@ Texts:
       - !<Location>
         Identifier: a744f49:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 275, Col 13 @ Ln 275, Col 74
+        Ranges: Ln 291, Col 7 @ Ln 291, Col 68
   - !<Text>
     Identifier: 1a0644e
     Algorithm: sha1
@@ -2464,7 +2464,7 @@ Texts:
       - !<Location>
         Identifier: 7578626:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 320, Col 13 @ Ln 320, Col 61
+        Ranges: Ln 336, Col 7 @ Ln 336, Col 55
   - !<Text>
     Identifier: 1b5e945
     Algorithm: sha1
@@ -2722,7 +2722,7 @@ Texts:
       - !<Location>
         Identifier: 6863c44:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 462, Col 13 @ Ln 462, Col 45
+        Ranges: Ln 543, Col 7 @ Ln 543, Col 39
   - !<Text>
     Identifier: d747130
     Algorithm: sha1
@@ -2780,7 +2780,7 @@ Texts:
       - !<Location>
         Identifier: c886944:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 310, Col 13 @ Ln 310, Col 46
+        Ranges: Ln 326, Col 7 @ Ln 326, Col 40
   - !<Text>
     Identifier: 05b7d76
     Algorithm: sha1
@@ -3115,7 +3115,7 @@ Texts:
       - !<Location>
         Identifier: 5998348:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 280, Col 13 @ Ln 280, Col 55
+        Ranges: Ln 296, Col 7 @ Ln 296, Col 49
   - !<Text>
     Identifier: 962996f
     Algorithm: sha1
@@ -3191,7 +3191,7 @@ Texts:
       - !<Location>
         Identifier: ea57967:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 295, Col 13 @ Ln 295, Col 70
+        Ranges: Ln 311, Col 7 @ Ln 311, Col 64
   - !<Text>
     Identifier: b39169a
     Algorithm: sha1
@@ -3350,7 +3350,7 @@ Texts:
       - !<Location>
         Identifier: 6489309:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 379, Col 13 @ Ln 384, Col 14
+        Ranges: Ln 395, Col 7 @ Ln 400, Col 14
   - !<Text>
     Identifier: 305b9f6
     Algorithm: sha1
@@ -3546,7 +3546,7 @@ Texts:
       - !<Location>
         Identifier: d9fe05c:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 358, Col 13 @ Ln 365, Col 14
+        Ranges: Ln 374, Col 7 @ Ln 381, Col 14
   - !<Text>
     Identifier: 10ef3a6
     Algorithm: sha1
@@ -3576,7 +3576,7 @@ Texts:
       - !<Location>
         Identifier: 2d2bb58:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 410, Col 13 @ Ln 416, Col 14
+        Ranges: Ln 426, Col 7 @ Ln 432, Col 14
   - !<Text>
     Identifier: 50da20b
     Algorithm: sha1
@@ -3620,7 +3620,7 @@ Texts:
       - !<Location>
         Identifier: 745ebd1:l2
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 447, Col 13 @ Ln 447, Col 62
+        Ranges: Ln 528, Col 7 @ Ln 528, Col 56
   - !<Text>
     Identifier: 5e81a88
     Algorithm: sha1
@@ -3725,7 +3725,7 @@ Texts:
       - !<Location>
         Identifier: 00b437c:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 348, Col 13 @ Ln 353, Col 14
+        Ranges: Ln 364, Col 7 @ Ln 369, Col 14
   - !<Text>
     Identifier: b6c2d31
     Algorithm: sha1
@@ -3826,7 +3826,7 @@ Texts:
       - !<Location>
         Identifier: 79fb413:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 438, Col 13 @ Ln 442, Col 14
+        Ranges: Ln 454, Col 7 @ Ln 458, Col 14
   - !<Text>
     Identifier: b83935d
     Algorithm: sha1
@@ -3952,7 +3952,7 @@ Texts:
       - !<Location>
         Identifier: 798b335:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 285, Col 13 @ Ln 285, Col 70
+        Ranges: Ln 301, Col 7 @ Ln 301, Col 64
   - !<Text>
     Identifier: 3b48c56
     Algorithm: sha1
@@ -4240,7 +4240,7 @@ Texts:
       - !<Location>
         Identifier: 380f931:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 452, Col 13 @ Ln 452, Col 46
+        Ranges: Ln 533, Col 7 @ Ln 533, Col 40
   - !<Text>
     Identifier: 346d4fe
     Algorithm: sha1
@@ -4412,6 +4412,24 @@ Texts:
         Path: ./app.R
         Ranges: Ln 451, Col 37 @ Ln 456, Col 14
   - !<Text>
+    Identifier: 569a384
+    Algorithm: sha1
+    Hash: 569a384dd7fa1a7afb95e702f482309dd92b0bca
+    Source Language: en
+    Source Text: |-
+      With such a high proportion of censored values, your data contains very
+      little information. As a result, the statistical inference relies
+      increasingly on the prior assumptions and may not be robust to changes in
+      them. Expostats does not currently allow prior customization; until it
+      does, we recommend using IHSTAT_Bayes to assess how sensitive your
+      conclusions are to different prior choices.
+    Translations: ~
+    Locations:
+      - !<Location>
+        Identifier: 569a384:l1
+        Path: ./R/ui-sidebar.R
+        Ranges: Ln 463, Col 7 @ Ln 471, Col 14
+  - !<Text>
     Identifier: c73ed1b
     Algorithm: sha1
     Hash: c73ed1b43dcd276710a71fc8f8bd7fe42181b531
@@ -4442,7 +4460,7 @@ Texts:
       - !<Location>
         Identifier: 4b0b288:l1
         Path: ./R/ui-sidebar.R
-        Ranges: Ln 315, Col 13 @ Ln 315, Col 61
+        Ranges: Ln 331, Col 7 @ Ln 331, Col 55
   - !<Text>
     Identifier: 848dc48
     Algorithm: sha1
